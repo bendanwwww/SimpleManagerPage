@@ -1,7 +1,6 @@
-
 #服务器配置
 server:
-  port: 8080
+  port: 8081
   connection-timeout: 60000
   servlet:
     context-path: "/manager"
@@ -26,23 +25,28 @@ mybatis:
 #      # tx - transactional非propagation.required方法用从库; name - 方法名称前缀带select, query, get用从库
 #      dbroutetype: "tx"
 #    master:
-#      driver-class-name: "com.mysql.jdbc.Driver"
-#      jdbc-url: "jdbc:mysql://rm-2zekq87i0gvxaxvph.mysql.rds.aliyuncs.com:3306/err_book_pdf?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8&useSSL=true"
-#      username: "err_rw"
-#      password: "WCXUEL3OFoQ62RYK"
+#      driverClassName: "com.mysql.jdbc.Driver"
+#      url: "jdbc:mysql://127.0.0.1:3306/manager?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8&useSSL=true"
+#      username: "root"
+#      password: "19951110lsy."
 #      maximum-pool-size: 500
 #      minimum-idle: 5
 #    slave:
-#      driver-class-name: "com.mysql.jdbc.Driver"
-#      jdbc-url: "jdbc:mysql://rm-2zekq87i0gvxaxvph.mysql.rds.aliyuncs.com:3306/err_book_pdf?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8&useSSL=true"
-#      username: "err_ro"
-#      password: "XFs7bjs54x1VcsoE"
+#      driverClassName: "com.mysql.jdbc.Driver"
+#      url: "jdbc:mysql://127.0.0.1:3306/manager?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8&useSSL=true"
+#      username: "root"
+#      password: "19951110lsy."
 #      maximum-pool-size: 500
 #      minimum-idle: 5
 
 spring:
   application:
     name: "manager"
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/manager?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8&useSSL=true
+    username: root
+    password: 19951110lsy.
+    driver-class-name: com.mysql.jdbc.Driver
 
 #健康检查
 management:

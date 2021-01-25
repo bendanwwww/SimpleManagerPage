@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Mapper
-@Repository
+//@Mapper
+//@Repository
 public interface ErrCommentInfoMapper {
     /** 查询学生学科下评价 */
     List<String> queryCommentSubjectList(@Param(value = "studentId") String studentId);

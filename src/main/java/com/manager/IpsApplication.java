@@ -14,10 +14,11 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @author zhangyt
  */
 @EnableScheduling
-@SpringBootApplication(exclude = {
-        DataSourceAutoConfiguration.class,
-        DataSourceTransactionManagerAutoConfiguration.class,
-        HibernateJpaAutoConfiguration.class})
+@SpringBootApplication
+//        (exclude = {
+//        DataSourceAutoConfiguration.class,
+//        DataSourceTransactionManagerAutoConfiguration.class,
+//        HibernateJpaAutoConfiguration.class})
 public class IpsApplication {
 
     public static void main(String[] args) {
