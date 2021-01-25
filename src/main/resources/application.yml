@@ -43,7 +43,7 @@ spring:
   application:
     name: "manager"
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/manager?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8&useSSL=true
+    url: jdbc:mysql://127.0.0.1:3306/manager?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8
     username: root
     password: 19951110lsy.
     driver-class-name: com.mysql.jdbc.Driver
