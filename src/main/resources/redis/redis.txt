@@ -1,0 +1,11 @@
+#默认业务
+defaultDomain=default_redis
+
+#sample配置
+default_redis.host=192.168.66.79
+default_redis.port=19000
+default_redis.timeoutMill=1500
+#login_redis.password=foobared
+default_redis.maxTotal=200
+default_redis.maxIdle=20
+default_redis.minIdle=5

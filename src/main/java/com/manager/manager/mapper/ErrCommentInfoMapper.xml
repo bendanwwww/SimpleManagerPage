@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.manager.manager.mapper.ErrCommentInfoMapper">
+    <sql id="columns">
+        id id , comment_id commentId , student_id studentId , err_book_id errBookId , err_question_id errQuestionId ,
+        err_subject_id errSubjectId , teacher_id teacherId , comment_text commentText , comment_img commentImg ,
+        comment_video commentVideo , comment_type commentType , create_time createTime , update_time updateTime ,
+        read_state readState , delete_state deleteState
+    </sql>
+
+    <select id="queryCommentInfoListByErrBookId" resultType="com.xes.cloudlearn.ips.errbook.domain.ErrCommentInfo">
+        select <include refid="columns"/> from err_comment_info where student_id = #{studentId} and delete_state = 0
+        and comment_type = 0 and err_book_id in
+        <foreach collection="errorBookIds" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="queryCommentInfoListByQuestionId" resultType="com.xes.cloudlearn.ips.errbook.domain.ErrCommentInfo">
+        select <include refid="columns"/> from err_comment_info where student_id = #{studentId} and delete_state = 0
+        and comment_type = 1 and err_question_id in
+        <foreach collection="questionIds" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+        order by update_time desc
+    </select>
+
+    <select id="queryCommentInfoListByCommentId" resultType="com.xes.cloudlearn.ips.errbook.domain.ErrCommentInfo">
+        select <include refid="columns"/> from err_comment_info where student_id = #{studentId}
+        and comment_id = #{commentId} and delete_state = 0
+    </select>
+
+    <select id="queryCommentSubjectList" resultType="java.lang.String">
+        select err_subject_id from err_comment_info where student_id = #{studentId} and delete_state = 0 and read_state = 0 group by err_subject_id
+    </select>
+
+    <update id="updateCommentReadState">
+        update err_comment_info set read_state = 1 where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </update>
+
+    <insert id="replaceComment" parameterType="com.xes.cloudlearn.ips.errbook.domain.ErrCommentInfo">
+        replace into err_comment_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="errCommentInfo.id != null">
+                id,
+            </if>
+            <if test="errCommentInfo.commentId != null">
+                comment_id,
+            </if>
+            <if test="errCommentInfo.studentId != null">
+                student_id,
+            </if>
+            <if test="errCommentInfo.errBookId != null">
+                err_book_id,
+            </if>
+            <if test="errCommentInfo.errQuestionId != null">
+                err_question_id,
+            </if>
+            <if test="errCommentInfo.errSubjectId != null">
+                err_subject_id,
+            </if>
+            <if test="errCommentInfo.teacherId != null">
+                teacher_id,
+            </if>
+            <if test="errCommentInfo.commentText != null">
+                comment_text,
+            </if>
+            <if test="errCommentInfo.commentImg != null">
+                comment_img,
+            </if>
+            <if test="errCommentInfo.commentVideo != null">
+                comment_video,
+            </if>
+            <if test="errCommentInfo.commentType != null">
+                comment_type,
+            </if>
+            <if test="errCommentInfo.createTime != null">
+                create_time,
+            </if>
+            <if test="errCommentInfo.updateTime != null">
+                update_time,
+            </if>
+            <if test="errCommentInfo.readState != null">
+                read_state,
+            </if>
+            <if test="errCommentInfo.deleteState != null">
+                delete_state,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="errCommentInfo.id != null">
+                #{errCommentInfo.id, jdbcType=VARCHAR},
+            </if>
+            <if test="errCommentInfo.commentId != null">
+                #{errCommentInfo.commentId, jdbcType=VARCHAR},
+            </if>
+            <if test="errCommentInfo.studentId != null">
+                #{errCommentInfo.studentId, jdbcType=VARCHAR},
+            </if>
+            <if test="errCommentInfo.errBookId != null">
+                #{errCommentInfo.errBookId, jdbcType=VARCHAR},
+            </if>
+            <if test="errCommentInfo.errQuestionId != null">
+                #{errCommentInfo.errQuestionId, jdbcType=VARCHAR},
+            </if>
+            <if test="errCommentInfo.errSubjectId != null">
+                #{errCommentInfo.errSubjectId, jdbcType=INTEGER},
+            </if>
+            <if test="errCommentInfo.teacherId != null">
+                #{errCommentInfo.teacherId, jdbcType=VARCHAR},
+            </if>
+            <if test="errCommentInfo.commentText != null">
+                #{errCommentInfo.commentText, jdbcType=VARCHAR},
+            </if>
+            <if test="errCommentInfo.commentImg != null">
+                #{errCommentInfo.commentImg, jdbcType=VARCHAR},
+            </if>
+            <if test="errCommentInfo.commentVideo != null">
+                #{errCommentInfo.commentVideo, jdbcType=VARCHAR},
+            </if>
+            <if test="errCommentInfo.commentType != null">
+                #{errCommentInfo.commentType, jdbcType=INTEGER},
+            </if>
+            <if test="errCommentInfo.createTime != null">
+                #{errCommentInfo.createTime, jdbcType=TIMESTAMP},
+            </if>
+            <if test="errCommentInfo.updateTime != null">
+                #{errCommentInfo.updateTime, jdbcType=TIMESTAMP},
+            </if>
+            <if test="errCommentInfo.readState != null">
+                #{errCommentInfo.readState, jdbcType=INTEGER},
+            </if>
+            <if test="errCommentInfo.deleteState != null">
+                #{errCommentInfo.deleteState, jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="delComment">
+        update err_comment_info set delete_state = 1 where student_id = #{studentId} and comment_id = #{commentId}
+    </update>
+
+</mapper>
