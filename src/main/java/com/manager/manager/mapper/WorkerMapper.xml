@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.manager.manager.mapper.WorkerMapper">
+    <sql id="columns">
+        id id , real_name realName , sys_name sysName , wx_card wxCard , sex sex , age age , work_age workAge , city_code cityCode ,
+        city_name cityName , create_time createTime , update_time updateTime , delete_flag deleteFlag
+    </sql>
+
+    <select id="queryWorkerList" resultType="com.manager.manager.domain.Worker">
+        <bind name="sysNameLike" value="'%' + sysName + '%'" />
+        select <include refid="columns"/> from worker where
+        <if test="id != null">
+            id = #{id} and
+        </if>
+        <if test="cityCode != null">
+            city_code = #{cityCode} and
+        </if>
+        <if test="sysName != null">
+            sys_name like #{sysNameLike} and
+        </if>
+         delete_flag = 0 and
+        <if test="startNo != null and pageSize != null">
+            limit #{startNo}, #{pageSize}
+        </if>;
+    </select>
+
+    <insert id="insertWorker" parameterType="com.manager.manager.domain.Worker">
+        insert into worker (
+        id , real_name , sys_name , wx_card , sex , age , work_age , city_code , city_name , create_time , update_time , delete_flag
+        ) values (
+        #{id} , #{realName} , #{sysName} , #{wxCard} , #{sex} , #{age} , #{workAge} , #{cityCode} , #{cityName} , #{createTime} , #{updateTime} , #{deleteFlag}
+        );
+    </insert>
+
+    <update id="updateWorker" parameterType="com.manager.manager.domain.Worker">
+        update worker set
+        real_name = #{realName} , sys_name = #{sysName} , wx_card = #{wxCard} , sex = #{sex} , age = #{age} ,
+        work_age = #{workAge} , city_code = #{cityCode} , city_name = #{cityName} , update_time = #{updateTime} , delete_flag = #{deleteFlag}
+        where id = #{id};
+    </update>
+
+    <update id="delWorker">
+        update worker set delete_flag = 1 where id = #{id}
+    </update>
+
+</mapper>

@@ -15,6 +15,8 @@ public class Worker {
     private String realName;
     /** 系统姓名 */
     private String sysName;
+    /** 员工微信号 */
+    private String wxCard;
     /** 性别 (0: 男 1: 女) */
     private int sex;
     /** 年龄 */
@@ -118,5 +120,13 @@ public class Worker {
 
     public void setDeleteFlag(int deleteFlag) {
         this.deleteFlag = deleteFlag;
+    }
+
+    public String getWxCard() {
+        return wxCard;
+    }
+
+    public void setWxCard(String wxCard) {
+        this.wxCard = wxCard;
     }
 }
