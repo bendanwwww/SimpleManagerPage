@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.manager.manager.mapper.DailySalesMapper">
+    <sql id="columns">
+        id id , worker_id workerId , worker_name workerName , daily_profit dailyProfit , daily_amount dailyAmount ,
+        record_date recordDate , create_time createTime , update_time updateTime
+    </sql>
+
+    <select id="queryDailySales" resultType="com.manager.manager.domain.DailySales">
+        select <include refid="columns"/> from daily_sales where worker_id = #{workerId};
+    </select>
+
+    <update id="mergeDailySales" parameterType="com.manager.manager.domain.DailySales">
+        replace into daily_sales(id , worker_id , worker_name , daily_profit , daily_amount , record_date , create_time , update_time)
+        values(#{id} , #{workerId} , #{workerName} , #{dailyProfit} , #{dailyAmount} , #{recordDate} , #{createTime} , #{updateTime});
+    </update>
+
+</mapper>

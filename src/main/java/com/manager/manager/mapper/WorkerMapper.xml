@@ -26,6 +26,10 @@
         </if>;
     </select>
 
+    <select id="queryWorkerByWX" resultType="com.manager.manager.domain.Worker">
+        select <include refid="columns"/> from worker where wx_card = #{wxCard} and delete_flag = 0;
+    </select>
+
     <insert id="insertWorker" parameterType="com.manager.manager.domain.Worker">
         insert into worker (
         id , real_name , sys_name , wx_card , sex , age , work_age , city_code , city_name , create_time , update_time , delete_flag
