@@ -19,6 +19,7 @@ public class CityController {
 
 	/**
 	 * 查询城市列表
+	 *
 	 * @return
 	 */
 	@RequestMapping(value ="queryList", method = RequestMethod.GET)

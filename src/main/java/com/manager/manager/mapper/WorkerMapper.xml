@@ -9,7 +9,6 @@
     </sql>
 
     <select id="queryWorkerList" resultType="com.manager.manager.domain.Worker">
-        <bind name="sysNameLike" value="'%' + sysName + '%'" />
         select <include refid="columns"/> from worker where
         <if test="id != null">
             id = #{id} and
@@ -18,9 +17,10 @@
             city_code = #{cityCode} and
         </if>
         <if test="sysName != null">
+            <bind name="sysNameLike" value="'%' + sysName + '%'" />
             sys_name like #{sysNameLike} and
         </if>
-         delete_flag = 0 and
+         delete_flag = 0
         <if test="startNo != null and pageSize != null">
             limit #{startNo}, #{pageSize}
         </if>;

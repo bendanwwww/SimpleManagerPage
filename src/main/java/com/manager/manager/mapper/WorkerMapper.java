@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface WorkerMapper {
 
-    List<Worker> queryWorkerList(@Param(value = "id") String id,
+    List<Worker> queryWorkerList(@Param(value = "id") Integer id,
                                  @Param(value = "cityCode") String cityCode,
                                  @Param(value = "sysName") String sysName,
                                  @Param(value = "startNo") Integer startNo,
@@ -23,5 +23,5 @@ public interface WorkerMapper {
 
     void updateWorker(Worker worker);
 
-    void delWorker(@Param(value = "id") String id);
+    void delWorker(@Param(value = "id") int id);
 }
