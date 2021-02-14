@@ -19,6 +19,8 @@ public interface WorkerMapper {
                                  @Param(value = "startNo") Integer startNo,
                                  @Param(value = "pageSize") Integer pageSize);
 
+    List<Worker> queryWorkerBySysName(@Param(value = "sysName") String sysName);
+
     Worker queryWorkerByWX(@Param(value = "wxCard") String wxCard);
 
     void insertWorker(Worker worker);

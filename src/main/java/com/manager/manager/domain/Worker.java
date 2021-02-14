@@ -1,6 +1,5 @@
 package com.manager.manager.domain;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -16,6 +15,8 @@ public class Worker {
     private String realName;
     /** 系统姓名 */
     private String sysName;
+    /** 登陆密码 */
+    private String password;
     /** 员工微信号 */
     private String wxCard;
     /** 性别 (0: 男 1: 女) */
@@ -129,5 +130,13 @@ public class Worker {
 
     public void setWxCard(String wxCard) {
         this.wxCard = wxCard;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
