@@ -1,0 +1,129 @@
+{
+  "status": 0,
+  "msg": "",
+  "data": {
+    "pages": [
+      {
+        "label": "Home",
+        "url": "/",
+        "redirect": "/index/1"
+      },
+      {
+        "label": "新增员工",
+        "url": "/worker/new",
+        "icon": "fa fa-plus",
+        "schemaApi": "get:/manager/pages/worker/worker-new.json"
+      },
+      {
+        "label": "修改员工",
+        "url": "/worker/:id/edit",
+        "schemaApi": "get:/manager/pages/worker/worker-edit.json"
+      },
+
+      {
+        "label": "新增工单",
+        "url": "/order/new",
+        "icon": "fa fa-plus",
+        "schemaApi": "get:/manager/pages/order/order-new.json"
+      },
+      {
+        "label": "修改工单",
+        "url": "/order/:id/edit",
+        "schemaApi": "get:/manager/pages/order/order-edit.json"
+      },
+      {
+        "label": "新增公司",
+        "url": "/company/new",
+        "icon": "fa fa-plus",
+        "schemaApi": "get:/manager/pages/company/company-new.json"
+      },
+      {
+        "label": "修改公司",
+        "url": "/company/:id/edit",
+        "schemaApi": "get:/manager/pages/company/company-edit.json"
+      },
+      {
+        "label": "大图展示",
+        "children": [
+          {
+            "label": "页面A",
+            "url": "index",
+            "schema": {
+              "type": "page",
+              "title": "页面A",
+              "body": "页面A"
+            },
+            "children": [
+              {
+                "label": "页面A-1",
+                "url": "1",
+                "schema": {
+                  "type": "page",
+                  "title": "页面A-1",
+                  "body": "页面A-1"
+                }
+              },
+              {
+                "label": "页面A-2",
+                "url": "2",
+                "schema": {
+                  "type": "page",
+                  "title": "页面A-2",
+                  "body": "页面A-2"
+                }
+              },
+              {
+                "label": "页面A-3",
+                "url": "3",
+                "schema": {
+                  "type": "page",
+                  "title": "页面A-3",
+                  "body": "页面A-3"
+                }
+              }
+            ]
+          },
+          {
+            "label": "页面B",
+            "schema": {
+              "type": "page",
+              "title": "页面B",
+              "body": "页面B"
+            }
+          },
+          {
+            "label": "页面C",
+            "schema": {
+              "type": "page",
+              "title": "页面C",
+              "body": "页面C"
+            }
+          }
+        ]
+      },
+      {
+        "label": "人员管理",
+        "children": [
+          {
+            "label": "员工管理",
+            "url": "/worker/list",
+            "icon": "fa fa-list",
+            "schemaApi": "get:/manager/pages/worker/worker-list.json"
+          },
+          {
+            "label": "客户管理",
+            "url": "/order/list",
+            "icon": "fa fa-cube",
+            "schemaApi": "get:/manager/pages/order/order-list.json"
+          },
+          {
+            "label": "公司管理",
+            "url": "/company/list",
+            "icon": "fa fa-paw",
+            "schemaApi": "get:/manager/pages/company/company-list.json"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "type": "page",
+  "title": "新增",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/company/list",
+      "label": "返回列表"
+    }
+  ],
+  "body": [
+    {
+      "title": "",
+      "type": "form",
+      "redirect": "/company/list",
+      "name": "sample-edit-form",
+      "api": "post:city/insertCity",
+      "controls": [
+        {
+          "type": "text",
+          "name": "cityCode",
+          "label": "城市编码",
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "text",
+          "name": "cityName",
+          "label": "城市名称",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

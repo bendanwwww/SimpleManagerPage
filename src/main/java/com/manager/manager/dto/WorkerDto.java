@@ -1,15 +1,15 @@
-package com.manager.manager.domain;
+package com.manager.manager.dto;
 
-import java.io.Serializable;
+import com.manager.manager.domain.Worker;
+
 import java.util.Date;
 
 /**
- * 职工信息表实体
- *
- * @author lsy
- * Created on 2021-01-25
+ * @description:
+ * @author: mengwenyi
+ * @Date: 2021/2/7 17:02
  */
-public class Worker {
+public class WorkerDto {
     /** id */
     private Integer id;
     /** 真实姓名 */
@@ -35,11 +35,44 @@ public class Worker {
     /** 删除标识 (0: 正常 1: 删除) */
     private int deleteFlag;
 
-    public int getId() {
+    /**
+     * 当前页
+     */
+    private int page;
+
+    /**
+     * 每页大小
+     */
+    private int perPage;
+    /**
+     * 获取起始行数
+     *
+     * @return
+     */
+    public int getStartRow() {
+        return perPage * (page - 1);
+    }
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getPerPage() {
+        return perPage;
+    }
+
+    public void setPerPage(int perPage) {
+        this.perPage = perPage;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -57,6 +90,14 @@ public class Worker {
 
     public void setSysName(String sysName) {
         this.sysName = sysName;
+    }
+
+    public String getWxCard() {
+        return wxCard;
+    }
+
+    public void setWxCard(String wxCard) {
+        this.wxCard = wxCard;
     }
 
     public int getSex() {
@@ -121,13 +162,5 @@ public class Worker {
 
     public void setDeleteFlag(int deleteFlag) {
         this.deleteFlag = deleteFlag;
-    }
-
-    public String getWxCard() {
-        return wxCard;
-    }
-
-    public void setWxCard(String wxCard) {
-        this.wxCard = wxCard;
     }
 }

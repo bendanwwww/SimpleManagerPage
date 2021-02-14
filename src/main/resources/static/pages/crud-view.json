@@ -1,0 +1,63 @@
+{
+  "type": "page",
+  "title": "查看详情 ${params.id}",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/crud/list",
+      "label": "返回列表"
+    }
+  ],
+  "body": [
+    {
+      "type": "form",
+      "initApi": "worker/queryWorkerById?id=${params.id}",
+      "controls": [
+        {
+          "type": "hidden",
+          "name": "id",
+          "label": "ID"
+        },
+        {
+          "type": "static",
+          "name": "realName",
+          "label": "员工名称"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "cityName",
+          "label": "城市"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "cityName",
+          "label": "城市"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "cityName",
+          "label": "城市"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "static",
+          "name": "cityName",
+          "label": "城市"
+        }
+      ]
+    }
+  ]
+}

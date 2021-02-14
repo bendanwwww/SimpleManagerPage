@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8" />
+    <title>人员管理系统</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="stylesheet" href="sdk/sdk.css" />
+    <!-- 从 1.1.0 开始 sdk.css 将不支持 IE 11，如果要支持 IE11 请引用这个 css，并把前面那个删了 -->
+    <!-- <link rel="stylesheet" href="sdk-ie11.css" /> -->
+    <!-- 不过 amis 开发团队几乎没测试过 IE 11 下的效果，所以可能有细节功能用不了，如果发现请报 issue -->
+    <style>
+        html,
+        body,
+        .app-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="root" class="app-wrapper"></div>
+<script src="sdk/sdk.js"></script>
+<script type="text/javascript">
+    (function () {
+        let amis = amisRequire('amis/embed');
+        // 通过替换下面这个配置来生成不同页面
+        let amisJSON = {
+            type: 'app',
+            brandName: '管理系统',
+            logo:
+              '<img t="1610181550507" style="width: 30px; height: 30px;" viewBox="0 0 1024 1024" version="1.1" src="img/title.png"/>',
+            // header: {
+            //     type: 'tpl',
+            //     inline: false,
+            //     className: 'w-full',
+            //     // tpl:
+            //     //     '<div class="flex justify-between"><div>顶部区域左侧</div><div>顶部区域右侧</div></div>'
+            // },
+            footer: '<div class="p-2 text-center bg-light">底部区域</div>',
+            pages: [
+                {
+                    label: 'Home',
+                    url: '/',
+                    redirect: '/pageA'
+                },
+                {
+                    label: '示例',
+                    children: [
+                        {
+                            label: '页面A',
+                            url: 'pageA',
+                            schema: {
+                                type: 'page',
+                                title: '页面A',
+                                body: '页面A'
+                            },
+
+                            children: [
+                                {
+                                    label: '页面A-1',
+                                    url: '1',
+                                    schema: {
+                                        type: 'page',
+                                        title: '页面A-1',
+                                        body: '页面A-1'
+                                    }
+                                },
+
+                                {
+                                    label: '页面A-2',
+                                    url: '2',
+                                    schema: {
+                                        type: 'page',
+                                        title: '页面A-2',
+                                        body: '页面A-2'
+                                    }
+                                },
+
+                                {
+                                    label: '页面A-3',
+                                    url: '3',
+                                    schema: {
+                                        type: 'page',
+                                        title: '页面A-3',
+                                        body: '页面A-3'
+                                    }
+                                }
+                            ]
+                        },
+
+                        {
+                            label: '页面B',
+                            schema: {
+                                type: 'page',
+                                title: '页面B',
+                                body: '页面B'
+                            }
+                        },
+
+                        {
+                            label: '页面C',
+                            schema: {
+                                type: 'page',
+                                title: '页面C',
+                                body: '页面C'
+                            }
+                        },
+
+                        {
+                            label: '列表示例',
+                            url: '/crud',
+                            rewrite: '/crud/list',
+                            icon: 'https://suda.cdn.bcebos.com/images%2F2021-01%2Fdiamond.svg',
+                            children: [
+                                {
+                                    label: '列表',
+                                    url: '/crud/list',
+                                    icon: 'fa fa-list',
+                                    schema: {
+                                        type: 'page',
+                                        title: '列表',
+                                        remark: null,
+                                        name: 'page-demo',
+                                        toolbar: [
+                                            {
+                                                type: 'button',
+                                                actionType: 'link',
+                                                link: '/crud/new',
+                                                label: '新增',
+                                                primary: true
+                                            }
+                                        ],
+                                        body: [
+                                            {
+                                                type: 'crud',
+                                                name: 'sample',
+                                                api: '/api/sample',
+                                                filter: {
+                                                    title: '',
+                                                    mode: 'inline',
+                                                    wrapWithPanel: false,
+                                                    submitText: '',
+                                                    controls: [
+                                                        {
+                                                            type: 'text',
+                                                            name: 'keywords',
+                                                            placeholder: '通过关键字搜索',
+                                                            addOn: {
+                                                                label: '搜索',
+                                                                type: 'submit',
+                                                                className: 'btn-success'
+                                                            },
+                                                            clearable: true
+                                                        }
+                                                    ],
+                                                    className: 'm-b-sm'
+                                                },
+                                                bulkActions: [
+                                                    {
+                                                        label: '批量修改',
+                                                        type: 'button',
+                                                        actionType: 'dialog',
+                                                        level: 'primary',
+                                                        dialog: {
+                                                            title: '批量编辑',
+                                                            name: 'sample-bulk-edit',
+                                                            body: {
+                                                                type: 'form',
+                                                                api: '/api/sample/bulkUpdate2',
+                                                                controls: [
+                                                                    {
+                                                                        type: 'text',
+                                                                        name: 'engine',
+                                                                        label: 'Engine'
+                                                                    }
+                                                                ]
+                                                            }
+                                                        }
+                                                    },
+                                                    {
+                                                        label: '批量删除',
+                                                        type: 'button',
+                                                        level: 'danger',
+                                                        actionType: 'ajax',
+                                                        api: 'delete:/api/sample/$ids',
+                                                        confirmText: '确定要批量删除?'
+                                                    }
+                                                ],
+                                                columns: [
+                                                    {
+                                                        name: 'engine',
+                                                        label: 'Rendering engine',
+                                                        sortable: true
+                                                    },
+                                                    {
+                                                        name: 'id',
+                                                        label: 'ID',
+                                                        width: 20,
+                                                        sortable: true
+                                                    },
+                                                    {
+                                                        name: 'browser',
+                                                        label: 'Browser',
+                                                        sortable: true
+                                                    },
+                                                    {
+                                                        name: 'platform',
+                                                        label: 'Platform(s)',
+                                                        sortable: true
+                                                    },
+                                                    {
+                                                        name: 'version',
+                                                        label: 'Engine version'
+                                                    },
+                                                    {
+                                                        name: 'grade',
+                                                        label: 'CSS grade'
+                                                    },
+                                                    {
+                                                        type: 'operation',
+                                                        label: '操作',
+                                                        width: '',
+                                                        buttons: [
+                                                            {
+                                                                type: 'button-group',
+                                                                buttons: [
+                                                                    {
+                                                                        type: 'button',
+                                                                        label: '查看',
+                                                                        level: 'primary',
+                                                                        actionType: 'link',
+                                                                        link: '/crud/${id}'
+                                                                    },
+                                                                    {
+                                                                        type: 'button',
+                                                                        label: '修改',
+                                                                        level: 'info',
+                                                                        actionType: 'link',
+                                                                        link: '/crud/${id}/edit'
+                                                                    },
+                                                                    {
+                                                                        type: 'button',
+                                                                        label: '删除',
+                                                                        level: 'danger',
+                                                                        actionType: 'ajax',
+                                                                        confirmText: '您确认要删除?',
+                                                                        api: 'delete:/api/sample/$id'
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        placeholder: '-',
+                                                        fixed: 'right'
+                                                    }
+                                                ],
+                                                affixHeader: true,
+                                                columnsTogglable: 'auto',
+                                                placeholder: '暂无数据',
+                                                tableClassName: 'table-db table-striped',
+                                                headerClassName: 'crud-table-header',
+                                                footerClassName: 'crud-table-footer',
+                                                toolbarClassName: 'crud-table-toolbar',
+                                                combineNum: 0,
+                                                bodyClassName: 'panel-default'
+                                            }
+                                        ]
+                                    }
+                                },
+
+                                {
+                                    label: '新增',
+                                    url: '/crud/new',
+                                    icon: 'fa fa-plus',
+                                    schema: {
+                                        type: 'page',
+                                        title: '新增',
+                                        remark: null,
+                                        toolbar: [
+                                            {
+                                                type: 'button',
+                                                actionType: 'link',
+                                                link: '/crud/list',
+                                                label: '返回列表'
+                                            }
+                                        ],
+                                        body: [
+                                            {
+                                                title: '',
+                                                type: 'form',
+                                                redirect: '/crud/list',
+                                                name: 'sample-edit-form',
+                                                api: '/api/sample',
+                                                controls: [
+                                                    {
+                                                        type: 'text',
+                                                        name: 'engine',
+                                                        label: 'Engine',
+                                                        required: true,
+                                                        inline: false,
+                                                        description: '',
+                                                        descriptionClassName: 'help-block',
+                                                        placeholder: '',
+                                                        addOn: null
+                                                    },
+                                                    {
+                                                        type: 'divider'
+                                                    },
+                                                    {
+                                                        type: 'text',
+                                                        name: 'browser',
+                                                        label: 'Browser',
+                                                        required: true
+                                                    },
+                                                    {
+                                                        type: 'divider'
+                                                    },
+                                                    {
+                                                        type: 'text',
+                                                        name: 'platform',
+                                                        label: 'Platform(s)',
+                                                        required: true
+                                                    },
+                                                    {
+                                                        type: 'divider'
+                                                    },
+                                                    {
+                                                        type: 'text',
+                                                        name: 'version',
+                                                        label: 'Engine version'
+                                                    },
+                                                    {
+                                                        type: 'divider'
+                                                    },
+                                                    {
+                                                        type: 'text',
+                                                        name: 'grade',
+                                                        label: 'CSS grade'
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                },
+
+                                {
+                                    label: '查看',
+                                    url: '/crud/:id',
+                                    schema: {
+                                        type: 'page',
+                                        title: '查看详情 ${params.id}',
+                                        remark: null,
+                                        toolbar: [
+                                            {
+                                                type: 'button',
+                                                actionType: 'link',
+                                                link: '/crud/list',
+                                                label: '返回列表'
+                                            }
+                                        ],
+                                        body: [
+                                            {
+                                                type: 'form',
+                                                initApi: '/api/sample/${params.id}',
+                                                controls: [
+                                                    {
+                                                        type: 'static',
+                                                        name: 'engine',
+                                                        label: 'Engine'
+                                                    },
+                                                    {
+                                                        type: 'divider'
+                                                    },
+                                                    {
+                                                        type: 'static',
+                                                        name: 'browser',
+                                                        label: 'Browser'
+                                                    },
+                                                    {
+                                                        type: 'divider'
+                                                    },
+                                                    {
+                                                        type: 'static',
+                                                        name: 'platform',
+                                                        label: 'Platform(s)'
+                                                    },
+                                                    {
+                                                        type: 'divider'
+                                                    },
+                                                    {
+                                                        type: 'static',
+                                                        name: 'version',
+                                                        label: 'Engine version'
+                                                    },
+                                                    {
+                                                        type: 'divider'
+                                                    },
+                                                    {
+                                                        type: 'static',
+                                                        name: 'grade',
+                                                        label: 'CSS grade'
+                                                    },
+                                                    {
+                                                        type: 'divider'
+                                                    },
+                                                    {
+                                                        type: 'html',
+                                                        html:
+                                                            '<p>添加其他 <span>Html 片段</span> 需要支持变量替换（todo）.</p>'
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                },
+
+                                {
+                                    label: '修改',
+                                    url: '/crud/:id/edit',
+                                    schema: {
+                                        type: 'page',
+                                        title: '修改 ${params.id}',
+                                        remark: null,
+                                        toolbar: [
+                                            {
+                                                type: 'button',
+                                                actionType: 'link',
+                                                link: '/crud/list',
+                                                label: '返回列表'
+                                            }
+                                        ],
+                                        body: [
+                                            {
+                                                type: 'form',
+                                                initApi: '/api/sample/${params.id}',
+                                                api: '/api/sample/$id',
+                                                redirect: '/crud/list',
+                                                controls: [
+                                                    {
+                                                        type: 'text',
+                                                        name: 'engine',
+                                                        label: 'Engine',
+                                                        required: true
+                                                    },
+                                                    {
+                                                        type: 'divider'
+                                                    },
+                                                    {
+                                                        type: 'text',
+                                                        name: 'browser',
+                                                        label: 'Browser',
+                                                        required: true
+                                                    },
+                                                    {
+                                                        type: 'divider'
+                                                    },
+                                                    {
+                                                        type: 'text',
+                                                        name: 'platform',
+                                                        label: 'Platform(s)',
+                                                        required: true
+                                                    },
+                                                    {
+                                                        type: 'divider'
+                                                    },
+                                                    {
+                                                        type: 'text',
+                                                        name: 'version',
+                                                        label: 'Engine version'
+                                                    },
+                                                    {
+                                                        type: 'divider'
+                                                    },
+                                                    {
+                                                        type: 'select',
+                                                        name: 'grade',
+                                                        label: 'CSS grade',
+                                                        options: ['A', 'B', 'C', 'D', 'X']
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+
+                {
+                    label: '分组2',
+                    children: [
+                        {
+                            label: '用户管理',
+                            schema: {
+                                type: 'page',
+                                title: '用户管理',
+                                body: '页面C'
+                            }
+                        },
+
+                        {
+                            label: '外部链接',
+                            link: 'http://baidu.gitee.io/amis'
+                        },
+
+                        {
+                            label: '部门管理',
+                            schemaApi: '/api/mock2/service/form?tpl=tpl3'
+                        }
+                    ]
+                },
+
+                // {
+                //   label: '404',
+                //   visible: false,
+                //   isDefaultPage: true,
+                //   schema: {
+                //     type: 'page',
+                //     body: '自定义 404 页面，可以不配置'
+                //   }
+                // }
+            ]
+        };
+        let amisScoped = amis.embed('#root', amisJSON);
+    })();
+</script>
+</body>
+</html>

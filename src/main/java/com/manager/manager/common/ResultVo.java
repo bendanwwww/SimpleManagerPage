@@ -23,6 +23,8 @@ public class ResultVo<T extends Object> implements Serializable {
     /** 返回附加信息, java对象。可以是String、List、JSON、Map 类型 */
     private T data;
 
+    private int total;
+
     /** 生成数据的处理器 */
     public interface BusinessProcessor<D> { D process(); }
 
@@ -55,6 +57,34 @@ public class ResultVo<T extends Object> implements Serializable {
 
     }
 
+    public static <D> ResultVo<D> buildPage(BusinessProcessor<D> processor, int total) {
+
+        ResultVo<D> resultVo = new ResultVo<>();
+        try {
+            D data = processor.process();
+            resultVo.setRlt(true);
+            resultVo.setCode(ResultCode.SUCCESS.getCode());
+            resultVo.setMessage("ok");
+            resultVo.setData(data);
+            resultVo.setTotal(total);
+        } catch (ResultException re) {
+            log.error(re.getMessage(), re);
+            resultVo.setRlt(false);
+            resultVo.setCode(re.getCode() == null ? ResultCode.ERROR.getCode() : re.getCode().getCode());
+            resultVo.setMessage(re.getMessage());
+            if(re.getShowMessage() != null) {
+                resultVo.setMessage(re.getMessage()); //指示客户都是否显示异常 message 信息
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            resultVo.setRlt(false);
+            resultVo.setCode(ResultCode.ERROR.getCode());
+            resultVo.setMessage("system exception");
+        }
+
+        return resultVo;
+
+    }
     public boolean isRlt() {
         return rlt;
     }
@@ -86,5 +116,11 @@ public class ResultVo<T extends Object> implements Serializable {
     public void setData(T data) {
         this.data = data;
     }
+    public int getTotal() {
+        return total;
+    }
 
+    public void setTotal(int total) {
+        this.total = total;
+    }
 }

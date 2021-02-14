@@ -1,0 +1,74 @@
+{
+  "type": "page",
+  "title": "列表",
+  "remark": null,
+  "name": "city",
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/company/new",
+      "label": "新增",
+      "primary": true
+    }
+  ],
+  "body": [
+    {
+      "type": "crud",
+      "name": "city",
+      "api": "city/queryList",
+      "columns": [
+        {
+          "name": "id",
+          "label": "ID"
+        },
+        {
+          "name": "cityCode",
+          "label": "城市编码"
+        },
+        {
+          "name": "cityName",
+          "label": "城市名称"
+        },
+        {
+          "type": "operation",
+          "label": "操作",
+          "width": "",
+          "buttons": [
+            {
+              "type": "button-group",
+              "buttons": [
+                {
+                  "type": "button",
+                  "label": "修改",
+                  "level": "info",
+                  "actionType": "link",
+                  "link": "/company/${id}/edit"
+                },
+                {
+                  "type": "button",
+                  "label": "删除",
+                  "level": "danger",
+                  "actionType": "ajax",
+                  "confirmText": "您确认要删除?",
+                  "api": "post:city/delCity?id=${id}"
+                }
+              ]
+            }
+          ],
+          "placeholder": "-",
+          "fixed": "right"
+        }
+      ],
+      "affixHeader": true,
+      "columnsTogglable": "auto",
+      "placeholder": "暂无数据",
+      "tableClassName": "table-db table-striped",
+      "headerClassName": "crud-table-header",
+      "footerClassName": "crud-table-footer",
+      "toolbarClassName": "crud-table-toolbar",
+      "combineNum": 0,
+      "bodyClassName": "panel-default"
+    }
+  ]
+}

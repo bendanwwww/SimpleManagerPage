@@ -10,5 +10,23 @@
     <select id="queryCityList" resultType="com.manager.manager.domain.CityInfo">
         select <include refid="columns"/> from city_info where delete_flag = 0;
     </select>
+    <insert id="insertCity" parameterType="com.manager.manager.domain.CityInfo">
+        insert into city_info (
+        city_code , city_name , delete_flag
+        ) values (
+        #{cityCode} , #{cityName} , #{deleteFlag}
+        );
+    </insert>
 
+    <update id="updateCity" parameterType="com.manager.manager.domain.CityInfo">
+        update city_info set
+        city_code = #{cityCode} , city_name = #{cityName}
+        where id = #{id};
+    </update>
+    <update id="delCity">
+        update city_info set delete_flag = 1 where id = #{id}
+    </update>
+    <select id="queryCityById" resultType="com.manager.manager.domain.CityInfo" parameterType="java.lang.Integer">
+        select <include refid="columns"/> from city_info where id = #{id}
+    </select>
 </mapper>

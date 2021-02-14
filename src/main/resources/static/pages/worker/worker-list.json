@@ -1,0 +1,125 @@
+{
+  "type": "page",
+  "title": "列表",
+  "remark": null,
+  "name": "worker",
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/worker/new",
+      "label": "新增",
+      "primary": true
+    }
+  ],
+  "body": [
+    {
+      "type": "crud",
+      "name": "worker",
+      "api": "worker/queryWorkerPage",
+      "filter": {
+        "title": "",
+        "mode": "inline",
+        "wrapWithPanel": false,
+        "submitText": "",
+        "controls": [
+          {
+            "type": "text",
+            "name": "realName",
+            "placeholder": "员工名称",
+            "addOn": {
+              "label": "搜索",
+              "type": "submit",
+              "className": "btn-success"
+            },
+            "clearable": true
+          }
+        ],
+        "className": "m-b-sm"
+      },
+      "bulkActions": [
+        {
+          "label": "批量修改",
+          "type": "button",
+          "actionType": "dialog",
+          "level": "primary",
+          "dialog": {
+            "title": "批量编辑",
+            "name": "sample-bulk-edit",
+            "body": {
+              "type": "form",
+              "api": "/api/sample/bulkUpdate2",
+              "controls": [
+                {
+                  "type": "text",
+                  "name": "engine",
+                  "label": "Engine"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "label": "批量删除",
+          "type": "button",
+          "level": "danger",
+          "actionType": "ajax",
+          "api": "delete:/api/sample/$ids",
+          "confirmText": "确定要批量删除?"
+        }
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "label": "ID"
+        },
+        {
+          "name": "realName",
+          "label": "员工名称"
+        },
+        {
+          "name": "cityName",
+          "label": "城市"
+        },
+        {
+          "type": "operation",
+          "label": "操作",
+          "width": "",
+          "buttons": [
+            {
+              "type": "button-group",
+              "buttons": [
+                {
+                  "type": "button",
+                  "label": "修改",
+                  "level": "info",
+                  "actionType": "link",
+                  "link": "/worker/${id}/edit"
+                },
+                {
+                  "type": "button",
+                  "label": "删除",
+                  "level": "danger",
+                  "actionType": "ajax",
+                  "confirmText": "您确认要删除?",
+                  "api": "post:worker/delWorker?id=${id}"
+                }
+              ]
+            }
+          ],
+          "placeholder": "-",
+          "fixed": "right"
+        }
+      ],
+      "affixHeader": true,
+      "columnsTogglable": "auto",
+      "placeholder": "暂无数据",
+      "tableClassName": "table-db table-striped",
+      "headerClassName": "crud-table-header",
+      "footerClassName": "crud-table-footer",
+      "toolbarClassName": "crud-table-toolbar",
+      "combineNum": 0,
+      "bodyClassName": "panel-default"
+    }
+  ]
+}

@@ -32,9 +32,9 @@
 
     <insert id="insertWorker" parameterType="com.manager.manager.domain.Worker">
         insert into worker (
-        id , real_name , sys_name , wx_card , sex , age , work_age , city_code , city_name , create_time , update_time , delete_flag
+        real_name , sys_name , wx_card , sex , age , work_age , city_code , city_name , create_time , update_time , delete_flag
         ) values (
-        #{id} , #{realName} , #{sysName} , #{wxCard} , #{sex} , #{age} , #{workAge} , #{cityCode} , #{cityName} , #{createTime} , #{updateTime} , #{deleteFlag}
+        #{realName} , #{sysName} , #{wxCard} , #{sex} , #{age} , #{workAge} , #{cityCode} , #{cityName} , #{createTime} , #{updateTime} , #{deleteFlag}
         );
     </insert>
 
@@ -48,5 +48,34 @@
     <update id="delWorker">
         update worker set delete_flag = 1 where id = #{id}
     </update>
-
+    <select id="queryWorkerById" resultType="com.manager.manager.domain.Worker" parameterType="java.lang.Integer">
+        select <include refid="columns"/> from worker where id = #{id}
+    </select>
+    <sql id="queryWorkerPageSql">
+        <if test="id != null">
+            id = #{id} and
+        </if>
+        <if test="cityCode != null">
+            city_code = #{cityCode} and
+        </if>
+        <if test="sysName != null">
+            <bind name="sysNameLike" value="'%' + sysName + '%'" />
+            sys_name like #{sysNameLike} and
+        </if>
+        <if test="realName != null">
+            real_name = #{realName} and
+        </if>
+        delete_flag = 0
+    </sql>
+    <select id="queryWorkerPage" resultType="com.manager.manager.domain.Worker">
+        select <include refid="columns"/> from worker where
+        <include refid="queryWorkerPageSql"></include>
+        <if test="startRow != null and perPage != null">
+            limit #{startRow}, #{perPage}
+        </if>;
+    </select>
+    <select id="queryWorkerPageCount" resultType="java.lang.Integer" parameterType="com.manager.manager.dto.WorkerDto">
+        select count(*) from worker where
+        <include refid="queryWorkerPageSql"></include>
+    </select>
 </mapper>

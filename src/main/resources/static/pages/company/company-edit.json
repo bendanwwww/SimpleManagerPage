@@ -1,0 +1,41 @@
+{
+  "type": "page",
+  "title": "修改 ${params.id}",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/company/list",
+      "label": "返回列表"
+    }
+  ],
+  "body": [
+    {
+      "type": "form",
+      "initApi": "city/queryCityById?id=${params.id}",
+      "api": "post:city/updateCity",
+      "redirect": "/company/list",
+      "controls": [
+        {
+          "type": "hidden",
+          "name": "id",
+          "label": "ID"
+        },
+        {
+          "type": "text",
+          "name": "cityCode",
+          "label": "城市编码"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "text",
+          "name": "cityName",
+          "label": "城市名称"
+        }
+      ]
+    }
+  ]
+}

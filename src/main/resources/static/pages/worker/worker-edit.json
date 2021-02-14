@@ -1,0 +1,77 @@
+{
+  "type": "page",
+  "title": "修改 ${params.id}",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/worker/list",
+      "label": "返回列表"
+    }
+  ],
+  "body": [
+    {
+      "type": "form",
+      "initApi": "worker/queryWorkerById?id=${params.id}",
+      "api": "post:worker/updateWorker",
+      "redirect": "/worker/list",
+      "controls": [
+        {
+          "type": "hidden",
+          "name": "id",
+          "label": "ID"
+        },
+        {
+          "type": "text",
+          "name": "realName",
+          "label": "员工名称",
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "label": "所属城市",
+          "type": "select",
+          "name": "cityCode",
+          "source": "city/queryCityOptions"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "name": "sex",
+          "type": "radios",
+          "label": "性别",
+          "options": [
+            {
+              "label": "男",
+              "value": "0"
+            },
+            {
+              "label": "女",
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "number",
+          "name": "age",
+          "label": "年龄"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "number",
+          "name": "workAge",
+          "label": "工龄"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "type": "page",
+  "title": "新增",
+  "remark": null,
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "link",
+      "link": "/worker/list",
+      "label": "返回列表"
+    }
+  ],
+  "body": [
+    {
+      "title": "",
+      "type": "form",
+      "redirect": "/worker/list",
+      "name": "sample-edit-form",
+      "api": "post:worker/insertWorker",
+      "controls": [
+        {
+          "type": "text",
+          "name": "realName",
+          "label": "员工名称",
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "text",
+          "name": "cityName",
+          "label": "城市",
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "text",
+          "name": "cityName",
+          "label": "城市",
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "text",
+          "name": "cityName",
+          "label": "城市",
+          "required": true
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "text",
+          "name": "cityName",
+          "label": "城市",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

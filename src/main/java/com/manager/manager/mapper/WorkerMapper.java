@@ -1,6 +1,8 @@
 package com.manager.manager.mapper;
 
+import com.manager.manager.common.Page;
 import com.manager.manager.domain.Worker;
+import com.manager.manager.dto.WorkerDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -24,4 +26,23 @@ public interface WorkerMapper {
     void updateWorker(Worker worker);
 
     void delWorker(@Param(value = "id") int id);
+    /**
+     * @description: 通过id查询员工信息
+     * @author: mengwenyi
+     * @date: 2021/2/7 15:45
+     */
+    Worker queryWorkerById(@Param(value = "id") int id);
+    /**
+     * @description:
+     * @author: mengwenyi
+     * @date: 2021/2/7 16:52
+     */
+    List<Worker> queryWorkerPage(WorkerDto workerDto);
+    /**
+     * @description:
+     * @author: mengwenyi
+     * @date: 2021/2/7 17:05
+     */ 
+    int queryWorkerPageCount(WorkerDto workerDto);
+
 }

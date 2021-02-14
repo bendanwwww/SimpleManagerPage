@@ -1,7 +1,10 @@
 package com.manager.manager.service;
 
+import com.manager.manager.common.Page;
+import com.manager.manager.common.ResultVo;
 import com.manager.manager.domain.CityInfo;
 import com.manager.manager.domain.Worker;
+import com.manager.manager.dto.WorkerDto;
 import com.manager.manager.mapper.CityInfoMapper;
 import com.manager.manager.mapper.WorkerMapper;
 import com.manager.manager.vo.CityInfoVO;
@@ -38,16 +41,56 @@ public class WorkerService {
     public List<Worker> queryList(Integer id, String cityCode, String sysName, Integer startNo, Integer pageSize) {
         return workerMapper.queryWorkerList(id, cityCode, sysName, startNo, pageSize);
     }
-
+    /**
+     * @description: 新增员工信息
+     * @author: mengwenyi
+     * @date: 2021/2/7 16:44
+     */
     public void insertWorker(Worker worker) {
         workerMapper.insertWorker(worker);
     }
-
+    /**
+     * @description: 更新员工信息
+     * @author: mengwenyi
+     * @date: 2021/2/7 16:43
+     */
     public void updateWorker(Worker worker) {
         workerMapper.updateWorker(worker);
     }
-
+    /**
+     * @description: 删除员工
+     * @author: mengwenyi
+     * @date: 2021/2/7 16:43
+     */
     public void delWorker(int id) {
         workerMapper.delWorker(id);
+    }
+    /**
+     * @description: 查询员工详情
+     * @author: mengwenyi
+     * @date: 2021/2/7 16:50
+     */
+    public Worker queryWorkerById(int id){
+        return workerMapper.queryWorkerById(id);
+    }
+    /**
+     * @description:
+     * @author: mengwenyi
+     * @date: 2021/2/7 16:50
+     */ 
+    public ResultVo queryWorkerPage(WorkerDto workerDto) {
+        int count = workerMapper.queryWorkerPageCount(workerDto);
+        Page page = new Page();
+        if(count <= 0){
+            page.setRows(new ArrayList<>());
+            page.setTotal(count);
+            return ResultVo.build(() -> page);
+        }else{
+            List<Worker> list = workerMapper.queryWorkerPage(workerDto);
+            page.setRows(list);
+            page.setTotal(count);
+            return ResultVo.build(() -> page);
+        }
+
     }
 }
