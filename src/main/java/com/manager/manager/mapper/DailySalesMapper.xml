@@ -4,8 +4,8 @@
 
 <mapper namespace="com.manager.manager.mapper.DailySalesMapper">
     <sql id="columns">
-        id id , worker_id workerId , worker_name workerName , daily_profit dailyProfit , daily_amount dailyAmount ,
-        record_date recordDate , create_time createTime , update_time updateTime
+        id id , worker_id workerId , worker_name workerName , unit_price unitPrice, sale_amount saleAmount, profile profile , steel_type steelType,
+        record_date recordDate , create_time createTime , update_time updateTime, client_name clientName, is_new_client isNewClient, remark remark
     </sql>
 
     <select id="queryDailySales" resultType="com.manager.manager.domain.DailySales">
@@ -13,8 +13,43 @@
     </select>
 
     <update id="mergeDailySales" parameterType="com.manager.manager.domain.DailySales">
-        replace into daily_sales(id , worker_id , worker_name , daily_profit , daily_amount , record_date , create_time , update_time)
-        values(#{id} , #{workerId} , #{workerName} , #{dailyProfit} , #{dailyAmount} , #{recordDate} , #{createTime} , #{updateTime});
+        replace into daily_sales(id , worker_id , worker_name , unit_price , sale_amount , profile, steel_type, record_date , create_time , update_time, client_name, is_new_client, remark)
+        values(#{id} , #{workerId} , #{workerName} , #{unitPrice} , #{saleAmount} , #{profile}, #{steelType}, #{recordDate} , #{createTime} , #{updateTime}, #{clientName}, #{isNewClient}, #{remark});
     </update>
+    <sql id="queryDailySalePageSql">
+        <if test="workerName != null">
+            worker_name = #{workerName} and
+        </if>
+        1=1
+    </sql>
+    <select id="queryDailySalePage" resultType="com.manager.manager.domain.DailySales">
+        select <include refid="columns"/> from daily_sales where
+        <include refid="queryDailySalePageSql"></include>
+        <if test="startRow != null and perPage != null">
+            limit #{startRow}, #{perPage}
+        </if>;
+    </select>
+    <select id="queryDailySalePageCount" resultType="java.lang.Integer" parameterType="com.manager.manager.dto.DailySaleDto">
+        select count(*) from daily_sales where
+        <include refid="queryDailySalePageSql"></include>
+    </select>
 
+    <insert id="insertDailySale" parameterType="com.manager.manager.domain.DailySales">
+        insert into daily_sales (
+        worker_id , worker_name , unit_price , sale_amount , profile, steel_type, record_date , create_time , update_time, client_name, is_new_client, remark
+        ) values (
+        #{workerId} , #{workerName} , #{unitPrice} , #{saleAmount} , #{profile}, #{steelType}, #{recordDate} , #{createTime} , #{updateTime}, #{clientName}, #{isNewClient}, #{remark}
+        );
+    </insert>
+
+    <update id="updateDailySale" parameterType="com.manager.manager.domain.DailySales">
+        update daily_sales set
+        worker_id = #{workerId} , worker_name = #{workerName} , unit_price = #{unitPrice} , sale_amount = #{saleAmount} , profile = #{profile} ,
+        steel_type = #{steelType} , record_date = #{recordDate} , create_time = #{createTime} , update_time = #{updateTime} , client_name = #{clientName},
+        is_new_client = #{isNewClient} , remark = #{remark}
+        where id = #{id};
+    </update>
+    <select id="queryDailySaleById" resultType="com.manager.manager.domain.DailySales" parameterType="java.lang.Integer">
+        select <include refid="columns"/> from daily_sales where id = #{id}
+    </select>
 </mapper>

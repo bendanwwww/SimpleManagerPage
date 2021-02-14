@@ -111,7 +111,7 @@
             "schemaApi": "get:/manager/pages/worker/worker-list.json"
           },
           {
-            "label": "客户管理",
+            "label": "工单管理",
             "url": "/order/list",
             "icon": "fa fa-cube",
             "schemaApi": "get:/manager/pages/order/order-list.json"

@@ -1,12 +1,11 @@
 package com.manager.manager.controller;
 
 import com.manager.manager.common.ResultVo;
+import com.manager.manager.domain.DailySales;
+import com.manager.manager.dto.DailySaleDto;
 import com.manager.manager.service.DailySalesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("dailySales")
@@ -32,5 +31,48 @@ public class DailySalesController {
 		dailySalesService.updateDailySales(wxCard, dailyProfit, dailyAmount, type);
 		return ResultVo.build(() -> "success");
 	}
+	/**
+	 * @description: 查询工单列表
+	 * @author: mengwenyi
+	 * @date: 2021/2/14 11:05
+	 */
+	/**
+	 * @description: 查询员工分页列表
+	 * @author: mengwenyi
+	 * @date: 2021/2/7 17:00
+	 */
+	@RequestMapping(value = "queryOrderPage")
+	public ResultVo queryWorkerPage(DailySaleDto orderDto) {
+		return dailySalesService.queryOrderPage(orderDto);
+	}
+	/**
+	 * @description: 添加工单
+	 * @author: mengwenyi
+	 * @date: 2021/2/14 11:37
+	 */
+	@RequestMapping(value = "insertOrder", method = RequestMethod.POST)
+	public ResultVo<String> insertWorker(@RequestBody DailySaleDto dailySaleDto) {
+		dailySalesService.insertDailySale(dailySaleDto);
+		return ResultVo.build(() -> "success");
+	}
 
+	/**
+	 * @description: 更新工单
+	 * @author: mengwenyi
+	 * @date: 2021/2/14 11:37
+	 */
+	@RequestMapping(value = "updateOrder", method = RequestMethod.POST)
+	public ResultVo<String> updateOrder(@RequestBody DailySaleDto dailySaleDto) {
+		dailySalesService.updateDailySale(dailySaleDto);
+		return ResultVo.build(() -> "success");
+	}
+	/**
+	 * @description: 查询工单详情
+	 * @author: mengwenyi
+	 * @date: 2021/2/14 12:02
+	 */
+	@RequestMapping(value = "queryOrderById")
+	public ResultVo<DailySales> queryOrderById(@RequestParam(value = "id") int id) {
+		return ResultVo.build(() -> dailySalesService.queryOrderById(id));
+	}
 }

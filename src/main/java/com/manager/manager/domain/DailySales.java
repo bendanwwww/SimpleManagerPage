@@ -10,21 +10,31 @@ import java.util.Date;
  */
 public class DailySales {
     /** id */
-    private int id;
+    private Integer id;
     /** 职工id */
     private int workerId;
     /** 职工系统姓名 */
     private String workerName;
-    /** 日利润 */
-    private double dailyProfit;
+    /** 单价 */
+    private double unitPrice;
     /** 日销量 */
-    private double dailyAmount;
+    private double saleAmount;
+    /** 利润 */
+    private double profile;
+    /** 钢材类型 */
+    private Integer steelType;
     /** 业绩时间 */
     private Date recordDate;
     /** 创建时间 */
     private Date createTime;
     /** 更新时间 */
     private Date updateTime;
+    /** 客户名称 */
+    private String clientName;
+    /** 是否是新客户 */
+    private String isNewClient;
+    /** 备注 */
+    private String remark;
 
     public int getId() {
         return id;
@@ -50,20 +60,36 @@ public class DailySales {
         this.workerName = workerName;
     }
 
-    public double getDailyProfit() {
-        return dailyProfit;
+    public double getUnitPrice() {
+        return unitPrice;
     }
 
-    public void setDailyProfit(double dailyProfit) {
-        this.dailyProfit = dailyProfit;
+    public void setUnitPrice(double unitPrice) {
+        this.unitPrice = unitPrice;
     }
 
-    public double getDailyAmount() {
-        return dailyAmount;
+    public double getSaleAmount() {
+        return saleAmount;
     }
 
-    public void setDailyAmount(double dailyAmount) {
-        this.dailyAmount = dailyAmount;
+    public void setSaleAmount(double saleAmount) {
+        this.saleAmount = saleAmount;
+    }
+
+    public double getProfile() {
+        return profile;
+    }
+
+    public void setProfile(double profile) {
+        this.profile = profile;
+    }
+
+    public Integer getSteelType() {
+        return steelType;
+    }
+
+    public void setSteelType(Integer steelType) {
+        this.steelType = steelType;
     }
 
     public Date getRecordDate() {
@@ -88,5 +114,29 @@ public class DailySales {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+    }
+
+    public String getIsNewClient() {
+        return isNewClient;
+    }
+
+    public void setIsNewClient(String isNewClient) {
+        this.isNewClient = isNewClient;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

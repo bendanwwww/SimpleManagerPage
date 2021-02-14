@@ -111,6 +111,10 @@
             <artifactId>aspectjrt</artifactId>
             <version>1.9.6</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

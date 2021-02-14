@@ -7,7 +7,7 @@
     {
       "type": "button",
       "actionType": "link",
-      "link": "/worker/new",
+      "link": "/order/new",
       "label": "新增",
       "primary": true
     }
@@ -16,7 +16,7 @@
     {
       "type": "crud",
       "name": "sample",
-      "api": "worker/queryWorkerPage",
+      "api": "dailySales/queryOrderPage",
       "filter": {
         "title": "",
         "mode": "inline",
@@ -25,8 +25,19 @@
         "controls": [
           {
             "type": "text",
-            "name": "realName",
+            "name": "workerName",
             "placeholder": "员工名称",
+            "addOn": {
+              "label": "搜索",
+              "type": "submit",
+              "className": "btn-success"
+            },
+            "clearable": true
+          },
+          {
+            "type": "form",
+            "name": "recordDate",
+            "placeholder": "记录时间",
             "addOn": {
               "label": "搜索",
               "type": "submit",
@@ -37,49 +48,34 @@
         ],
         "className": "m-b-sm"
       },
-      "bulkActions": [
-        {
-          "label": "批量修改",
-          "type": "button",
-          "actionType": "dialog",
-          "level": "primary",
-          "dialog": {
-            "title": "批量编辑",
-            "name": "sample-bulk-edit",
-            "body": {
-              "type": "form",
-              "api": "/api/sample/bulkUpdate2",
-              "controls": [
-                {
-                  "type": "text",
-                  "name": "engine",
-                  "label": "Engine"
-                }
-              ]
-            }
-          }
-        },
-        {
-          "label": "批量删除",
-          "type": "button",
-          "level": "danger",
-          "actionType": "ajax",
-          "api": "delete:/api/sample/$ids",
-          "confirmText": "确定要批量删除?"
-        }
-      ],
       "columns": [
         {
-          "name": "id",
-          "label": "ID"
-        },
-        {
-          "name": "realName",
+          "name": "workerName",
           "label": "员工名称"
         },
         {
-          "name": "cityName",
-          "label": "城市"
+          "name": "clientName",
+          "label": "客户名称"
+        },
+        {
+          "name": "recordDate",
+          "label": "记录时间"
+        },
+        {
+          "name": "steelType",
+          "label": "钢材类型"
+        },
+        {
+          "name": "unitPrice",
+          "label": "单价"
+        },
+        {
+          "name": "saleAmount",
+          "label": "销量"
+        },
+        {
+          "name": "profile",
+          "label": "利润"
         },
         {
           "type": "operation",
@@ -94,15 +90,7 @@
                   "label": "修改",
                   "level": "info",
                   "actionType": "link",
-                  "link": "/worker/${id}/edit"
-                },
-                {
-                  "type": "button",
-                  "label": "删除",
-                  "level": "danger",
-                  "actionType": "ajax",
-                  "confirmText": "您确认要删除?",
-                  "api": "post:worker/delWorker?id=${id}"
+                  "link": "/order/${id}/edit"
                 }
               ]
             }

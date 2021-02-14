@@ -1,13 +1,18 @@
 package com.manager.manager.service;
 
+import com.manager.manager.common.Page;
+import com.manager.manager.common.ResultVo;
 import com.manager.manager.domain.DailySales;
 import com.manager.manager.domain.Worker;
+import com.manager.manager.dto.DailySaleDto;
 import com.manager.manager.mapper.DailySalesMapper;
 import com.manager.manager.mapper.WorkerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -45,12 +50,56 @@ public class DailySalesService {
                 dailySales.setWorkerName(worker.getSysName());
                 dailySales.setCreateTime(new Date());
             }
-            dailySales.setDailyProfit(dailyProfit);
-            dailySales.setDailyAmount(dailyAmount);
             dailySales.setRecordDate(new Date());
             dailySales.setUpdateTime(new Date());
             dailySalesMapper.mergeDailySales(dailySales);
         }
+    }
+    /**
+     * @description: 查询工单分页列表
+     * @author: mengwenyi
+     * @date: 2021/2/14 11:09
+     */
+    public ResultVo queryOrderPage(DailySaleDto orderDto) {
+        int count = dailySalesMapper.queryDailySalePageCount(orderDto);
+        Page page = new Page();
+        if(count <= 0){
+            page.setRows(new ArrayList<>());
+            page.setTotal(count);
+            return ResultVo.build(() -> page);
+        }else{
+            List<DailySales> list = dailySalesMapper.queryDailySalePage(orderDto);
+            page.setRows(list);
+            page.setTotal(count);
+            return ResultVo.build(() -> page);
+        }
+
+    }
+    /**
+     * @description: 新增员工信息
+     * @author: mengwenyi
+     * @date: 2021/2/7 16:44
+     */
+    public void insertDailySale(DailySaleDto dailySaleDto) {
+        dailySaleDto.setCreateTime(new Date());
+        dailySalesMapper.insertDailySale(dailySaleDto);
+    }
+    /**
+     * @description: 更新员工信息
+     * @author: mengwenyi
+     * @date: 2021/2/7 16:43
+     */
+    public void updateDailySale(DailySaleDto dailySaleDto) {
+        dailySaleDto.setUpdateTime(new Date());
+        dailySalesMapper.updateDailySale(dailySaleDto);
+    }
+    /**
+     * @description: 查询工单详情
+     * @author: mengwenyi
+     * @date: 2021/2/14 12:03
+     */
+    public DailySales queryOrderById(int id){
+        return dailySalesMapper.queryDailySaleById(id);
     }
 
 }
