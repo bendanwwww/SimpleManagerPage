@@ -116,4 +116,15 @@ public class WorkerController {
     public ResultVo queryWorkerPage(WorkerDto workerDto) {
         return workerService.queryWorkerPage(workerDto);
     }
+    /**
+     * @description: 查询下拉选项
+     * @author: mengwenyi
+     * @date: 2021/2/13 21:29
+     */
+    @RequestMapping(value = "queryWorkerOptions", method = RequestMethod.GET)
+    public ResultVo<Map> queryCityOptions() {
+        Map map = new HashMap();
+        map.put("options", workerService.queryWorkerOptions());
+        return ResultVo.build(() -> map);
+    }
 }

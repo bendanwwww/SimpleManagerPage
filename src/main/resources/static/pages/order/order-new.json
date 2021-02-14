@@ -19,10 +19,11 @@
       "api": "post:dailySales/insertOrder",
       "controls": [
         {
-          "type": "text",
-          "name": "workerName",
           "label": "员工名称",
-          "required": true
+          "type": "select",
+          "name": "workerId",
+          "searchable": true,
+          "source": "worker/queryWorkerOptions"
         },
         {
           "type": "divider"
@@ -30,6 +31,7 @@
         {
           "type": "datetime",
           "name": "recordDate",
+          "format": "YYYY-MM-DD HH:mm:ss",
           "label": "交易时间"
         },
         {
@@ -134,7 +136,7 @@
           "type": "divider"
         },
         {
-          "type": "rich-text",
+          "type": "textarea",
           "name": "remark",
           "label": "备注"
         }

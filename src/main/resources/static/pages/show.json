@@ -1,0 +1,74 @@
+{
+  "type": "page",
+  "body": [
+      {
+        "type": "form",
+        "title": "过滤条件",
+        "target": "chart1",
+        "submitOnInit": true,
+        "className": "m-b",
+        "wrapWithPanel": false,
+        "mode": "inline",
+        "controls": [
+          {
+            "type": "datetime",
+            "label": "开始日期",
+            "name": "startTime",
+            "value": "-8days",
+            "maxDate": "${endTime}",
+            "format": "YYYY-MM-DD HH:mm:ss"
+          },
+          {
+            "type": "datetime",
+            "label": "结束日期",
+            "name": "endTime",
+            "value": "-1days",
+            "format": "YYYY-MM-DD HH:mm:ss",
+            "minDate": "${startTime}"
+          }
+        ],
+        "actions": []
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "type": "grid",
+        "className": "m-t-lg",
+        "columns": [
+          {
+            "type": "chart",
+            "name": "chart1",
+            "initFetch": false,
+            "api": "show/queryPersonalData?startTime=${startTime}&endTime=${endTime}",
+            "config": {
+              "title":{
+                "text":"销售情况"
+              },
+              "tooltip":{
+
+              },
+              "legend":{
+                "data":[
+                  "利润"
+                ]
+              },
+              "xAxis":{
+                "data":["1","2","3"]
+              },
+              "yAxis":{
+
+              },
+              "series":[
+                {
+                  "name":"利润",
+                  "type":"bar",
+                  "data": "${line}"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+}

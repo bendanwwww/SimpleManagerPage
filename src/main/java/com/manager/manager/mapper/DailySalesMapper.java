@@ -2,6 +2,7 @@ package com.manager.manager.mapper;
 
 import com.manager.manager.domain.DailySales;
 import com.manager.manager.dto.DailySaleDto;
+import com.manager.manager.dto.ShowViewDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -46,5 +47,10 @@ public interface DailySalesMapper {
      * @date: 2021/2/14 12:04
      */
     DailySales queryDailySaleById(@Param(value = "id") int id);
-
+    /**
+     * @description: 查询个人业绩
+     * @author: mengwenyi
+     * @date: 2021/2/14 21:12
+     */
+    List<DailySales> queryPersonalData(ShowViewDto showViewDto);
 }

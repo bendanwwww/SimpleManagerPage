@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -92,5 +94,20 @@ public class WorkerService {
             return ResultVo.build(() -> page);
         }
 
+    }
+
+    public List<Map<String, Object>> queryWorkerOptions() {
+        List<Map<String, Object>> resList = new ArrayList<>();
+        List<Worker> workerList = workerMapper.queryWorkerList(null, null, null, null, null);
+        if(CollectionUtils.isEmpty(workerList)) {
+            return resList;
+        }
+        resList = workerList.stream().map(w -> {
+            Map<String, Object> tmpMap = new HashMap<>();
+            tmpMap.put("label", w.getRealName());
+            tmpMap.put("value", w.getId());
+            return tmpMap;
+        }).collect(Collectors.toList());
+        return resList;
     }
 }

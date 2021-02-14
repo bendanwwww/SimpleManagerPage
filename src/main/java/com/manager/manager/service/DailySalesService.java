@@ -82,6 +82,8 @@ public class DailySalesService {
      */
     public void insertDailySale(DailySaleDto dailySaleDto) {
         dailySaleDto.setCreateTime(new Date());
+        Worker worker = workerMapper.queryWorkerById(dailySaleDto.getWorkerId());
+        dailySaleDto.setWorkerName(worker.getRealName());
         dailySalesMapper.insertDailySale(dailySaleDto);
     }
     /**
@@ -91,6 +93,8 @@ public class DailySalesService {
      */
     public void updateDailySale(DailySaleDto dailySaleDto) {
         dailySaleDto.setUpdateTime(new Date());
+        Worker worker = workerMapper.queryWorkerById(dailySaleDto.getWorkerId());
+        dailySaleDto.setWorkerName(worker.getRealName());
         dailySalesMapper.updateDailySale(dailySaleDto);
     }
     /**
@@ -98,7 +102,7 @@ public class DailySalesService {
      * @author: mengwenyi
      * @date: 2021/2/14 12:03
      */
-    public DailySales queryOrderById(int id){
+    public DailySales queryOrderById(Integer id){
         return dailySalesMapper.queryDailySaleById(id);
     }
 

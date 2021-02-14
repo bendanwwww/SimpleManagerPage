@@ -23,10 +23,11 @@
           "label": "ID"
         },
         {
-          "type": "text",
-          "name": "workerName",
           "label": "员工名称",
-          "required": true
+          "type": "select",
+          "name": "workerId",
+          "searchable": true,
+          "source": "worker/queryWorkerOptions"
         },
         {
           "type": "divider"

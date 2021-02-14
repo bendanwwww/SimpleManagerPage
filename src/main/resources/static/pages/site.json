@@ -6,7 +6,7 @@
       {
         "label": "Home",
         "url": "/",
-        "redirect": "/index/1"
+        "redirect": "/index"
       },
       {
         "label": "新增员工",
@@ -46,58 +46,18 @@
         "label": "大图展示",
         "children": [
           {
-            "label": "页面A",
-            "url": "index",
-            "schema": {
-              "type": "page",
-              "title": "页面A",
-              "body": "页面A"
-            },
-            "children": [
-              {
-                "label": "页面A-1",
-                "url": "1",
-                "schema": {
-                  "type": "page",
-                  "title": "页面A-1",
-                  "body": "页面A-1"
-                }
-              },
-              {
-                "label": "页面A-2",
-                "url": "2",
-                "schema": {
-                  "type": "page",
-                  "title": "页面A-2",
-                  "body": "页面A-2"
-                }
-              },
-              {
-                "label": "页面A-3",
-                "url": "3",
-                "schema": {
-                  "type": "page",
-                  "title": "页面A-3",
-                  "body": "页面A-3"
-                }
-              }
-            ]
-          },
-          {
-            "label": "页面B",
-            "schema": {
-              "type": "page",
-              "title": "页面B",
-              "body": "页面B"
-            }
+            "label": "业绩展示",
+            "schemaApi": "get:/manager/pages/show.json",
+            "url": "/index"
           },
           {
             "label": "页面C",
             "schema": {
               "type": "page",
-              "title": "页面C",
+              "title": "员工管理系统",
               "body": "页面C"
-            }
+            },
+            "url": "2"
           }
         ]
       },

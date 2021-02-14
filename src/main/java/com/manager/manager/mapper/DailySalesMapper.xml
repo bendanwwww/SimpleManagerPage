@@ -52,4 +52,21 @@
     <select id="queryDailySaleById" resultType="com.manager.manager.domain.DailySales" parameterType="java.lang.Integer">
         select <include refid="columns"/> from daily_sales where id = #{id}
     </select>
+    <sql id="dataSql">
+        <where>
+            <if test="startTime!=null">
+                <![CDATA[ and record_date >=  #{startTime} ]]>
+            </if>
+            <if test="startTime!=null">
+                <![CDATA[ and record_date <= #{endTime} ]]>
+            </if>
+        </where>
+    </sql>
+    <select id="queryPersonalData" resultType="com.manager.manager.domain.DailySales" parameterType="com.manager.manager.dto.ShowViewDto">
+        select worker_id workerId,worker_name workerName,SUM(`profile`) profile
+        from daily_sales
+        <include refid="dataSql"></include>
+        GROUP BY worker_id;
+    </select>
+
 </mapper>
