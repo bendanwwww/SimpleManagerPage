@@ -43,6 +43,20 @@ public class WorkerService {
     public List<Worker> queryList(Integer id, String cityCode, String sysName, Integer startNo, Integer pageSize) {
         return workerMapper.queryWorkerList(id, cityCode, sysName, startNo, pageSize);
     }
+
+    /**
+     * 查询职工列表
+     * @param sysName
+     * @return
+     */
+    public Worker queryWorkerBySysName(String sysName) {
+        List<Worker> workers = workerMapper.queryWorkerBySysName(sysName);
+        if(CollectionUtils.isEmpty(workers)) {
+            return new Worker();
+        }
+        return workers.get(0);
+    }
+
     /**
      * @description: 新增员工信息
      * @author: mengwenyi
