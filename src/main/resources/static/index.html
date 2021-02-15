@@ -93,37 +93,37 @@
                     {},
                     {
                         watchRouteChange: fn => {
-                        window.addEventListener('hashchange', fn);
-                return () => {
-                    window.removeEventListener('hashchange', fn);
-                };
-            },
-                jumpTo: to => {
-                    location.hash = to;
-                },
-                isCurrentUrl: (to, ctx) => {
-                    if (!to) {
-                        return false;
-                    }
-                    const pathname = location.hash ? location.hash.substring(1) : '/';
-                    const link = normalizeLink(to, {
-                        ...location,
-                        pathname,
-                        hash: ''
-                    });
+                            window.addEventListener('hashchange', fn);
+                            return () => {
+                                window.removeEventListener('hashchange', fn);
+                            };
+                        },
+                        jumpTo: to => {
+                            location.hash = to;
+                        },
+                        isCurrentUrl: (to, ctx) => {
+                            if (!to) {
+                                return false;
+                            }
+                            const pathname = location.hash ? location.hash.substring(1) : '/';
+                            const link = normalizeLink(to, {
+                                ...location,
+                                pathname,
+                                hash: ''
+                            });
 
-                    if (!~link.indexOf('http') && ~link.indexOf(':')) {
-                        let strict = ctx && ctx.strict;
-                        return match(link, {
-                            decode: decodeURIComponent,
-                            strict: typeof strict !== 'undefined' ? strict : true
-                        })(pathname);
-                    }
+                            if (!~link.indexOf('http') && ~link.indexOf(':')) {
+                                let strict = ctx && ctx.strict;
+                                return match(link, {
+                                    decode: decodeURIComponent,
+                                    strict: typeof strict !== 'undefined' ? strict : true
+                                })(pathname);
+                            }
 
-                    return pathname === link;
-                },
-                theme: 'default'
-            }
+                            return pathname === link;
+                        },
+                    theme: 'default'
+                }
             );
             })();
         </script>

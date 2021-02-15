@@ -10,6 +10,7 @@
     <select id="queryCityList" resultType="com.manager.manager.domain.CityInfo">
         select <include refid="columns"/> from city_info where delete_flag = 0;
     </select>
+
     <insert id="insertCity" parameterType="com.manager.manager.domain.CityInfo">
         insert into city_info (
         city_code , city_name , delete_flag
