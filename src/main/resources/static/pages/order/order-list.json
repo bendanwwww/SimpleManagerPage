@@ -24,20 +24,23 @@
         "submitText": "",
         "controls": [
           {
+            "type": "datetime",
+            "label": "开始日期",
+            "name": "startTime",
+            "maxDate": "${endTime}",
+            "format": "YYYY-MM-DD HH:mm:ss"
+          },
+          {
+            "type": "datetime",
+            "label": "结束日期",
+            "name": "endTime",
+            "format": "YYYY-MM-DD HH:mm:ss",
+            "minDate": "${startTime}"
+          },
+          {
             "type": "text",
             "name": "workerName",
             "placeholder": "员工名称",
-            "addOn": {
-              "label": "搜索",
-              "type": "submit",
-              "className": "btn-success"
-            },
-            "clearable": true
-          },
-          {
-            "type": "form",
-            "name": "recordDate",
-            "placeholder": "记录时间",
             "addOn": {
               "label": "搜索",
               "type": "submit",

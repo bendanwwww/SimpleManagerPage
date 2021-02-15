@@ -62,4 +62,50 @@ public class ShowViewService {
         showViewVo.setSeries(series);
         return showViewVo;
     }
+
+    /**
+     * @description: 查询销量走势图
+     * @author: mengwenyi
+     * @date: 2021/2/15 15:53
+     */
+    public ShowViewVo queryByDate(ShowViewDto showViewDto){
+        List<DailySales> list = dailySalesMapper.queryByDate(showViewDto);
+        List<Date> xAxisList = new ArrayList<>();
+        List<Double> seriesList = new ArrayList<>();
+
+        for(DailySales dailySales : list){
+            xAxisList.add(dailySales.getRecordDate());
+            seriesList.add(dailySales.getProfile());
+        }
+        ShowViewVo showViewVo = new ShowViewVo();
+        Map title = new HashMap();
+        title.put("text", "销量");
+        showViewVo.setTitle(title);
+
+        Map tooltip = new HashMap();
+        showViewVo.setTooltip(tooltip);
+
+        Map legend = new HashMap();
+        legend.put("data", new ArrayList<>(Arrays.asList("销量")));
+        showViewVo.setLegend(legend);
+
+        Map xAxis = new HashMap();
+        xAxis.put("type", "category");
+        xAxis.put("data", xAxisList);
+        showViewVo.setxAxis(xAxis);
+
+        Map yAxis = new HashMap();
+        yAxis.put("type", "value");
+        showViewVo.setyAxis(yAxis);
+
+        List<Map> series = new ArrayList<>();
+        Map seriesMap = new HashMap();
+        seriesMap.put("name", "销量");
+        seriesMap.put("type", "line");
+        seriesMap.put("data", seriesList);
+        series.add(seriesMap);
+        showViewVo.setSeries(series);
+        return showViewVo;
+    }
+
 }

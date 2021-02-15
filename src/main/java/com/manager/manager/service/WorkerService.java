@@ -30,6 +30,8 @@ public class WorkerService {
 
     @Autowired
     private WorkerMapper workerMapper;
+    @Autowired
+    private CityInfoMapper cityInfoMapper;
 
     /**
      * 查询职工列表
@@ -63,6 +65,10 @@ public class WorkerService {
      * @date: 2021/2/7 16:44
      */
     public void insertWorker(Worker worker) {
+        CityInfo cityInfo = cityInfoMapper.queryCityByCityCode(worker.getCityCode());
+        if(cityInfo != null){
+            worker.setCityName(cityInfo.getCityName());
+        }
         workerMapper.insertWorker(worker);
     }
     /**
@@ -71,6 +77,10 @@ public class WorkerService {
      * @date: 2021/2/7 16:43
      */
     public void updateWorker(Worker worker) {
+        CityInfo cityInfo = cityInfoMapper.queryCityByCityCode(worker.getCityCode());
+        if(cityInfo != null){
+            worker.setCityName(cityInfo.getCityName());
+        }
         workerMapper.updateWorker(worker);
     }
     /**

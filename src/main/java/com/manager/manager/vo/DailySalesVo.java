@@ -1,17 +1,16 @@
-package com.manager.manager.dto;
+package com.manager.manager.vo;
 
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
 /**
  * @description:
  * @author: mengwenyi
- * @Date: 2021/2/14 11:05
+ * @Date: 2021/2/15 17:46
  */
 @Data
-public class DailySaleDto {
+public class DailySalesVo {
     /** id */
     private Integer id;
     /** 职工id */
@@ -26,6 +25,8 @@ public class DailySaleDto {
     private double profile;
     /** 钢材类型 */
     private Integer steelType;
+    /** 钢材类型 */
+    private String steelTypeName;
     /** 业绩时间 */
     private Date recordDate;
     /** 创建时间 */
@@ -38,33 +39,4 @@ public class DailySaleDto {
     private String isNewClient;
     /** 备注 */
     private String remark;
-    /**
-     * 当前页
-     */
-    private int page;
-
-    /**
-     * 每页大小
-     */
-    private int perPage;
-    /**
-     * 开始时间
-     */
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date startTime;
-    /**
-     * 结束时间
-     */
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date endTime;
-    /**
-     * 获取起始行数
-     *
-     * @return
-     */
-    public int getStartRow() {
-        return perPage * (page - 1);
-    }
-
-
 }

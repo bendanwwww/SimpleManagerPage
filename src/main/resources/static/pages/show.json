@@ -4,7 +4,7 @@
       {
         "type": "form",
         "title": "过滤条件",
-        "target": "chart1",
+        "target": "chart1,chart2",
         "submitOnInit": true,
         "className": "m-b",
         "wrapWithPanel": false,
@@ -51,6 +51,12 @@
             "name": "chart1",
             "initFetch": false,
             "api": "show/queryPersonalData?startTime=${startTime}&endTime=${endTime}&workerName=${workerName}"
+          },
+          {
+            "type": "chart",
+            "name": "chart2",
+            "initFetch": false,
+            "api": "show/queryByDate?workerName=${workerName}"
           }
         ]
       }

@@ -29,8 +29,18 @@ public class ShowViewController {
      * @date: 2021/2/14 20:53
      */
     @RequestMapping(value = "queryPersonalData", method = RequestMethod.GET)
-    public ResultVo<ShowViewVo> queryCityOptions(ShowViewDto showViewDto) {
+    public ResultVo<ShowViewVo> queryPersonalData(ShowViewDto showViewDto) {
         ShowViewVo showViewVo =  showViewService.queryPersonalData(showViewDto);
+        return ResultVo.build(() -> showViewVo);
+    }
+    /**
+     * @description: 按时间查询销量
+     * @author: mengwenyi
+     * @date: 2021/2/15 15:52
+     */
+    @RequestMapping(value = "queryByDate", method = RequestMethod.GET)
+    public ResultVo<ShowViewVo> queryByDate(ShowViewDto showViewDto) {
+        ShowViewVo showViewVo =  showViewService.queryByDate(showViewDto);
         return ResultVo.build(() -> showViewVo);
     }
 }

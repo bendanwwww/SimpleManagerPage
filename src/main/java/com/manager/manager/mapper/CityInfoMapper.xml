@@ -29,4 +29,8 @@
     <select id="queryCityById" resultType="com.manager.manager.domain.CityInfo" parameterType="java.lang.Integer">
         select <include refid="columns"/> from city_info where id = #{id}
     </select>
+    <select id="queryCityByCityCode" resultType="com.manager.manager.domain.CityInfo" parameterType="java.lang.String">
+        select <include refid="columns"/> from city_info where city_code = #{cityCode}
+    </select>
+
 </mapper>

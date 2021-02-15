@@ -37,49 +37,18 @@
         ],
         "className": "m-b-sm"
       },
-      "bulkActions": [
-        {
-          "label": "批量修改",
-          "type": "button",
-          "actionType": "dialog",
-          "level": "primary",
-          "dialog": {
-            "title": "批量编辑",
-            "name": "sample-bulk-edit",
-            "body": {
-              "type": "form",
-              "api": "/api/sample/bulkUpdate2",
-              "controls": [
-                {
-                  "type": "text",
-                  "name": "engine",
-                  "label": "Engine"
-                }
-              ]
-            }
-          }
-        },
-        {
-          "label": "批量删除",
-          "type": "button",
-          "level": "danger",
-          "actionType": "ajax",
-          "api": "delete:/api/sample/$ids",
-          "confirmText": "确定要批量删除?"
-        }
-      ],
       "columns": [
-        {
-          "name": "id",
-          "label": "ID"
-        },
         {
           "name": "realName",
           "label": "员工名称"
         },
         {
-          "name": "cityName",
-          "label": "城市"
+          "name": "age",
+          "label": "年龄"
+        },
+        {
+          "name": "workAge",
+          "label": "工龄"
         },
         {
           "type": "operation",

@@ -7,6 +7,9 @@ import com.manager.manager.domain.Worker;
 import com.manager.manager.dto.DailySaleDto;
 import com.manager.manager.mapper.DailySalesMapper;
 import com.manager.manager.mapper.WorkerMapper;
+import com.manager.manager.util.CommonUtil;
+import com.manager.manager.vo.DailySalesVo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -69,7 +72,14 @@ public class DailySalesService {
             return ResultVo.build(() -> page);
         }else{
             List<DailySales> list = dailySalesMapper.queryDailySalePage(orderDto);
-            page.setRows(list);
+            List<DailySalesVo> returnList = new ArrayList<>();
+            for(DailySales dailySales : list){
+                DailySalesVo dailySalesVo = new DailySalesVo();
+                BeanUtils.copyProperties(dailySales, dailySalesVo);
+                dailySalesVo.setSteelTypeName(CommonUtil.getSteelTypeNameById(dailySalesVo.getSteelType()));
+                returnList.add(dailySalesVo);
+            }
+            page.setRows(returnList);
             page.setTotal(count);
             return ResultVo.build(() -> page);
         }
@@ -102,7 +112,7 @@ public class DailySalesService {
      * @author: mengwenyi
      * @date: 2021/2/14 12:03
      */
-    public DailySales queryOrderById(Integer id){
+    public DailySales queryOrderById(int id){
         return dailySalesMapper.queryDailySaleById(id);
     }
 

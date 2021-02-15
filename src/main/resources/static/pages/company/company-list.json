@@ -19,10 +19,6 @@
       "api": "city/queryList",
       "columns": [
         {
-          "name": "id",
-          "label": "ID"
-        },
-        {
           "name": "cityCode",
           "label": "城市编码"
         },

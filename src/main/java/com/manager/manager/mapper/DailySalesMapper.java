@@ -53,4 +53,12 @@ public interface DailySalesMapper {
      * @date: 2021/2/14 21:12
      */
     List<DailySales> queryPersonalData(ShowViewDto showViewDto);
+    /**
+     * @description: 按时间查询销量
+     * @author: mengwenyi
+     * @date: 2021/2/15 15:56
+     */
+    List<DailySales> queryByDate(ShowViewDto showViewDto);
+
+
 }

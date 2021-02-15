@@ -40,6 +40,7 @@ public interface CityInfoMapper {
      * @date: 2021/2/13 21:02
      */
     CityInfo queryCityById(@Param(value = "id") int id);
+    CityInfo queryCityByCityCode(@Param(value = "cityCode") String cityCode);
 
 
 }

@@ -72,7 +72,7 @@ public class DailySalesController {
 	 * @date: 2021/2/14 12:02
 	 */
 	@RequestMapping(value = "queryOrderById")
-	public ResultVo<DailySales> queryOrderById(@RequestParam(value = "id") Integer id) {
+	public ResultVo<DailySales> queryOrderById(@RequestParam(value = "id") int id) {
 		return ResultVo.build(() -> dailySalesService.queryOrderById(id));
 	}
 }

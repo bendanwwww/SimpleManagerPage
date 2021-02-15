@@ -17,10 +17,17 @@
         values(#{id} , #{workerId} , #{workerName} , #{unitPrice} , #{saleAmount} , #{profile}, #{steelType}, #{recordDate} , #{createTime} , #{updateTime}, #{clientName}, #{isNewClient}, #{remark});
     </update>
     <sql id="queryDailySalePageSql">
-        <if test="workerName != null">
-            worker_name = #{workerName} and
-        </if>
         1=1
+        <if test="workerName != null">
+            and worker_name = #{workerName}
+        </if>
+        <if test="startTime!=null">
+            <![CDATA[ and record_date >=  #{startTime} ]]>
+        </if>
+        <if test="endTime!=null">
+            <![CDATA[ and record_date <= #{endTime} ]]>
+        </if>
+
     </sql>
     <select id="queryDailySalePage" resultType="com.manager.manager.domain.DailySales">
         select <include refid="columns"/> from daily_sales where
@@ -60,7 +67,7 @@
             <if test="endTime!=null">
                 <![CDATA[ and record_date <= #{endTime} ]]>
             </if>
-            <if test="workerName!=null">
+            <if test="workerName!=null and workerName!=''">
                 and worker_name = #{workerName}
             </if>
         </where>
@@ -69,7 +76,13 @@
         select worker_id workerId,worker_name workerName,SUM(`profile`) profile
         from daily_sales
         <include refid="dataSql"></include>
-        GROUP BY worker_id;
+        GROUP BY worker_id order by SUM(`profile`) desc;
+    </select>
+
+    <select id="queryByDate" resultType="com.manager.manager.domain.DailySales" parameterType="com.manager.manager.dto.ShowViewDto">
+        select DATE_FORMAT(record_date, '%Y-%m-%d') recordDate,SUM(`profile`) profile from daily_sales
+        <include refid="dataSql"></include>
+        GROUP BY DATE_FORMAT(record_date, '%Y-%m-%d');
     </select>
 
 </mapper>
