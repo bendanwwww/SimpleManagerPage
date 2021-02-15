@@ -41,10 +41,10 @@ public class AccessInterceptor implements HandlerInterceptor {
         String uri = request.getRequestURI();
         String queryString = request.getQueryString();
         String userName = "";
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if(Objects.nonNull(principal) && principal instanceof UserDetails) {
-            userName = ((UserDetails) principal).getUsername();
+        if(Objects.nonNull(authentication) && authentication.getPrincipal() instanceof UserDetails) {
+            userName = ((UserDetails) authentication.getPrincipal()).getUsername();
             // 记录日志表
             UserLog userLog = new UserLog(UUID.randomUUID().toString().replaceAll("-", ""), uri, queryString, userName, new Date());
             userLogService.insertLog(userLog);
