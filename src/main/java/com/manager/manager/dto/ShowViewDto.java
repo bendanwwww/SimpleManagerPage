@@ -22,4 +22,8 @@ public class ShowViewDto {
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date endTime;
+    /**
+     * 员工名称
+     */
+    private String workerName;
 }

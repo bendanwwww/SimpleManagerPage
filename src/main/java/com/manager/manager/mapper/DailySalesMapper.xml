@@ -57,8 +57,11 @@
             <if test="startTime!=null">
                 <![CDATA[ and record_date >=  #{startTime} ]]>
             </if>
-            <if test="startTime!=null">
+            <if test="endTime!=null">
                 <![CDATA[ and record_date <= #{endTime} ]]>
+            </if>
+            <if test="workerName!=null">
+                and worker_name = #{workerName}
             </if>
         </where>
     </sql>

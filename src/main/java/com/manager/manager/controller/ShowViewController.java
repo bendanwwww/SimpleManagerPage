@@ -3,6 +3,7 @@ package com.manager.manager.controller;
 import com.manager.manager.common.ResultVo;
 import com.manager.manager.dto.ShowViewDto;
 import com.manager.manager.service.ShowViewService;
+import com.manager.manager.vo.ShowViewVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,8 +29,8 @@ public class ShowViewController {
      * @date: 2021/2/14 20:53
      */
     @RequestMapping(value = "queryPersonalData", method = RequestMethod.GET)
-    public ResultVo<Map> queryCityOptions(ShowViewDto showViewDto) {
-        Map map =  showViewService.queryPersonalData(showViewDto);
-        return ResultVo.build(() -> map);
+    public ResultVo<ShowViewVo> queryCityOptions(ShowViewDto showViewDto) {
+        ShowViewVo showViewVo =  showViewService.queryPersonalData(showViewDto);
+        return ResultVo.build(() -> showViewVo);
     }
 }

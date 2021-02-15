@@ -25,6 +25,16 @@
             "value": "-1days",
             "format": "YYYY-MM-DD HH:mm:ss",
             "minDate": "${startTime}"
+          },
+          {
+            "type": "text",
+            "label": "条件",
+            "name": "workerName",
+            "addOn": {
+              "type": "submit",
+              "label": "搜索",
+              "level": "primary"
+            }
           }
         ],
         "actions": []
@@ -40,33 +50,7 @@
             "type": "chart",
             "name": "chart1",
             "initFetch": false,
-            "api": "show/queryPersonalData?startTime=${startTime}&endTime=${endTime}",
-            "config": {
-              "title":{
-                "text":"销售情况"
-              },
-              "tooltip":{
-
-              },
-              "legend":{
-                "data":[
-                  "利润"
-                ]
-              },
-              "xAxis":{
-                "data":["1","2","3"]
-              },
-              "yAxis":{
-
-              },
-              "series":[
-                {
-                  "name":"利润",
-                  "type":"bar",
-                  "data": "${line}"
-                }
-              ]
-            }
+            "api": "show/queryPersonalData?startTime=${startTime}&endTime=${endTime}&workerName=${workerName}"
           }
         ]
       }
