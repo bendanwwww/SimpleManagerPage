@@ -2,7 +2,7 @@
   "type": "page",
   "title": "列表",
   "remark": null,
-  "name": "page-demo",
+  "name": "order",
   "toolbar": [
     {
       "type": "button",
@@ -15,7 +15,7 @@
   "body": [
     {
       "type": "crud",
-      "name": "sample",
+      "name": "order",
       "api": "dailySales/queryOrderPage",
       "filter": {
         "title": "",
