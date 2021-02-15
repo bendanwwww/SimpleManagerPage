@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="sdk/helper.css" />
     <script src="sdk/sdk.js"></script>
     <script src="sdk/vue2.js"></script>
+    <script src='sdk/jquery.js'></script>
     <style>
         html,
         body,
@@ -25,7 +26,7 @@
         }
     </style>
 </head>
-<body>
+<>
     <div id="root" class="app-wrapper"></div>
         <script>
             (function () {
@@ -33,14 +34,14 @@
 
                 const app = {
                     type: 'app',
-                    brandName: 'Admin',
+                    brandName: '销售管理系统',
                     logo: 'img/logo.png',
                     header: {
                         type: 'tpl',
                         inline: false,
                         className: 'w-full',
                         tpl:
-                            '<div class="flex justify-between"><div>顶部区域左侧</div><div>顶部区域右侧</div></div>'
+                            '<div class="flex justify-between"><div></div><div></div></div>'
                     },
                     // footer: '<div class="p-2 text-center bg-light">底部区域</div>',
                     // asideBefore: '<div class="p-2 text-center">菜单前面区域</div>',
@@ -49,6 +50,16 @@
                 };
 
                 function normalizeLink(to, location = window.location) {
+                    console.log(location.href);
+                    $("a[href='/worker/list']").click(function() {
+                        window.location.replace(location.href.split('#')[0] + '#' + '/worker/list');
+                    });
+                    $("a[href='/order/list']").click(function() {
+                        window.location.replace(location.href.split('#')[0] + '#' + '/order/list');
+                    });
+                    $("a[href='/company/list']").click(function() {
+                        window.location.replace(location.href.split('#')[0] + '#' + '/company/list');
+                    });
                     to = to || '';
 
                     if (to && to[0] === '#') {
@@ -82,7 +93,6 @@
                         }
                         pathname = paths.concat(pathname).join('/');
                     }
-
                     return pathname + search + hash;
                 }
                 const match = amisRequire('path-to-regexp').match;
@@ -113,20 +123,21 @@
                             });
 
                             if (!~link.indexOf('http') && ~link.indexOf(':')) {
-                                console.log('1-----' + pathname)
                                 let strict = ctx && ctx.strict;
                                 return match(link, {
                                     decode: decodeURIComponent,
                                     strict: typeof strict !== 'undefined' ? strict : true
                                 })(pathname);
                             }
-                            console.log('2-----' + pathname)
                             return pathname === link;
                         },
                     theme: 'default'
                 }
             );
             })();
+        </script>
+        <script>
+
         </script>
     </body>
 </html>
