@@ -50,14 +50,16 @@
                 };
 
                 function normalizeLink(to, location = window.location) {
-                    console.log(location.href);
                     $("a[href='/worker/list']").click(function() {
+                        console.log(location.href.split('#')[0] + '#' + '/worker/list');
                         window.location.replace(location.href.split('#')[0] + '#' + '/worker/list');
                     });
                     $("a[href='/order/list']").click(function() {
+                        console.log(location.href.split('#')[0] + '#' + '/orderw/list');
                         window.location.replace(location.href.split('#')[0] + '#' + '/order/list');
                     });
                     $("a[href='/company/list']").click(function() {
+                        console.log(location.href.split('#')[0] + '#' + '/company/list');
                         window.location.replace(location.href.split('#')[0] + '#' + '/company/list');
                     });
                     to = to || '';
@@ -135,9 +137,6 @@
                 }
             );
             })();
-        </script>
-        <script>
-
         </script>
     </body>
 </html>
