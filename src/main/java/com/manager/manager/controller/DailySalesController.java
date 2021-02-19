@@ -33,11 +33,7 @@ public class DailySalesController {
 		dailySalesService.updateDailySales(wxCard, dailyProfit, dailyAmount, type);
 		return ResultVo.build(() -> "success");
 	}
-	/**
-	 * @description: 查询工单列表
-	 * @author: mengwenyi
-	 * @date: 2021/2/14 11:05
-	 */
+
 	/**
 	 * @description: 查询员工分页列表
 	 * @author: mengwenyi
@@ -47,6 +43,7 @@ public class DailySalesController {
 	public ResultVo queryWorkerPage(DailySaleDto orderDto) {
 		return dailySalesService.queryOrderPage(orderDto);
 	}
+
 	/**
 	 * @description: 添加工单
 	 * @author: mengwenyi
@@ -68,6 +65,7 @@ public class DailySalesController {
 		dailySalesService.updateDailySale(dailySaleDto);
 		return ResultVo.build(() -> "success");
 	}
+
 	/**
 	 * @description: 查询工单详情
 	 * @author: mengwenyi
@@ -77,6 +75,7 @@ public class DailySalesController {
 	public ResultVo<DailySales> queryOrderById(@RequestParam(value = "id") int id) {
 		return ResultVo.build(() -> dailySalesService.queryOrderById(id));
 	}
+
 	/**
 	 * @description: 查询数据渲染
 	 * @author: mengwenyi
