@@ -11,8 +11,6 @@ import java.util.Date;
  */
 @Data
 public class DailySalesVo {
-    /** id */
-    private Integer id;
     /** 职工id */
     private int workerId;
     /** 职工系统姓名 */
@@ -39,4 +37,10 @@ public class DailySalesVo {
     private String isNewClient;
     /** 备注 */
     private String remark;
+    /** 工龄 */
+    private Integer workAge;
+    /** 年龄 */
+    private Integer age;
+    /** 排名 */
+    private Integer index;
 }

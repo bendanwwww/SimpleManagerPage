@@ -4,7 +4,7 @@
 
 <mapper namespace="com.manager.manager.mapper.DailySalesMapper">
     <sql id="columns">
-        id id , worker_id workerId , worker_name workerName , unit_price unitPrice, sale_amount saleAmount, profile profile , steel_type steelType,
+        id id , worker_id workerId , worker_name workerName , sale_amount saleAmount, profile profile ,
         record_date recordDate , create_time createTime , update_time updateTime, client_name clientName, is_new_client isNewClient, remark remark
     </sql>
 
@@ -13,8 +13,8 @@
     </select>
 
     <update id="mergeDailySales" parameterType="com.manager.manager.domain.DailySales">
-        replace into daily_sales(id , worker_id , worker_name , unit_price , sale_amount , profile, steel_type, record_date , create_time , update_time, client_name, is_new_client, remark)
-        values(#{id} , #{workerId} , #{workerName} , #{unitPrice} , #{saleAmount} , #{profile}, #{steelType}, #{recordDate} , #{createTime} , #{updateTime}, #{clientName}, #{isNewClient}, #{remark});
+        replace into daily_sales(id , worker_id , worker_name  , sale_amount , profile, record_date , create_time , update_time, client_name, is_new_client, remark)
+        values(#{id} , #{workerId} , #{workerName} , #{saleAmount} , #{profile}, #{recordDate} , #{createTime} , #{updateTime}, #{clientName}, #{isNewClient}, #{remark});
     </update>
     <sql id="queryDailySalePageSql">
         1=1
@@ -43,16 +43,16 @@
 
     <insert id="insertDailySale" parameterType="com.manager.manager.domain.DailySales">
         insert into daily_sales (
-        worker_id , worker_name , unit_price , sale_amount , profile, steel_type, record_date , create_time , update_time, client_name, is_new_client, remark
+        worker_id , worker_name  , sale_amount , profile, record_date , create_time , update_time, client_name, is_new_client, remark
         ) values (
-        #{workerId} , #{workerName} , #{unitPrice} , #{saleAmount} , #{profile}, #{steelType}, #{recordDate} , #{createTime} , #{updateTime}, #{clientName}, #{isNewClient}, #{remark}
+        #{workerId} , #{workerName}, #{saleAmount} , #{profile}, #{recordDate} , #{createTime} , #{updateTime}, #{clientName}, #{isNewClient}, #{remark}
         );
     </insert>
 
     <update id="updateDailySale" parameterType="com.manager.manager.domain.DailySales">
         update daily_sales set
-        worker_id = #{workerId} , worker_name = #{workerName} , unit_price = #{unitPrice} , sale_amount = #{saleAmount} , profile = #{profile} ,
-        steel_type = #{steelType} , record_date = #{recordDate} , create_time = #{createTime} , update_time = #{updateTime} , client_name = #{clientName},
+        worker_id = #{workerId} , worker_name = #{workerName} , sale_amount = #{saleAmount} , profile = #{profile} ,
+        record_date = #{recordDate} , create_time = #{createTime} , update_time = #{updateTime} , client_name = #{clientName},
         is_new_client = #{isNewClient} , remark = #{remark}
         where id = #{id};
     </update>
@@ -73,7 +73,7 @@
         </where>
     </sql>
     <select id="queryPersonalData" resultType="com.manager.manager.domain.DailySales" parameterType="com.manager.manager.dto.ShowViewDto">
-        select worker_id workerId,worker_name workerName,SUM(`profile`) profile
+        select worker_id workerId,worker_name workerName,SUM(`profile`) profile,SUM(`sale_amount`) saleAmount
         from daily_sales
         <include refid="dataSql"></include>
         GROUP BY worker_id order by SUM(`profile`) desc;

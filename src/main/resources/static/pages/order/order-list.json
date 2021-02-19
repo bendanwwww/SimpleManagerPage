@@ -65,14 +65,6 @@
           "label": "记录时间"
         },
         {
-          "name": "steelType",
-          "label": "钢材类型"
-        },
-        {
-          "name": "unitPrice",
-          "label": "单价"
-        },
-        {
           "name": "saleAmount",
           "label": "销量"
         },

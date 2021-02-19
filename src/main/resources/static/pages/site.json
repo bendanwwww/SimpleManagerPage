@@ -49,6 +49,11 @@
             "label": "业绩展示",
             "schemaApi": "get:/manager/pages/show.json",
             "url": "/index"
+          },
+          {
+            "label": "排名",
+            "schemaApi": "get:/manager/pages/show2.json",
+            "url": "/index2"
           }
         ]
       },

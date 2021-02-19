@@ -23,7 +23,8 @@
           "type": "select",
           "name": "workerId",
           "searchable": true,
-          "source": "worker/queryWorkerOptions"
+          "source": "worker/queryWorkerOptions",
+          "required": true
         },
         {
           "type": "divider"
@@ -32,16 +33,11 @@
           "type": "datetime",
           "name": "recordDate",
           "format": "YYYY-MM-DD HH:mm:ss",
-          "label": "交易时间"
+          "label": "交易时间",
+          "required": true
         },
         {
           "type": "divider"
-        },
-        {
-          "type": "text",
-          "name": "unitPrice",
-          "label": "单价",
-          "required": true
         },
         {
           "type": "divider"
@@ -59,53 +55,8 @@
           "type": "number",
           "name": "profile",
           "label": "利润",
-          "disabled": true,
+          "required": true,
           "precision": 2
-        },
-        {
-          "type": "formula",
-          "name": "profile",
-          "value": 0,
-          "formula": "unitPrice * saleAmount",
-          "required": true
-        },
-        {
-          "type": "divider"
-        },
-        {
-          "label": "钢材类型",
-          "type": "select",
-          "name": "steelType",
-          "options": [
-            {
-              "label": "螺旋钢管",
-              "value": "1"
-            },
-            {
-              "label": "无缝钢管",
-              "value": "2"
-            },
-            {
-              "label": "镀锌管",
-              "value": "3"
-            },
-            {
-              "label": "方管",
-              "value": "4"
-            },
-            {
-              "label": "焊管",
-              "value": "5"
-            },
-            {
-              "label": "型材",
-              "value": "6"
-            },
-            {
-              "label": "其他",
-              "value": "7"
-            }
-          ]
         },
         {
           "type": "divider"
@@ -130,7 +81,8 @@
               "label": "否",
               "value": "0"
             }
-          ]
+          ],
+          "required": true
         },
         {
           "type": "divider"

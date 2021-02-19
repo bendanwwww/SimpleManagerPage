@@ -3,7 +3,9 @@ package com.manager.manager.controller;
 import com.manager.manager.common.ResultVo;
 import com.manager.manager.domain.DailySales;
 import com.manager.manager.dto.DailySaleDto;
+import com.manager.manager.dto.ShowViewDto;
 import com.manager.manager.service.DailySalesService;
+import com.manager.manager.vo.DailySalesVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -75,4 +77,14 @@ public class DailySalesController {
 	public ResultVo<DailySales> queryOrderById(@RequestParam(value = "id") int id) {
 		return ResultVo.build(() -> dailySalesService.queryOrderById(id));
 	}
+	/**
+	 * @description: 查询数据渲染
+	 * @author: mengwenyi
+	 * @date: 2021/2/18 19:45
+	 */
+	@RequestMapping(value = "queryOrderData")
+	public ResultVo<DailySalesVo> queryOrderData(ShowViewDto showViewDto) {
+		return dailySalesService.queryOrderData(showViewDto);
+	}
+
 }

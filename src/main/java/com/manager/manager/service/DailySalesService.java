@@ -5,9 +5,10 @@ import com.manager.manager.common.ResultVo;
 import com.manager.manager.domain.DailySales;
 import com.manager.manager.domain.Worker;
 import com.manager.manager.dto.DailySaleDto;
+import com.manager.manager.dto.ShowViewDto;
 import com.manager.manager.mapper.DailySalesMapper;
 import com.manager.manager.mapper.WorkerMapper;
-import com.manager.manager.util.CommonUtil;
+import com.manager.manager.util.ListUtils;
 import com.manager.manager.vo.DailySalesVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,20 +35,21 @@ public class DailySalesService {
 
     /**
      * 更新员工每日业绩
+     *
      * @return
      */
     public void updateDailySales(String wxCard, double dailyProfit, double dailyAmount, int type) {
         // 根据微信号查询员工信息
         Worker worker = workerMapper.queryWorkerByWX(wxCard);
-        if(Objects.nonNull(worker)) {
+        if (Objects.nonNull(worker)) {
             int workerId = worker.getId();
             // 查询员工当日业绩
             DailySales dailySales = dailySalesMapper.queryDailySales(workerId);
-            if(Objects.nonNull(dailySales)) {
-                if(type == 0) {
+            if (Objects.nonNull(dailySales)) {
+                if (type == 0) {
                     return;
                 }
-            }else {
+            } else {
                 dailySales = new DailySales();
                 dailySales.setWorkerId(workerId);
                 dailySales.setWorkerName(worker.getSysName());
@@ -58,6 +60,7 @@ public class DailySalesService {
             dailySalesMapper.mergeDailySales(dailySales);
         }
     }
+
     /**
      * @description: 查询工单分页列表
      * @author: mengwenyi
@@ -66,25 +69,19 @@ public class DailySalesService {
     public ResultVo queryOrderPage(DailySaleDto orderDto) {
         int count = dailySalesMapper.queryDailySalePageCount(orderDto);
         Page page = new Page();
-        if(count <= 0){
+        if (count <= 0) {
             page.setRows(new ArrayList<>());
             page.setTotal(count);
             return ResultVo.build(() -> page);
-        }else{
+        } else {
             List<DailySales> list = dailySalesMapper.queryDailySalePage(orderDto);
-            List<DailySalesVo> returnList = new ArrayList<>();
-            for(DailySales dailySales : list){
-                DailySalesVo dailySalesVo = new DailySalesVo();
-                BeanUtils.copyProperties(dailySales, dailySalesVo);
-                dailySalesVo.setSteelTypeName(CommonUtil.getSteelTypeNameById(dailySalesVo.getSteelType()));
-                returnList.add(dailySalesVo);
-            }
-            page.setRows(returnList);
+            page.setRows(list);
             page.setTotal(count);
             return ResultVo.build(() -> page);
         }
 
     }
+
     /**
      * @description: 新增员工信息
      * @author: mengwenyi
@@ -96,6 +93,7 @@ public class DailySalesService {
         dailySaleDto.setWorkerName(worker.getRealName());
         dailySalesMapper.insertDailySale(dailySaleDto);
     }
+
     /**
      * @description: 更新员工信息
      * @author: mengwenyi
@@ -107,13 +105,38 @@ public class DailySalesService {
         dailySaleDto.setWorkerName(worker.getRealName());
         dailySalesMapper.updateDailySale(dailySaleDto);
     }
+
     /**
      * @description: 查询工单详情
      * @author: mengwenyi
      * @date: 2021/2/14 12:03
      */
-    public DailySales queryOrderById(int id){
+    public DailySales queryOrderById(int id) {
         return dailySalesMapper.queryDailySaleById(id);
     }
 
+    /**
+     * @description:
+     * @author: mengwenyi
+     * @date: 2021/2/18 19:31
+     */
+    public ResultVo queryOrderData(ShowViewDto showViewDto) {
+        List<DailySales> list = dailySalesMapper.queryPersonalData(showViewDto);
+        List<Integer> workerIdList = ListUtils.fetchFieldValue(list, "workerId");
+        List<Worker> workerList = workerMapper.queryWorkerByIdList(workerIdList);
+        List<DailySalesVo> dailySalesVoList = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            DailySalesVo dailySalesVo = new DailySalesVo();
+            BeanUtils.copyProperties(list.get(i), dailySalesVo);
+            dailySalesVo.setIndex(i + 1);
+            Worker worker = ListUtils.findEntityByFieldValue(workerList, "id", dailySalesVo.getWorkerId() + "");
+            if(worker != null){
+                dailySalesVo.setWorkAge(worker.getWorkAge());
+                dailySalesVo.setAge(worker.getAge());
+            }
+            dailySalesVoList.add(dailySalesVo);
+        }
+        return ResultVo.build(() -> dailySalesVoList);
+
+    }
 }

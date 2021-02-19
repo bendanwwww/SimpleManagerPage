@@ -59,6 +59,13 @@
     <select id="queryWorkerById" resultType="com.manager.manager.domain.Worker" parameterType="java.lang.Integer">
         select <include refid="columns"/> from worker where id = #{id}
     </select>
+    <select id="queryWorkerByIdList" resultType="com.manager.manager.domain.Worker" parameterType="java.util.List">
+        select <include refid="columns"/> from worker where id in
+        <foreach item="item" index="index" collection="idList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
     <sql id="queryWorkerPageSql">
         <if test="id != null">
             id = #{id} and
@@ -66,11 +73,11 @@
         <if test="cityCode != null">
             city_code = #{cityCode} and
         </if>
-        <if test="sysName != null">
+        <if test="sysName != null and sysName !=''">
             <bind name="sysNameLike" value="'%' + sysName + '%'" />
             sys_name like #{sysNameLike} and
         </if>
-        <if test="realName != null">
+        <if test="realName != null and realName !=''">
             real_name = #{realName} and
         </if>
         delete_flag = 0

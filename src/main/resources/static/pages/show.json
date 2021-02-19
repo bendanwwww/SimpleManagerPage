@@ -28,7 +28,7 @@
           },
           {
             "type": "text",
-            "label": "条件",
+            "label": "员工名称",
             "name": "workerName",
             "addOn": {
               "type": "submit",

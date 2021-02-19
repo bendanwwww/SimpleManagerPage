@@ -46,5 +46,10 @@ public interface WorkerMapper {
      * @date: 2021/2/7 17:05
      */ 
     int queryWorkerPageCount(WorkerDto workerDto);
-
+    /**
+     * @description: 查询员工列表
+     * @author: mengwenyi
+     * @date: 2021/2/18 19:38
+     */
+    List<Worker> queryWorkerByIdList(@Param(value = "idList") List idList);
 }

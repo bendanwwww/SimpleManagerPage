@@ -26,4 +26,13 @@ public class ShowViewDto {
      * 员工名称
      */
     private String workerName;
+    /**
+     * 当前页
+     */
+    private int page;
+
+    /**
+     * 每页大小
+     */
+    private int perPage;
 }

@@ -1,0 +1,89 @@
+{
+  "type": "page",
+  "title": "列表",
+  "remark": null,
+  "name": "order1",
+  "body": [
+    {
+      "type": "form",
+      "title": "过滤条件",
+      "target": "chart1,chart2",
+      "submitOnInit": true,
+      "className": "m-b",
+      "wrapWithPanel": false,
+      "mode": "inline",
+      "controls": [
+        {
+          "type": "datetime",
+          "label": "开始日期",
+          "name": "startTime",
+          "maxDate": "${endTime}",
+          "format": "YYYY-MM-DD HH:mm:ss"
+        },
+        {
+          "type": "datetime",
+          "label": "结束日期",
+          "name": "endTime",
+          "format": "YYYY-MM-DD HH:mm:ss",
+          "minDate": "${startTime}"
+        },
+        {
+          "type": "text",
+          "label": "员工名称",
+          "name": "workerName",
+          "addOn": {
+            "type": "submit",
+            "label": "搜索",
+            "level": "primary"
+          }
+        }
+      ],
+      "actions": []
+    },
+    {
+      "type": "crud",
+      "name": "order1",
+      "api": "dailySales/queryOrderData",
+      "headerToolbar": [],
+      "footerToolbar": [
+        "switch-per-page",
+        "pagination"
+      ],
+      "columns": [
+        {
+          "name": "index",
+          "label": "排名"
+        },
+        {
+          "name": "workerName",
+          "label": "员工名称"
+        },
+        {
+          "name": "age",
+          "label": "年龄"
+        },
+        {
+          "name": "workAge",
+          "label": "工龄"
+        },
+        {
+          "name": "saleAmount",
+          "label": "销量"
+        },
+        {
+          "name": "profile",
+          "label": "利润"
+        }
+      ],
+      "affixHeader": true,
+      "columnsTogglable": "auto",
+      "placeholder": "暂无数据",
+      "tableClassName": "table-db table-striped",
+      "headerClassName": "crud-table-header",
+      "footerClassName": "crud-table-footer",
+      "toolbarClassName": "crud-table-toolbar",
+      "combineNum": 0,
+      "bodyClassName": "panel-default"
+    }
+  ]
+}
