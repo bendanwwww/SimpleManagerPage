@@ -54,9 +54,8 @@
         {
           "type": "number",
           "name": "profile",
-          "label": "利润",
-          "required": true,
-          "precision": 2
+          "label": "利润(元)",
+          "required": true
         },
         {
           "type": "divider"

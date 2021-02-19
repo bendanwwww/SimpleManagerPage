@@ -58,7 +58,8 @@
             "initFetch": false,
             "api": "show/queryByDate?workerName=${workerName}"
           }
-        ]
+        ],
+        "syncLocation" : false
       }
     ]
 }

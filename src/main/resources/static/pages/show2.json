@@ -7,7 +7,7 @@
     {
       "type": "form",
       "title": "过滤条件",
-      "target": "chart1,chart2",
+      "target": "order1",
       "submitOnInit": true,
       "className": "m-b",
       "wrapWithPanel": false,
@@ -44,11 +44,6 @@
       "type": "crud",
       "name": "order1",
       "api": "dailySales/queryOrderData",
-      "headerToolbar": [],
-      "footerToolbar": [
-        "switch-per-page",
-        "pagination"
-      ],
       "columns": [
         {
           "name": "index",
@@ -83,7 +78,8 @@
       "footerClassName": "crud-table-footer",
       "toolbarClassName": "crud-table-toolbar",
       "combineNum": 0,
-      "bodyClassName": "panel-default"
+      "bodyClassName": "panel-default",
+      "syncLocation" : false
     }
   ]
 }

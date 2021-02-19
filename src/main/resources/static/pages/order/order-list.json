@@ -102,7 +102,9 @@
       "footerClassName": "crud-table-footer",
       "toolbarClassName": "crud-table-toolbar",
       "combineNum": 0,
-      "bodyClassName": "panel-default"
+      "bodyClassName": "panel-default",
+      "syncLocation" : false,
+      "silentPolling": true
     }
   ]
 }

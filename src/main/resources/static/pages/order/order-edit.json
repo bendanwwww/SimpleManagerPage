@@ -58,7 +58,6 @@
           "type": "number",
           "name": "profile",
           "label": "利润(元)",
-          "precision": 2,
           "required": true
         },
         {

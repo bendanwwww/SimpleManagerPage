@@ -6,7 +6,7 @@
       {
         "label": "Home",
         "url": "/",
-        "redirect": "/index"
+        "redirect": "/index2"
       },
       {
         "label": "新增员工",
@@ -46,11 +46,6 @@
         "label": "大图展示",
         "children": [
           {
-            "label": "业绩展示",
-            "schemaApi": "get:/manager/pages/show.json",
-            "url": "/index"
-          },
-          {
             "label": "排名",
             "schemaApi": "get:/manager/pages/show2.json",
             "url": "/index2"
@@ -64,19 +59,40 @@
             "label": "员工管理",
             "url": "/worker/list",
             "icon": "fa fa-list",
-            "schemaApi": "get:/manager/pages/worker/worker-list.json"
+            "schema": {
+              "type": "page",
+              "body": {
+                "type": "service",
+                "schemaApi": "get:/manager/pages/worker/worker-list.json",
+                "silentPolling": true
+              }
+            }
           },
           {
             "label": "工单管理",
             "url": "/order/list",
             "icon": "fa fa-cube",
-            "schemaApi": "get:/manager/pages/order/order-list.json"
+            "schema": {
+              "type": "page",
+              "body": {
+                "type": "service",
+                "schemaApi": "get:/manager/pages/order/order-list.json",
+                "silentPolling": true
+              }
+            }
           },
           {
             "label": "公司管理",
             "url": "/company/list",
-            "icon": "fa fa-paw",
-            "schemaApi": "get:/manager/pages/company/company-list.json"
+            "icon": "fa fa-tree",
+            "schema": {
+              "type": "page",
+              "body": {
+                "type": "service",
+                "schemaApi": "get:/manager/pages/company/company-list.json",
+                "silentPolling": true
+              }
+            }
           }
         ]
       }
