@@ -11,6 +11,8 @@ import java.util.Date;
 public class Worker {
     /** id */
     private Integer id;
+    /** id */
+    private Integer id2;
     /** 真实姓名 */
     private String realName;
     /** 系统姓名 */
@@ -35,6 +37,14 @@ public class Worker {
     private Date updateTime;
     /** 删除标识 (0: 正常 1: 删除) */
     private int deleteFlag;
+
+    public Integer getId2() {
+        return id2;
+    }
+
+    public void setId2(Integer id2) {
+        this.id2 = id2;
+    }
 
     public int getId() {
         return id;

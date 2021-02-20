@@ -4,7 +4,7 @@
 
 <mapper namespace="com.manager.manager.mapper.DailySalesMapper">
     <sql id="columns">
-        id id , worker_id workerId , worker_name workerName , sale_amount saleAmount, profile profile ,
+        id id , id id2 , worker_id workerId , worker_name workerName , sale_amount saleAmount, profile profile ,
         record_date recordDate , create_time createTime , update_time updateTime, client_name clientName, is_new_client isNewClient, remark remark
     </sql>
 

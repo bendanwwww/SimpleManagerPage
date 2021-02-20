@@ -38,6 +38,7 @@ public class CityService {
         resList = cityInfoList.stream().map(c -> {
             CityInfoVO cityInfo = new CityInfoVO();
             cityInfo.setId(c.getId());
+            cityInfo.setId2(c.getId2());
             cityInfo.setCityCode(c.getCityCode());
             cityInfo.setCityName(c.getCityName());
             return cityInfo;

@@ -39,7 +39,7 @@
                   "label": "修改",
                   "level": "info",
                   "actionType": "link",
-                  "link": "/company/${id}/edit"
+                  "link": "/company/${id2}/edit"
                 },
                 {
                   "type": "button",
@@ -47,7 +47,7 @@
                   "level": "danger",
                   "actionType": "ajax",
                   "confirmText": "您确认要删除?",
-                  "api": "post:city/delCity?id=${id}"
+                  "api": "post:city/delCity?id=${id2}"
                 }
               ]
             }

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title> - 修改密码</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+    <script>if(window.top !== window.self){ window.top.location = window.location;}</script>
+
+</head>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen   animated fadeInDown">
+        <div>
+            <div>
+
+                <h1 class="logo-name">H+</h1>
+
+            </div>
+            <h3>欢迎使用</h3>
+            <p>修改账户密码</p>
+<!--            <form>-->
+                <div class="form-group">
+                    <input id="username" type="text" class="form-control" placeholder="请输入用户名" required="">
+                </div>
+                <div class="form-group">
+                    <input id="old_password" type="password" class="form-control" placeholder="请输入旧密码" required="">
+                </div>
+                <div class="form-group">
+                    <input id="new_password" type="password" class="form-control" placeholder="请输入新密码" required="">
+                </div>
+                <div class="form-group">
+                    <input id="new_password_2" type="password" class="form-control" placeholder="请再次输入新密码" required="">
+                </div>
+                <button onclick="submit()" class="btn btn-primary block full-width m-b">确定</button>
+
+                <p class="text-muted text-center"><small></small><a href="login.html">点此登录</a>
+                </p>
+
+<!--            </form>-->
+        </div>
+    </div>
+
+    <!-- 全局js -->
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.6"></script>
+    <!-- iCheck -->
+    <script src="js/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+
+       function submit() {
+            var username = $('#username').val();
+            var old_password = $('#old_password').val();
+            var new_password = $('#new_password').val();
+            var new_password_2 = $('#new_password_2').val();
+            if(username == null || username == '') {
+               alert('请输入用户名')
+               return;
+            }
+           if(old_password == null || old_password == '') {
+               alert('请输入旧密码')
+               return;
+           }
+           if(new_password == null || new_password == '') {
+               alert('请输入新密码')
+               return;
+           }
+            if(new_password != new_password_2) {
+                alert('新密码2次输入不一致')
+                return;
+            }
+            $.ajax({
+                url:"/manager/worker/changePassword",
+                dataType:"json",
+                type : "POST",
+                data : {
+                    sysName : username,
+                    password : old_password,
+                    newPassword : new_password
+                },
+                success : function(obj) {
+                    if (obj.data) {
+                        location.href = 'login.html';
+                    } else {
+                        alert('用户名或密码错误')
+                    }
+                },
+                error:function(obj) {
+                    alert(obj.data);
+                }
+            });
+       }
+    </script>
+
+    
+    
+
+</body>
+
+</html>

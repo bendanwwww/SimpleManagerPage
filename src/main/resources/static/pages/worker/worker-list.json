@@ -63,7 +63,7 @@
                   "label": "修改",
                   "level": "info",
                   "actionType": "link",
-                  "link": "/worker/${id}/edit"
+                  "link": "/worker/${id2}/edit"
                 },
                 {
                   "type": "button",
@@ -71,7 +71,7 @@
                   "level": "danger",
                   "actionType": "ajax",
                   "confirmText": "您确认要删除?",
-                  "api": "post:worker/delWorker?id=${id}"
+                  "api": "post:worker/delWorker?id=${id2}"
                 }
               ]
             }

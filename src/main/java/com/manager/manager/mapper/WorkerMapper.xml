@@ -4,7 +4,7 @@
 
 <mapper namespace="com.manager.manager.mapper.WorkerMapper">
     <sql id="columns">
-        id id , real_name realName , sys_name sysName , password password , wx_card wxCard , sex sex , age age , work_age workAge , city_code cityCode ,
+        id id , id id2 , real_name realName , sys_name sysName , password password , wx_card wxCard , sex sex , age age , work_age workAge , city_code cityCode ,
         city_name cityName , create_time createTime , update_time updateTime , delete_flag deleteFlag
     </sql>
 
@@ -51,6 +51,10 @@
         real_name = #{realName} , sys_name = #{sysName} , password = #{password} , wx_card = #{wxCard} , sex = #{sex} , age = #{age} ,
         work_age = #{workAge} , city_code = #{cityCode} , city_name = #{cityName} , update_time = #{updateTime} , delete_flag = #{deleteFlag}
         where id = #{id};
+    </update>
+
+    <update id="updatePassword" parameterType="com.manager.manager.domain.Worker">
+        update worker set password = #{password} where id = #{id};
     </update>
 
     <update id="delWorker">

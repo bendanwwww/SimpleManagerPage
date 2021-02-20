@@ -10,12 +10,22 @@ public class CityInfo {
 
     /** id */
     private int id;
+    /** id */
+    private int id2;
     /** 城市区号 */
     private String cityCode;
     /** 城市名称 */
     private String cityName;
     /** 删除标识 (0: 正常 1: 删除) */
     private int deleteFlag;
+
+    public int getId2() {
+        return id2;
+    }
+
+    public void setId2(int id2) {
+        this.id2 = id2;
+    }
 
     public int getId() {
         return id;

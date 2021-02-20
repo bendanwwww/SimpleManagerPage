@@ -1,6 +1,5 @@
 package com.manager.manager.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.manager.manager.common.ResultVo;
 import com.manager.manager.domain.Worker;
 import com.manager.manager.dto.WorkerDto;
@@ -71,6 +70,21 @@ public class WorkerController {
     public ResultVo<String> insertWorker(@RequestBody Worker worker) {
         workerService.insertWorker(worker);
         return ResultVo.build(() -> "success");
+    }
+
+    /**
+     * 修改员工密码
+     *
+     * @param sysName
+     * @param password
+     * @param newPassword
+     * @return
+     */
+    @RequestMapping(value = "changePassword", method = RequestMethod.POST)
+    public ResultVo<Boolean> changePassword(@RequestParam(value = "sysName") String sysName,
+                                           @RequestParam(value = "password") String password,
+                                           @RequestParam(value = "newPassword") String newPassword) {
+        return ResultVo.build(() -> workerService.changePassword(sysName, password, newPassword));
     }
 
     /**

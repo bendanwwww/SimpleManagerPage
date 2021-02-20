@@ -85,7 +85,7 @@
                   "label": "修改",
                   "level": "info",
                   "actionType": "link",
-                  "link": "/order/${id}/edit"
+                  "link": "/order/${id2}/edit"
                 }
               ]
             }

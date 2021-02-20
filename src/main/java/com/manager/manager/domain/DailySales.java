@@ -11,6 +11,8 @@ import java.util.Date;
 public class DailySales {
     /** id */
     private Integer id;
+    /** id */
+    private Integer id2;
     /** 职工id */
     private int workerId;
     /** 职工系统姓名 */
@@ -35,6 +37,14 @@ public class DailySales {
     private String isNewClient;
     /** 备注 */
     private String remark;
+
+    public Integer getId2() {
+        return id2;
+    }
+
+    public void setId2(Integer id2) {
+        this.id2 = id2;
+    }
 
     public int getId() {
         return id;

@@ -27,6 +27,8 @@ public interface WorkerMapper {
 
     void updateWorker(Worker worker);
 
+    void updatePassword(Worker worker);
+
     void delWorker(@Param(value = "id") int id);
     /**
      * @description: 通过id查询员工信息

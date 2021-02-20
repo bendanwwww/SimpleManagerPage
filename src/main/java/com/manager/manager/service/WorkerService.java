@@ -11,6 +11,7 @@ import com.manager.manager.vo.CityInfoVO;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ import java.util.stream.Collectors;
 @Service
 public class WorkerService {
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Autowired
     private WorkerMapper workerMapper;
     @Autowired
@@ -60,6 +63,25 @@ public class WorkerService {
     }
 
     /**
+     * 修改员工密码
+     * @param sysName
+     * @return
+     */
+    public boolean changePassword(String sysName, String password, String newPassword) {
+        List<Worker> workers = workerMapper.queryWorkerBySysName(sysName);
+        if(CollectionUtils.isEmpty(workers)) {
+            return false;
+        }
+        Worker worker = workers.get(0);
+        if(!passwordEncoder.matches(password, worker.getPassword())) {
+            return false;
+        }
+        worker.setPassword(passwordEncoder.encode(newPassword));
+        workerMapper.updatePassword(worker);
+        return true;
+    }
+
+    /**
      * @description: 新增员工信息
      * @author: mengwenyi
      * @date: 2021/2/7 16:44
@@ -69,6 +91,8 @@ public class WorkerService {
         if(cityInfo != null){
             worker.setCityName(cityInfo.getCityName());
         }
+        // 初始化员工密码
+        worker.setPassword(passwordEncoder.encode("123456"));
         workerMapper.insertWorker(worker);
     }
     /**

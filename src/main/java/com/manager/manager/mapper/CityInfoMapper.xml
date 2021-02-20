@@ -4,7 +4,7 @@
 
 <mapper namespace="com.manager.manager.mapper.CityInfoMapper">
     <sql id="columns">
-        id id , city_code cityCode , city_name cityName , delete_flag deleteFlag
+        id id , id id2 , city_code cityCode , city_name cityName , delete_flag deleteFlag
     </sql>
 
     <select id="queryCityList" resultType="com.manager.manager.domain.CityInfo">

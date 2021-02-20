@@ -44,6 +44,7 @@
       "type": "crud",
       "name": "order1",
       "api": "dailySales/queryOrderData",
+      "rowClassNameExpr": "<%= data.index <= 5 ? 'bg-danger' : '' %>",
       "columns": [
         {
           "name": "index",
