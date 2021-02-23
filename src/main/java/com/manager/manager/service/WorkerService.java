@@ -9,6 +9,7 @@ import com.manager.manager.mapper.CityInfoMapper;
 import com.manager.manager.mapper.WorkerMapper;
 import com.manager.manager.vo.CityInfoVO;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -88,8 +89,15 @@ public class WorkerService {
      */
     public void insertWorker(Worker worker) {
         CityInfo cityInfo = cityInfoMapper.queryCityByCityCode(worker.getCityCode());
-        if(cityInfo != null){
+        if(cityInfo != null) {
             worker.setCityName(cityInfo.getCityName());
+        }
+        // 查询是否有重名
+        Worker user = queryWorkerBySysName(worker.getRealName());
+        if(user == null || StringUtils.isBlank(user.getSysName())) {
+            worker.setSysName(worker.getRealName());
+        }else {
+            worker.setSysName(worker.getRealName() + worker.getCityCode() + System.currentTimeMillis() / 100);
         }
         // 初始化员工密码
         worker.setPassword(passwordEncoder.encode("123456"));
