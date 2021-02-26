@@ -35,4 +35,6 @@ public class ShowViewDto {
      * 每页大小
      */
     private int perPage;
+    /** 是否当天 */
+    private Integer isShowNow;
 }

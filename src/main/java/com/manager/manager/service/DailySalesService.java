@@ -8,16 +8,14 @@ import com.manager.manager.dto.DailySaleDto;
 import com.manager.manager.dto.ShowViewDto;
 import com.manager.manager.mapper.DailySalesMapper;
 import com.manager.manager.mapper.WorkerMapper;
+import com.manager.manager.util.DateUtils;
 import com.manager.manager.util.ListUtils;
 import com.manager.manager.vo.DailySalesVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * 职工业绩相关service
@@ -124,19 +122,50 @@ public class DailySalesService {
         List<DailySales> list = dailySalesMapper.queryPersonalData(showViewDto);
         List<Integer> workerIdList = ListUtils.fetchFieldValue(list, "workerId");
         List<Worker> workerList = workerMapper.queryWorkerByIdList(workerIdList);
+        showViewDto.setIsShowNow(1);
+        List<DailySales> dailySales = dailySalesMapper.queryPersonalData(showViewDto);
         List<DailySalesVo> dailySalesVoList = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
             DailySalesVo dailySalesVo = new DailySalesVo();
             BeanUtils.copyProperties(list.get(i), dailySalesVo);
-            dailySalesVo.setIndex(i + 1);
             Worker worker = ListUtils.findEntityByFieldValue(workerList, "id", dailySalesVo.getWorkerId() + "");
             if(worker != null){
                 dailySalesVo.setWorkAge(worker.getWorkAge());
                 dailySalesVo.setAge(worker.getAge());
+                dailySalesVo.setCityName(worker.getCityName());
+            }
+            dailySalesVo.setDailySaleAmount(0);
+            dailySalesVo.setDailyProfile(0);
+            DailySales dailySales1 = ListUtils.findEntityByFieldValue(dailySales, "workerId", dailySalesVo.getWorkerId() + "");
+            if(dailySales1 != null){
+                dailySalesVo.setDailySaleAmount(dailySales1.getSaleAmount());
+                dailySalesVo.setDailyProfile(dailySales1.getProfile());
             }
             dailySalesVoList.add(dailySalesVo);
         }
+        Collections.sort(dailySalesVoList, new Comparator<DailySalesVo>() {
+            @Override
+            public int compare(DailySalesVo o1, DailySalesVo o2) {
+                if(o1.getDailyProfile() - o2.getDailyProfile() <= 0){
+                    return 1;
+                }else{
+                    return -1;
+                }
+            }
+        });
+        for (int i = 0; i < dailySalesVoList.size(); i++) {
+            dailySalesVoList.get(i).setIndex(i + 1);
+        }
         return ResultVo.build(() -> dailySalesVoList);
 
+    }
+
+    /**
+     * @description: 删除工单
+     * @author: mengwenyi
+     * @date: 2021/2/7 16:43
+     */
+    public void delDailySales(int id) {
+        dailySalesMapper.delDailySales(id);
     }
 }

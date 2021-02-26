@@ -37,6 +37,8 @@ public class DailySales {
     private String isNewClient;
     /** 备注 */
     private String remark;
+    /** 删除标识 (0: 正常 1: 删除) */
+    private int deleteFlag;
 
     public Integer getId2() {
         return id2;
@@ -148,5 +150,17 @@ public class DailySales {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public int getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(int deleteFlag) {
+        this.deleteFlag = deleteFlag;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @description:
@@ -65,6 +66,11 @@ public class DailySaleDto {
     public int getStartRow() {
         return perPage * (page - 1);
     }
-
+    /**
+     * 员工id列表
+     */
+    private List<Integer> workerIdList;
+    /** 删除标识 (0: 正常 1: 删除) */
+    private int deleteFlag;
 
 }

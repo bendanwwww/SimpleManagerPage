@@ -43,4 +43,10 @@ public class DailySalesVo {
     private Integer age;
     /** 排名 */
     private Integer index;
+    /** 城市 */
+    private String cityName;
+    /** 日销量 */
+    private double dailySaleAmount;
+    /** 日利润 */
+    private double dailyProfile;
 }

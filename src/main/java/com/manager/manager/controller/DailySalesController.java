@@ -86,5 +86,15 @@ public class DailySalesController {
 	public ResultVo<DailySalesVo> queryOrderData(ShowViewDto showViewDto) {
 		return dailySalesService.queryOrderData(showViewDto);
 	}
+	/**
+	 * @description: 删除工单
+	 * @author: mengwenyi
+	 * @date: 2021/2/26 15:07
+	 */
+	@RequestMapping(value = "delDailySales", method = RequestMethod.POST)
+	public ResultVo<String> delDailySales(@RequestParam(value = "id") int id) {
+		dailySalesService.delDailySales(id);
+		return ResultVo.build(() -> "success");
+	}
 
 }

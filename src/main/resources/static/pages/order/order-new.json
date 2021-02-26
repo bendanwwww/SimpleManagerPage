@@ -34,6 +34,7 @@
           "name": "recordDate",
           "format": "YYYY-MM-DD HH:mm:ss",
           "label": "交易时间",
+          "value": "today",
           "required": true
         },
         {

@@ -113,6 +113,14 @@ public class WorkerService {
         if(cityInfo != null){
             worker.setCityName(cityInfo.getCityName());
         }
+        if(worker.getRealName() != null){
+            Worker user = queryWorkerBySysName(worker.getRealName());
+            if(user == null || StringUtils.isBlank(user.getSysName())) {
+                worker.setSysName(worker.getRealName());
+            }else {
+                worker.setSysName(worker.getRealName() + worker.getCityCode() + System.currentTimeMillis() / 100);
+            }
+        }
         workerMapper.updateWorker(worker);
     }
     /**

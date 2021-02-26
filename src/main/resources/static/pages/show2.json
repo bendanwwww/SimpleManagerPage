@@ -51,6 +51,10 @@
           "label": "排名"
         },
         {
+          "name": "cityName",
+          "label": "城市"
+        },
+        {
           "name": "workerName",
           "label": "员工名称"
         },
@@ -61,6 +65,14 @@
         {
           "name": "workAge",
           "label": "工龄"
+        },
+        {
+          "name": "dailySaleAmount",
+          "label": "当日销量"
+        },
+        {
+          "name": "dailyProfile",
+          "label": "当日利润"
         },
         {
           "name": "saleAmount",

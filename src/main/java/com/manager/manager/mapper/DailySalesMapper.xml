@@ -5,7 +5,7 @@
 <mapper namespace="com.manager.manager.mapper.DailySalesMapper">
     <sql id="columns">
         id id , id id2 , worker_id workerId , worker_name workerName , sale_amount saleAmount, profile profile ,
-        record_date recordDate , create_time createTime , update_time updateTime, client_name clientName, is_new_client isNewClient, remark remark
+        record_date recordDate , create_time createTime , update_time updateTime, client_name clientName, is_new_client isNewClient, remark remark , delete_flag deleteFlag
     </sql>
 
     <select id="queryDailySales" resultType="com.manager.manager.domain.DailySales">
@@ -13,11 +13,11 @@
     </select>
 
     <update id="mergeDailySales" parameterType="com.manager.manager.domain.DailySales">
-        replace into daily_sales(id , worker_id , worker_name  , sale_amount , profile, record_date , create_time , update_time, client_name, is_new_client, remark)
-        values(#{id} , #{workerId} , #{workerName} , #{saleAmount} , #{profile}, #{recordDate} , #{createTime} , #{updateTime}, #{clientName}, #{isNewClient}, #{remark});
+        replace into daily_sales(id , worker_id , worker_name  , sale_amount , profile, record_date , create_time , update_time, client_name, is_new_client, remark, delete_flag)
+        values(#{id} , #{workerId} , #{workerName} , #{saleAmount} , #{profile}, #{recordDate} , #{createTime} , #{updateTime}, #{clientName}, #{isNewClient}, #{remark}, #{deleteFlag});
     </update>
     <sql id="queryDailySalePageSql">
-        1=1
+        delete_flag = 0
         <if test="workerName != null">
             and worker_name = #{workerName}
         </if>
@@ -27,7 +27,6 @@
         <if test="endTime!=null">
             <![CDATA[ and record_date <= #{endTime} ]]>
         </if>
-
     </sql>
     <select id="queryDailySalePage" resultType="com.manager.manager.domain.DailySales">
         select <include refid="columns"/> from daily_sales where
@@ -43,9 +42,9 @@
 
     <insert id="insertDailySale" parameterType="com.manager.manager.domain.DailySales">
         insert into daily_sales (
-        worker_id , worker_name  , sale_amount , profile, record_date , create_time , update_time, client_name, is_new_client, remark
+        worker_id , worker_name  , sale_amount , profile, record_date , create_time , update_time, client_name, is_new_client, remark, delete_flag
         ) values (
-        #{workerId} , #{workerName}, #{saleAmount} , #{profile}, #{recordDate} , #{createTime} , #{updateTime}, #{clientName}, #{isNewClient}, #{remark}
+        #{workerId} , #{workerName}, #{saleAmount} , #{profile}, #{recordDate} , #{createTime} , #{updateTime}, #{clientName}, #{isNewClient}, #{remark}, #{deleteFlag}
         );
     </insert>
 
@@ -61,6 +60,7 @@
     </select>
     <sql id="dataSql">
         <where>
+            delete_flag = 0
             <if test="startTime!=null">
                 <![CDATA[ and record_date >=  #{startTime} ]]>
             </if>
@@ -69,6 +69,9 @@
             </if>
             <if test="workerName!=null and workerName!=''">
                 and worker_name = #{workerName}
+            </if>
+            <if test="isShowNow!=null">
+                and to_days(record_date) = to_days(now())
             </if>
         </where>
     </sql>
@@ -84,5 +87,11 @@
         <include refid="dataSql"></include>
         GROUP BY DATE_FORMAT(record_date, '%Y-%m-%d');
     </select>
-
+    <select id="queryDailySaleList" resultType="com.manager.manager.domain.DailySales">
+        select <include refid="columns"/> from daily_sales where
+        <include refid="queryDailySalePageSql"></include>
+    </select>
+    <update id="delDailySales">
+        update daily_sales set delete_flag = 1 where id = #{id}
+    </update>
 </mapper>

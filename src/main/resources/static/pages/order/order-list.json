@@ -61,6 +61,15 @@
           "label": "客户名称"
         },
         {
+          "name": "isNewClient",
+          "label": "是否是新客户",
+          "type": "mapping",
+          "map": {
+            "0": "<span class='label label-danger'>否</span>",
+            "1": "<span class='label label-success'>是</span>"
+          }
+        },
+        {
           "name": "recordDate",
           "label": "记录时间"
         },
@@ -86,6 +95,14 @@
                   "level": "info",
                   "actionType": "link",
                   "link": "/order/${id2}/edit"
+                },
+                {
+                  "type": "button",
+                  "label": "删除",
+                  "level": "danger",
+                  "actionType": "ajax",
+                  "confirmText": "您确认要删除?",
+                  "api": "post:dailySales/delDailySales?id=${id2}"
                 }
               ]
             }

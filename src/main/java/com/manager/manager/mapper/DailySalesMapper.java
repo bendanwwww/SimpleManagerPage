@@ -59,6 +59,16 @@ public interface DailySalesMapper {
      * @date: 2021/2/15 15:56
      */
     List<DailySales> queryByDate(ShowViewDto showViewDto);
-
-
+    /**
+     * @description:
+     * @author: mengwenyi
+     * @date: 2021/2/26 13:49
+     */
+    List<DailySales> queryDailySaleList(DailySaleDto dailySaleDto);
+    /**
+     * @description: 删除工单
+     * @author: mengwenyi
+     * @date: 2021/2/26 15:00
+     */
+    void delDailySales(@Param(value = "id") int id);
 }
