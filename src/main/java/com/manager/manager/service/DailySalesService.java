@@ -119,12 +119,15 @@ public class DailySalesService {
      * @date: 2021/2/18 19:31
      */
     public ResultVo queryOrderData(ShowViewDto showViewDto) {
+        List<DailySalesVo> dailySalesVoList = new ArrayList<>();
         List<DailySales> list = dailySalesMapper.queryPersonalData(showViewDto);
+        if(ListUtils.isEmpty(list)){
+            return ResultVo.build(() -> dailySalesVoList);
+        }
         List<Integer> workerIdList = ListUtils.fetchFieldValue(list, "workerId");
         List<Worker> workerList = workerMapper.queryWorkerByIdList(workerIdList);
         showViewDto.setIsShowNow(1);
         List<DailySales> dailySales = dailySalesMapper.queryPersonalData(showViewDto);
-        List<DailySalesVo> dailySalesVoList = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
             DailySalesVo dailySalesVo = new DailySalesVo();
             BeanUtils.copyProperties(list.get(i), dailySalesVo);
