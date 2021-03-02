@@ -49,4 +49,6 @@ public class DailySalesVo {
     private double dailySaleAmount;
     /** 日利润 */
     private double dailyProfile;
+    /** 当前时间 */
+    private String nowTime;
 }

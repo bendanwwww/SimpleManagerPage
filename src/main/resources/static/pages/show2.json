@@ -67,6 +67,10 @@
           "label": "工龄"
         },
         {
+          "name": "nowTime",
+          "label": "当前时间"
+        },
+        {
           "name": "dailySaleAmount",
           "label": "当日销量"
         },

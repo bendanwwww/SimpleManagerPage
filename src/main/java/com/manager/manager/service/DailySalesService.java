@@ -131,6 +131,7 @@ public class DailySalesService {
         for (int i = 0; i < list.size(); i++) {
             DailySalesVo dailySalesVo = new DailySalesVo();
             BeanUtils.copyProperties(list.get(i), dailySalesVo);
+            dailySalesVo.setNowTime(DateUtils.changeToString(new Date(), DateUtils.FORMATE_2));
             Worker worker = ListUtils.findEntityByFieldValue(workerList, "id", dailySalesVo.getWorkerId() + "");
             if(worker != null){
                 dailySalesVo.setWorkAge(worker.getWorkAge());
