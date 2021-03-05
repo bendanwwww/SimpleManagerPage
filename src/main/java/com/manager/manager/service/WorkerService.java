@@ -115,7 +115,7 @@ public class WorkerService {
         }
         if(worker.getRealName() != null){
             Worker user = queryWorkerBySysName(worker.getRealName());
-            if(user.getId() == worker.getId()){//自己本身
+            if(user!= null && user.getRealName() !=null && user.getId() == worker.getId()){//自己本身
                 worker.setSysName(worker.getRealName());
             }else{
                 if(user == null || StringUtils.isBlank(user.getSysName())) {
