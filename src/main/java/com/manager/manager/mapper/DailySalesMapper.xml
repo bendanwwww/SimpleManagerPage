@@ -79,7 +79,7 @@
         select worker_id workerId,worker_name workerName,SUM(`profile`) profile,SUM(`sale_amount`) saleAmount
         from daily_sales
         <include refid="dataSql"></include>
-        GROUP BY worker_id order by SUM(`profile`) desc;
+        GROUP BY worker_id order by SUM(`sale_amount`) desc;
     </select>
 
     <select id="queryByDate" resultType="com.manager.manager.domain.DailySales" parameterType="com.manager.manager.dto.ShowViewDto">
