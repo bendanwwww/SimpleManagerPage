@@ -115,11 +115,16 @@ public class WorkerService {
         }
         if(worker.getRealName() != null){
             Worker user = queryWorkerBySysName(worker.getRealName());
-            if(user == null || StringUtils.isBlank(user.getSysName())) {
+            if(user.getId() == worker.getId()){//自己本身
                 worker.setSysName(worker.getRealName());
-            }else {
-                worker.setSysName(worker.getRealName() + worker.getCityCode() + System.currentTimeMillis() / 100);
+            }else{
+                if(user == null || StringUtils.isBlank(user.getSysName())) {
+                    worker.setSysName(worker.getRealName());
+                }else {
+                    worker.setSysName(worker.getRealName() + worker.getCityCode() + System.currentTimeMillis() / 100);
+                }
             }
+
         }
         workerMapper.updateWorker(worker);
     }
