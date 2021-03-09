@@ -150,9 +150,11 @@ public class DailySalesService {
         Collections.sort(dailySalesVoList, new Comparator<DailySalesVo>() {
             @Override
             public int compare(DailySalesVo o1, DailySalesVo o2) {
-                if(o1.getDailySaleAmount() - o2.getDailySaleAmount() <= 0){
+                if(o1.getDailySaleAmount() - o2.getDailySaleAmount() < 0){
                     return 1;
-                }else{
+                } else if(o1.getDailySaleAmount() - o2.getDailySaleAmount() == 0){
+                    return 0;
+                } else{
                     return -1;
                 }
             }

@@ -7,7 +7,7 @@
     {
       "type": "form",
       "title": "过滤条件",
-      "target": "order1",
+      "target": "show",
       "submitOnInit": true,
       "className": "m-b",
       "wrapWithPanel": false,
