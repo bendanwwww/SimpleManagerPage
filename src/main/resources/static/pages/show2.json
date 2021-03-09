@@ -49,7 +49,14 @@
       "columns": [
         {
           "name": "index",
-          "label": "排名"
+          "label": "排名",
+          "type": "mapping",
+          "map": {
+            "1": "<img src='img/jinpai.png',  alt='金牌' style='width:21px;height:21px;'/>1",
+            "2": "<img src='img/yinpai.png',  alt='银牌' style='width:21px;height:21px;'/>2",
+            "3": "<img src='img/tongpai.png',  alt='铜牌' style='width:21px;height:21px;'/>3",
+            "*": "${index}"
+          }
         },
         {
           "name": "cityName",

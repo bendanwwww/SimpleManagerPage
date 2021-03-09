@@ -130,7 +130,6 @@
         //列表自动滚动
         function scrollNews() {
             var $news = $('#a-Table-table table-db table-striped');
-            console.log($news);
             var $lineHeight = $news.find('tr:first').height();
             $news.animate({ 'marginTop': -$lineHeight + 'px' }, 1000, function () {
                 $news.css({ margin: 0 }).find('tr:first').appendTo($news);
