@@ -102,8 +102,16 @@
       "headerClassName": "crud-table-header",
       "footerClassName": "crud-table-footer",
       "toolbarClassName": "crud-table-toolbar",
-      "headerToolbar": [
-        "statistics"
+      "affixRow": [
+        {
+          "type": "text",
+          "text": "当日销量总计",
+          "colSpan": 6
+        },
+        {
+          "type": "tpl",
+          "tpl": "${items|pick:dailySaleAmount|sum}"
+        }
       ],
       "combineNum": 0,
       "bodyClassName": "panel-default",
