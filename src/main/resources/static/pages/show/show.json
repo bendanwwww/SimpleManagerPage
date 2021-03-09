@@ -2,7 +2,7 @@
   "type": "page",
   "title": "列表",
   "remark": null,
-  "name": "order1",
+  "name": "show",
   "body": [
     {
       "type": "form",
