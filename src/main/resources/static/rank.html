@@ -1,0 +1,277 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>销售管理系统</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link rel="stylesheet" title="default" href="https://manager-lsy.oss-cn-beijing.aliyuncs.com/manager/sdk/sdk.css">
+    <link rel="stylesheet" href="https://manager-lsy.oss-cn-beijing.aliyuncs.com/manager/sdk/helper.css">
+    <script src="https://manager-lsy.oss-cn-beijing.aliyuncs.com/manager/sdk/sdk.js"></script>
+    <script src="https://manager-lsy.oss-cn-beijing.aliyuncs.com/manager/sdk/vue2.js"></script>
+    <script src="https://manager-lsy.oss-cn-beijing.aliyuncs.com/manager/sdk/jquery.js"></script>
+    <style>
+        html,
+        body,
+        .app-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url:"/manager/dailySales/queryOrderData",
+                dataType:"json",
+                type : "POST",
+                success : function(obj) {
+                    for(var i = 0; i < obj.data.length ; i++) {
+                        var img = "";
+                        if(i == 0) {
+                            img = "<img src=\"img/jinpai.png\" ,=\"\" alt=\"金牌\" style=\"width:21px;height:21px;\">";
+                        }
+                        if(i == 1) {
+                            img = "<img src=\"img/yinpai.png\" ,=\"\" alt=\"银牌\" style=\"width:21px;height:21px;\">";
+                        }
+                        if(i == 2) {
+                            img = "<img src=\"img/tongpai.png\" ,=\"\" alt=\"铜牌\" style=\"width:21px;height:21px;\">";
+                        }
+                        var tr_class = "a-Table-tr--odd a-Table-tr--1th";
+                        if(i < 5) {
+                            tr_class = "bg-danger a-Table-tr--odd a-Table-tr--1th";
+                        }
+                        $('.tbody').append("<tr data-index=\"0\" data-id=\"6b8020722314\" class=\""+ tr_class +"\">" +
+                            " <td>" +
+                            " <span class=\"a-MappingField\"><span class=\"a-TplField\">" +
+                            " <span>"+ img + (i + 1) +"</span>" +
+                            " </span></span>" +
+                            " </td>" +
+                            " <td><span class=\"a-PlainField\">"+ obj.data[i].cityName +"</span></td>" +
+                            " <td><span class=\"a-PlainField\">"+ obj.data[i].workerName +"</span></td>" +
+                            " <td><span class=\"a-PlainField\">"+ obj.data[i].age +"</span></td>" +
+                            " <td><span class=\"a-PlainField\">"+ obj.data[i].workAge +"</span></td>" +
+                            " <td><span class=\"a-PlainField\">"+ obj.data[i].nowTime +"</span></td>" +
+                            " <td><span class=\"a-PlainField\">"+ obj.data[i].dailySaleAmount +"</span></td>" +
+                            " <td><span class=\"a-PlainField\">"+ obj.data[i].dailyProfile +"</span></td>" +
+                            " <td><span class=\"a-PlainField\">"+ obj.data[i].saleAmount +"</span></td>" +
+                            " <td><span class=\"a-PlainField\">"+ obj.data[i].profile +"</span></td>" +
+                            " </tr>");
+                    }
+                },
+                error:function(obj) {
+                    alert(obj.data);
+                }
+            });
+        });
+
+        var doscroll = function () {
+            var $parent = $('.tbody');
+            var $first = $parent.find('tr:first');
+            var height = $first.height();
+            $first.animate({
+                marginTop: -height + 'px'
+            }, 500, function () {
+                $first.css('marginTop', 0).appendTo($parent);
+            });
+        };
+        setInterval(function () {
+            doscroll()
+        }, 1500);
+    </script>
+</head>
+<body>
+<div id="root" class="app-wrapper amis-scope">
+    <div class="amis-routes-wrapper">
+        <div class="a-Toast-wrap a-Toast-wrap--topRight"></div>
+        <div class="a-Layout a-Layout--withAside a-Layout--headerFixed a-Layout--asideFixed a-Layout--noFooter">
+            <div class="a-Layout-content" role="main">
+                <div class="a-Layout-body">
+                    <div class="a-Page">
+                        <div class="a-Page-content">
+                            <div class="a-Page-main">
+                                <div class="a-Page-body">
+                                    <div class="a-Crud">
+                                        <div class="a-Table a-Crud-body panel-default">
+                                            <div class="a-Table-contentWrap">
+                                                <div class="a-Table-fixedLeft"></div>
+                                                <div class="a-Table-fixedRight"></div>
+                                                <div class="a-Table-content" style="position: relative;">
+                                                    <table class="a-Table-table table-db table-striped">
+                                                        <thead>
+                                                        <tr class="">
+                                                            <th data-index="3" class="">
+                                                                <div class="a-TableCell--title"><span
+                                                                        class="a-TplField"><span>排名</span></span></div>
+                                                            </th>
+                                                            <th data-index="4" class="">
+                                                                <div class="a-TableCell--title"><span
+                                                                        class="a-TplField"><span>城市</span></span></div>
+                                                            </th>
+                                                            <th data-index="5" class="">
+                                                                <div class="a-TableCell--title"><span
+                                                                        class="a-TplField"><span>员工名称</span></span>
+                                                                </div>
+                                                            </th>
+                                                            <th data-index="6" class="">
+                                                                <div class="a-TableCell--title"><span
+                                                                        class="a-TplField"><span>年龄</span></span></div>
+                                                            </th>
+                                                            <th data-index="7" class="">
+                                                                <div class="a-TableCell--title"><span
+                                                                        class="a-TplField"><span>工龄</span></span></div>
+                                                            </th>
+                                                            <th data-index="8" class="">
+                                                                <div class="a-TableCell--title"><span
+                                                                        class="a-TplField"><span>当前时间</span></span>
+                                                                </div>
+                                                            </th>
+                                                            <th data-index="9" class="">
+                                                                <div class="a-TableCell--title"><span
+                                                                        class="a-TplField"><span>当日销量</span></span>
+                                                                </div>
+                                                            </th>
+                                                            <th data-index="10" class="">
+                                                                <div class="a-TableCell--title"><span
+                                                                        class="a-TplField"><span>当日利润</span></span>
+                                                                </div>
+                                                            </th>
+                                                            <th data-index="11" class="">
+                                                                <div class="a-TableCell--title"><span
+                                                                        class="a-TplField"><span>销量</span></span></div>
+                                                            </th>
+                                                            <th data-index="12" class="">
+                                                                <div class="a-TableCell--title"><span
+                                                                        class="a-TplField"><span>利润</span></span></div>
+                                                            </th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody class="tbody">
+<!--                                                        <tr data-index="0" data-id="6b8020722314"-->
+<!--                                                            class="bg-danger a-Table-tr&#45;&#45;odd a-Table-tr&#45;&#45;1th">-->
+<!--                                                            <td><span class="a-MappingField"><span-->
+<!--                                                                    class="a-TplField"><span><img src="img/jinpai.png"-->
+<!--                                                                                                  ,="" alt="金牌"-->
+<!--                                                                                                  style="width:21px;height:21px;">1</span></span></span>-->
+<!--                                                            </td>-->
+<!--                                                            <td><span class="a-PlainField">西安鑫钢源</span></td>-->
+<!--                                                            <td><span class="a-PlainField">韩明</span></td>-->
+<!--                                                            <td><span class="a-PlainField">25</span></td>-->
+<!--                                                            <td><span class="a-PlainField">2</span></td>-->
+<!--                                                            <td><span class="a-PlainField">2021-03-10</span></td>-->
+<!--                                                            <td><span class="a-PlainField">155.37</span></td>-->
+<!--                                                            <td><span class="a-PlainField">0</span></td>-->
+<!--                                                            <td><span class="a-PlainField">155.37</span></td>-->
+<!--                                                            <td><span class="a-PlainField">0</span></td>-->
+<!--                                                        </tr>-->
+<!--                                                        <tr data-index="1" data-id="6ee08a811c53"-->
+<!--                                                            class="bg-danger a-Table-tr&#45;&#45;even a-Table-tr&#45;&#45;1th">-->
+<!--                                                            <td><span class="a-MappingField"><span-->
+<!--                                                                    class="a-TplField"><span><img src="img/yinpai.png"-->
+<!--                                                                                                  ,="" alt="银牌"-->
+<!--                                                                                                  style="width:21px;height:21px;">2</span></span></span>-->
+<!--                                                            </td>-->
+<!--                                                            <td><span class="a-PlainField">南昌沧海</span></td>-->
+<!--                                                            <td><span class="a-PlainField">褚程坤</span></td>-->
+<!--                                                            <td><span class="a-PlainField">22</span></td>-->
+<!--                                                            <td><span class="a-PlainField">3</span></td>-->
+<!--                                                            <td><span class="a-PlainField">2021-03-10</span></td>-->
+<!--                                                            <td><span class="a-PlainField">114</span></td>-->
+<!--                                                            <td><span class="a-PlainField">0</span></td>-->
+<!--                                                            <td><span class="a-PlainField">343.12</span></td>-->
+<!--                                                            <td><span class="a-PlainField">0</span></td>-->
+<!--                                                        </tr>-->
+<!--                                                        <tr data-index="2" data-id="fad92eea9030"-->
+<!--                                                            class="bg-danger a-Table-tr&#45;&#45;odd a-Table-tr&#45;&#45;1th">-->
+<!--                                                            <td><span class="a-MappingField"><span-->
+<!--                                                                    class="a-TplField"><span><img src="img/tongpai.png"-->
+<!--                                                                                                  ,="" alt="铜牌"-->
+<!--                                                                                                  style="width:21px;height:21px;">3</span></span></span>-->
+<!--                                                            </td>-->
+<!--                                                            <td><span class="a-PlainField">西安鑫钢源</span></td>-->
+<!--                                                            <td><span class="a-PlainField">张武桐</span></td>-->
+<!--                                                            <td><span class="a-PlainField">22</span></td>-->
+<!--                                                            <td><span class="a-PlainField">3</span></td>-->
+<!--                                                            <td><span class="a-PlainField">2021-03-10</span></td>-->
+<!--                                                            <td><span class="a-PlainField">60.78</span></td>-->
+<!--                                                            <td><span class="a-PlainField">0</span></td>-->
+<!--                                                            <td><span class="a-PlainField">67.18</span></td>-->
+<!--                                                            <td><span class="a-PlainField">0</span></td>-->
+<!--                                                        </tr>-->
+<!--                                                        <tr data-index="3" data-id="e31cab304d76"-->
+<!--                                                            class="bg-danger a-Table-tr&#45;&#45;even a-Table-tr&#45;&#45;1th">-->
+<!--                                                            <td><span class="a-MappingField"><span-->
+<!--                                                                    class="a-TplField"><span>4</span></span></span></td>-->
+<!--                                                            <td><span class="a-PlainField">西安鑫钢源</span></td>-->
+<!--                                                            <td><span class="a-PlainField">李路</span></td>-->
+<!--                                                            <td><span class="a-PlainField">27</span></td>-->
+<!--                                                            <td><span class="a-PlainField">2</span></td>-->
+<!--                                                            <td><span class="a-PlainField">2021-03-10</span></td>-->
+<!--                                                            <td><span class="a-PlainField">51.56</span></td>-->
+<!--                                                            <td><span class="a-PlainField">0</span></td>-->
+<!--                                                            <td><span class="a-PlainField">73.58</span></td>-->
+<!--                                                            <td><span class="a-PlainField">0</span></td>-->
+<!--                                                        </tr>-->
+<!--                                                        <tr data-index="4" data-id="b81c298ab86d"-->
+<!--                                                            class="bg-danger a-Table-tr&#45;&#45;odd a-Table-tr&#45;&#45;1th">-->
+<!--                                                            <td><span class="a-MappingField"><span-->
+<!--                                                                    class="a-TplField"><span>5</span></span></span></td>-->
+<!--                                                            <td><span class="a-PlainField">成都钢源</span></td>-->
+<!--                                                            <td><span class="a-PlainField">付保光</span></td>-->
+<!--                                                            <td><span class="a-PlainField">34</span></td>-->
+<!--                                                            <td><span class="a-PlainField">3</span></td>-->
+<!--                                                            <td><span class="a-PlainField">2021-03-10</span></td>-->
+<!--                                                            <td><span class="a-PlainField">37.5</span></td>-->
+<!--                                                            <td><span class="a-PlainField">0</span></td>-->
+<!--                                                            <td><span class="a-PlainField">88.6</span></td>-->
+<!--                                                            <td><span class="a-PlainField">0</span></td>-->
+<!--                                                        </tr>-->
+<!--                                                        <tr data-index="5" data-id="fe378d963bc2"-->
+<!--                                                            class="a-Table-tr&#45;&#45;even a-Table-tr&#45;&#45;1th">-->
+<!--                                                            <td><span class="a-MappingField"><span-->
+<!--                                                                    class="a-TplField"><span>6</span></span></span></td>-->
+<!--                                                            <td><span class="a-PlainField">南昌沧海</span></td>-->
+<!--                                                            <td><span class="a-PlainField">褚成林</span></td>-->
+<!--                                                            <td><span class="a-PlainField">26</span></td>-->
+<!--                                                            <td><span class="a-PlainField">3</span></td>-->
+<!--                                                            <td><span class="a-PlainField">2021-03-10</span></td>-->
+<!--                                                            <td><span class="a-PlainField">36.6</span></td>-->
+<!--                                                            <td><span class="a-PlainField">0</span></td>-->
+<!--                                                            <td><span class="a-PlainField">89.87</span></td>-->
+<!--                                                            <td><span class="a-PlainField">0</span></td>-->
+<!--                                                        </tr>-->
+<!--
+
+<!--                                                            <td><span class="a-MappingField"><span-->
+<!--                                                                    class="a-TplField"><span>7</span></span></span></td>-->
+<!--                                                            <td><span class="a-PlainField">南昌沧海</span></td>-->
+<!--                                                            <td><span class="a-PlainField">王志强</span></td>-->
+<!--                                                            <td><span class="a-PlainField">25</span></td>-->
+<!--                                                            <td><span class="a-PlainField">7</span></td>-->
+<!--                                                            <td><span class="a-PlainField">2021-03-10</span></td>-->
+<!--                                                            <td><span class="a-PlainField">29.1</span></td>-->
+<!--                                                            <td><span class="a-PlainField">0</span></td>-->
+<!--                                                            <td><span class="a-PlainField">468.99</span></td>-->
+<!--                                                            <td><span class="a-PlainField">0</span></td>-->
+<!--                                                        </tr>-->
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
