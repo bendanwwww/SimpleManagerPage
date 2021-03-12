@@ -36,6 +36,12 @@
             "label": "搜索",
             "level": "primary"
           }
+        },
+        {
+          "type": "static-link",
+          "href": "/manager/rank.html",
+          "body": "数据展示",
+          "blank": true
         }
       ],
       "actions": []
@@ -103,15 +109,28 @@
       "footerClassName": "crud-table-footer",
       "toolbarClassName": "crud-table-toolbar",
       "affixRow": [
-        {
-          "type": "text",
-          "text": "当日销量总计",
-          "colSpan": 6
-        },
-        {
-          "type": "tpl",
-          "tpl": "${items|pick:dailySaleAmount|sum}"
-        }
+        [
+          {
+            "type": "text",
+            "text": "当日销量总计",
+            "colSpan": 6
+          },
+          {
+            "type": "tpl",
+            "tpl": "${items|pick:dailySaleAmount|sum}"
+          }
+        ],
+        [
+          {
+            "type": "text",
+            "text": "总销量总计",
+            "colSpan": 8
+          },
+          {
+            "type": "tpl",
+            "tpl": "${items|pick:saleAmount|sum}"
+          }
+        ]
       ],
       "combineNum": 0,
       "bodyClassName": "panel-default",

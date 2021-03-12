@@ -28,6 +28,9 @@
                 dataType:"json",
                 type : "POST",
                 success : function(obj) {
+                    var totalDailySaleAmount = 0;
+                    var totalSaleAmount = 0;
+
                     for(var i = 0; i < obj.data.length ; i++) {
                         var img = "";
                         if(i == 0) {
@@ -58,6 +61,26 @@
                             " <td><span class=\"a-PlainField\">"+ obj.data[i].dailyProfile +"</span></td>" +
                             " <td><span class=\"a-PlainField\">"+ obj.data[i].saleAmount +"</span></td>" +
                             " <td><span class=\"a-PlainField\">"+ obj.data[i].profile +"</span></td>" +
+                            " </tr>");
+                        totalDailySaleAmount += obj.data[i].dailySaleAmount;
+                        totalSaleAmount += obj.data[i].saleAmount;
+                    }
+                    if(obj.data.length > 0){
+                        $('.tbody').append("<tr data-index=\"0\" data-id=\"6b8020722314\" class=\""+ tr_class +"\">" +
+                            " <td>" +
+                            " <span class=\"a-MappingField\"><span class=\"a-TplField\">" +
+                            " <span>总计</span>" +
+                            " </span></span>" +
+                            " </td>" +
+                            " <td><span class=\"a-PlainField\"></span></td>" +
+                            " <td><span class=\"a-PlainField\"></span></td>" +
+                            " <td><span class=\"a-PlainField\"></span></td>" +
+                            " <td><span class=\"a-PlainField\"></span></td>" +
+                            " <td><span class=\"a-PlainField\"></span></td>" +
+                            " <td><span class=\"a-PlainField\">"+ totalDailySaleAmount +"</span></td>" +
+                            " <td><span class=\"a-PlainField\"></span></td>" +
+                            " <td><span class=\"a-PlainField\">"+ totalSaleAmount +"</span></td>" +
+                            " <td><span class=\"a-PlainField\"></span></td>" +
                             " </tr>");
                     }
                 },
