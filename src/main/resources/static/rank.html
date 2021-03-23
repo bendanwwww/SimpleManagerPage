@@ -46,21 +46,25 @@
                         if (i < 5) {
                             tr_class = "bg-danger a-Table-tr--odd a-Table-tr--1th";
                         }
+                        var new_worker_class = "";
+                        if (obj.data[i].workAge < 2) {
+                            new_worker_class = "style='color:#66ff66'";
+                        }
                         $('.tbody').append("<tr data-index=\"0\" data-id=\"6b8020722314\" class=\"" + tr_class + "\">" +
                             " <td>" +
                             " <span class=\"a-MappingField\"><span class=\"a-TplField\">" +
                             " <span>" + img + (i + 1) + "</span>" +
                             " </span></span>" +
                             " </td>" +
-                            " <td><span class=\"a-PlainField\">" + obj.data[i].cityName + "</span></td>" +
-                            " <td><span class=\"a-PlainField\">" + obj.data[i].workerName + "</span></td>" +
-                            " <td><span class=\"a-PlainField\">" + obj.data[i].age + "</span></td>" +
-                            " <td><span class=\"a-PlainField\">" + obj.data[i].workAge + "</span></td>" +
-                            " <td><span class=\"a-PlainField\">" + obj.data[i].nowTime + "</span></td>" +
-                            " <td><span class=\"a-PlainField\">" + obj.data[i].dailySaleAmount + "</span></td>" +
-                            " <td><span class=\"a-PlainField\">" + obj.data[i].dailyProfile + "</span></td>" +
-                            " <td><span class=\"a-PlainField\">" + obj.data[i].saleAmount + "</span></td>" +
-                            " <td><span class=\"a-PlainField\">" + obj.data[i].profile + "</span></td>" +
+                            " <td><span "+ new_worker_class +" class=\"a-PlainField\">" + obj.data[i].cityName + "</span></td>" +
+                            " <td><span "+ new_worker_class +" class=\"a-PlainField\">" + obj.data[i].workerName + "</span></td>" +
+                            " <td><span "+ new_worker_class +" class=\"a-PlainField\">" + obj.data[i].age + "</span></td>" +
+                            " <td><span "+ new_worker_class +" class=\"a-PlainField\">" + obj.data[i].workAge + "</span></td>" +
+                            " <td><span "+ new_worker_class +" class=\"a-PlainField\">" + obj.data[i].nowTime + "</span></td>" +
+                            " <td><span "+ new_worker_class +" class=\"a-PlainField\">" + obj.data[i].dailySaleAmount + "</span></td>" +
+                            " <td><span "+ new_worker_class +" class=\"a-PlainField\">" + obj.data[i].dailyProfile + "</span></td>" +
+                            " <td><span "+ new_worker_class +" class=\"a-PlainField\">" + obj.data[i].saleAmount + "</span></td>" +
+                            " <td><span "+ new_worker_class +" class=\"a-PlainField\">" + obj.data[i].profile + "</span></td>" +
                             " </tr>");
                         totalDailySaleAmount += obj.data[i].dailySaleAmount;
                         totalSaleAmount += obj.data[i].saleAmount;
