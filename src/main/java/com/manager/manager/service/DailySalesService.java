@@ -213,6 +213,7 @@ public class DailySalesService {
             Date monthfirstTime = DateUtils.changeToDate(monthfirst, FORMATE_1);
             // 获取当前月最后一天
             Calendar ca = Calendar.getInstance();
+            c.add(Calendar.MONTH, 0);
             ca.set(Calendar.DAY_OF_MONTH, ca.getActualMaximum(Calendar.DAY_OF_MONTH));
             String monthlast = DateUtils.changeToString(ca.getTime(), FORMATE_2);
             monthlast += " 24:00:00";
@@ -248,21 +249,21 @@ public class DailySalesService {
         });
     }
     public static void main(String[] args) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        //获取当前月第一天：
+        // 获取当前月第一天：
         Calendar c = Calendar.getInstance();
         c.add(Calendar.MONTH, 0);
         c.set(Calendar.DAY_OF_MONTH, 1);//设置为1号,当前日期既为本月第一天
-        String monthfirst = format.format(c.getTime());
+        String monthfirst = DateUtils.changeToString(c.getTime(), FORMATE_2);
         monthfirst += " 00:00:00";
-        System.out.println("===============nowfirst:" + monthfirst);
-
-        //获取当前月最后一天
+        Date monthfirstTime = DateUtils.changeToDate(monthfirst, FORMATE_1);
+        // 获取当前月最后一天
         Calendar ca = Calendar.getInstance();
         ca.set(Calendar.DAY_OF_MONTH, ca.getActualMaximum(Calendar.DAY_OF_MONTH));
-        String monthlast = format.format(ca.getTime());
+        c.add(Calendar.MONTH, 0);
+        String monthlast = DateUtils.changeToString(ca.getTime(), FORMATE_2);
         monthlast += " 24:00:00";
-        System.out.println("===============last:" + monthlast);
+        Date monthlastTime = DateUtils.changeToDate(monthlast, FORMATE_1);
+        System.out.println();
     }
 
     /**
