@@ -2,8 +2,26 @@
   "type": "page",
   "title": "列表",
   "remark": null,
-  "name": "order2",
+  "name": "orderlist2",
   "body": [
+    {
+      "type": "form",
+      "title": "过滤条件",
+      "target": "order2",
+      "submitOnInit": true,
+      "className": "m-b",
+      "wrapWithPanel": false,
+      "mode": "inline",
+      "controls": [
+        {
+          "type": "month",
+          "name": "month",
+          "format": "YYYY-MM",
+          "value": "now",
+          "submitOnChange": true
+        }
+      ]
+    },
     {
       "type": "crud",
       "name": "order2",

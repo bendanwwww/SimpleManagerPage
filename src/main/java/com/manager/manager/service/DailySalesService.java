@@ -14,9 +14,12 @@ import com.manager.manager.vo.DailySalesVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import scala.Int;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static com.manager.manager.util.DateUtils.*;
 
 /**
  * 职工业绩相关service
@@ -121,52 +124,115 @@ public class DailySalesService {
      */
     public ResultVo queryOrderData(ShowViewDto showViewDto) {
         List<DailySalesVo> dailySalesVoList = new ArrayList<>();
-        List<DailySales> list = dailySalesMapper.queryPersonalData(showViewDto);
-        if(ListUtils.isEmpty(list)){
+        List<Worker> allWorkerList = workerMapper.queryAllWorkerList();
+        if(ListUtils.isEmpty(allWorkerList)){
             return ResultVo.build(() -> dailySalesVoList);
         }
-        List<Integer> workerIdList = ListUtils.fetchFieldValue(list, "workerId");
-        List<Worker> workerList = workerMapper.queryWorkerByIdList(workerIdList);
+        packageTime(showViewDto);
+        List<DailySales> list = dailySalesMapper.queryPersonalData(showViewDto);
+        showViewDto.setStartTime(null);
+        showViewDto.setEndTime(null);
         showViewDto.setIsShowNow(1);
         List<DailySales> dailySales = dailySalesMapper.queryPersonalData(showViewDto);
-        for (int i = 0; i < list.size(); i++) {
+        for(Worker worker : allWorkerList){
             DailySalesVo dailySalesVo = new DailySalesVo();
-            BeanUtils.copyProperties(list.get(i), dailySalesVo);
-            dailySalesVo.setNowTime(DateUtils.changeToString(new Date(), DateUtils.FORMATE_2));
-            Worker worker = ListUtils.findEntityByFieldValue(workerList, "id", dailySalesVo.getWorkerId() + "");
-            if(worker != null){
-                dailySalesVo.setWorkAge(worker.getWorkAge());
-                dailySalesVo.setAge(worker.getAge());
-                dailySalesVo.setCityName(worker.getCityName());
-            }
+            dailySalesVo.setWorkAge(worker.getWorkAge());
+            dailySalesVo.setWorkerId(worker.getId());
+            dailySalesVo.setWorkerName(worker.getRealName());
+            dailySalesVo.setAge(worker.getAge());
+            dailySalesVo.setCityName(worker.getCityName());
             dailySalesVo.setDailySaleAmount(0);
             dailySalesVo.setDailyProfile(0);
-            DailySales dailySales1 = ListUtils.findEntityByFieldValue(dailySales, "workerId", dailySalesVo.getWorkerId() + "");
-            if(dailySales1 != null){
-                dailySalesVo.setDailySaleAmount(dailySales1.getSaleAmount());
-                dailySalesVo.setDailyProfile(dailySales1.getProfile());
+            dailySalesVo.setSaleAmount(0);
+            dailySalesVo.setProfile(0);
+            dailySalesVo.setNowTime(DateUtils.changeToString(new Date(), FORMATE_2));
+            DailySales monthDailySales = ListUtils.findEntityByFieldValue(list, "workerId",  worker.getId() + "");
+            if(monthDailySales != null){
+                dailySalesVo.setSaleAmount(monthDailySales.getSaleAmount());
+                dailySalesVo.setProfile(monthDailySales.getProfile());
+            }
+            DailySales dailySale = ListUtils.findEntityByFieldValue(dailySales, "workerId",  worker.getId() + "");
+            if(dailySale != null){
+                dailySalesVo.setDailySaleAmount(dailySale.getSaleAmount());
+                dailySalesVo.setDailyProfile(dailySale.getProfile());
             }
             dailySalesVoList.add(dailySalesVo);
         }
-        Collections.sort(dailySalesVoList, new Comparator<DailySalesVo>() {
-            @Override
-            public int compare(DailySalesVo o1, DailySalesVo o2) {
-                if(o1.getDailySaleAmount() - o2.getDailySaleAmount() < 0){
-                    return 1;
-                } else if(o1.getDailySaleAmount() - o2.getDailySaleAmount() == 0){
-                    return 0;
-                } else{
-                    return -1;
-                }
-            }
-        });
+        sortDailySales(dailySalesVoList);
         for (int i = 0; i < dailySalesVoList.size(); i++) {
             dailySalesVoList.get(i).setIndex(i + 1);
         }
         return ResultVo.build(() -> dailySalesVoList);
 
     }
+    public void packageTime(ShowViewDto showViewDto){
+        if(showViewDto.getMonth() != null){
+            int year = Integer.parseInt(showViewDto.getMonth().split("-")[0]);
+            int month = Integer.parseInt(showViewDto.getMonth().split("-")[1]);
+            Calendar c = Calendar.getInstance();
+            c.set(Calendar.YEAR, year);
+            c.set(Calendar.MONTH, month-1);
+            c.set(Calendar.DAY_OF_MONTH, 1);//设置为1号,当前日期既为本月第一天
+            String monthfirst = DateUtils.changeToString(c.getTime(), FORMATE_2);
+            monthfirst += " 00:00:00";
+            Date monthfirstTime = DateUtils.changeToDate(monthfirst, FORMATE_1);
+            // 获取当前月最后一天
+            Calendar ca = Calendar.getInstance();
+            //设置年份
+            ca.set(Calendar.YEAR,year);
+            //设置月份
+            ca.set(Calendar.MONTH, month-1);
+            ca.set(Calendar.DAY_OF_MONTH, ca.getActualMaximum(Calendar.DAY_OF_MONTH));
+            String monthlast = DateUtils.changeToString(ca.getTime(), FORMATE_2);
+            monthlast += " 24:00:00";
+            Date monthlastTime = DateUtils.changeToDate(monthlast, FORMATE_1);
+            showViewDto.setStartTime(monthfirstTime);
+            showViewDto.setEndTime(monthlastTime);
+        }else{
 
+            // 获取当前月第一天：
+            Calendar c = Calendar.getInstance();
+            c.add(Calendar.MONTH, 0);
+            c.set(Calendar.DAY_OF_MONTH, 1);//设置为1号,当前日期既为本月第一天
+            String monthfirst = DateUtils.changeToString(c.getTime(), FORMATE_2);
+            monthfirst += " 00:00:00";
+            Date monthfirstTime = DateUtils.changeToDate(monthfirst, FORMATE_1);
+            // 获取当前月最后一天
+            Calendar ca = Calendar.getInstance();
+            ca.set(Calendar.DAY_OF_MONTH, ca.getActualMaximum(Calendar.DAY_OF_MONTH));
+            String monthlast = DateUtils.changeToString(ca.getTime(), FORMATE_2);
+            monthlast += " 24:00:00";
+            Date monthlastTime = DateUtils.changeToDate(monthlast, FORMATE_1);
+            showViewDto.setStartTime(monthfirstTime);
+            showViewDto.setEndTime(monthlastTime);
+        }
+
+    }
+    /**
+     * @description: 排序
+     * @author: mengwenyi
+     * @date: 2021/4/1 18:13
+     */
+    public void sortDailySales(List<DailySalesVo> dailySalesVoList){
+        Collections.sort(dailySalesVoList, new Comparator<DailySalesVo>() {
+            @Override
+            public int compare(DailySalesVo o1, DailySalesVo o2) {
+                if(o1.getDailySaleAmount() - o2.getDailySaleAmount() < 0){
+                    return 1;
+                } else if(o1.getDailySaleAmount() - o2.getDailySaleAmount() == 0){
+                    if(o1.getSaleAmount() - o2.getSaleAmount() < 0){
+                        return 1;
+                    } else if(o1.getSaleAmount() - o2.getSaleAmount() == 0){
+                        return 0;
+                    } else{
+                        return -1;
+                    }
+                } else{
+                    return -1;
+                }
+            }
+        });
+    }
     public static void main(String[] args) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         //获取当前月第一天：
@@ -174,12 +240,14 @@ public class DailySalesService {
         c.add(Calendar.MONTH, 0);
         c.set(Calendar.DAY_OF_MONTH, 1);//设置为1号,当前日期既为本月第一天
         String monthfirst = format.format(c.getTime());
+        monthfirst += " 00:00:00";
         System.out.println("===============nowfirst:" + monthfirst);
 
         //获取当前月最后一天
         Calendar ca = Calendar.getInstance();
         ca.set(Calendar.DAY_OF_MONTH, ca.getActualMaximum(Calendar.DAY_OF_MONTH));
         String monthlast = format.format(ca.getTime());
+        monthlast += " 24:00:00";
         System.out.println("===============last:" + monthlast);
     }
 
@@ -188,63 +256,40 @@ public class DailySalesService {
      *
      * @return
      */
-    public ResultVo queryOrderDataByMonth() {
+    public ResultVo queryOrderDataByMonth(ShowViewDto showViewDto) {
         List<DailySalesVo> dailySalesVoList = new ArrayList<>();
-        // 获取当前月第一天：
-        Calendar c = Calendar.getInstance();
-        c.add(Calendar.MONTH, 0);
-        c.set(Calendar.DAY_OF_MONTH, 1);//设置为1号,当前日期既为本月第一天
-        Date monthfirst = c.getTime();
-        // 获取当前月最后一天
-        Calendar ca = Calendar.getInstance();
-        ca.set(Calendar.DAY_OF_MONTH, ca.getActualMaximum(Calendar.DAY_OF_MONTH));
-        Date monthlast = ca.getTime();
-
-        List<DailySales> list = dailySalesMapper.queryOrderDataByMonth(monthfirst, monthlast);
-        if(ListUtils.isEmpty(list)){
+        List<Worker> allWorkerList = workerMapper.queryAllWorkerList();
+        if(ListUtils.isEmpty(allWorkerList)){
             return ResultVo.build(() -> dailySalesVoList);
         }
-        List<Integer> workerIdList = ListUtils.fetchFieldValue(list, "workerId");
-        List<Worker> workerList = workerMapper.queryWorkerByIdList(workerIdList);
-        List<DailySales> dailySales = dailySalesMapper.queryOrderDataByMonth(monthfirst, monthlast);
-        for (int i = 0; i < list.size(); i++) {
+        packageTime(showViewDto);
+        List<DailySales> list = dailySalesMapper.queryOrderDataByMonth(showViewDto);
+        for(Worker worker : allWorkerList){
             DailySalesVo dailySalesVo = new DailySalesVo();
-            BeanUtils.copyProperties(list.get(i), dailySalesVo);
-            dailySalesVo.setNowTime(DateUtils.changeToString(new Date(), DateUtils.FORMATE_2));
-            Worker worker = ListUtils.findEntityByFieldValue(workerList, "id", dailySalesVo.getWorkerId() + "");
-            if(worker != null){
-                dailySalesVo.setWorkAge(worker.getWorkAge());
-                dailySalesVo.setAge(worker.getAge());
-                dailySalesVo.setCityName(worker.getCityName());
-            }
+            dailySalesVo.setWorkAge(worker.getWorkAge());
+            dailySalesVo.setWorkerId(worker.getId());
+            dailySalesVo.setWorkerName(worker.getRealName());
+            dailySalesVo.setAge(worker.getAge());
+            dailySalesVo.setCityName(worker.getCityName());
             dailySalesVo.setDailySaleAmount(0);
             dailySalesVo.setDailyProfile(0);
-            DailySales dailySales1 = ListUtils.findEntityByFieldValue(dailySales, "workerId", dailySalesVo.getWorkerId() + "");
-            if(dailySales1 != null){
-                dailySalesVo.setDailySaleAmount(dailySales1.getSaleAmount());
-                dailySalesVo.setDailyProfile(dailySales1.getProfile());
+            dailySalesVo.setSaleAmount(0);
+            dailySalesVo.setProfile(0);
+            dailySalesVo.setNowTime(DateUtils.changeToString(new Date(), FORMATE_4));
+            DailySales monthDailySales = ListUtils.findEntityByFieldValue(list, "workerId",  worker.getId() + "");
+            if(monthDailySales != null){
+                dailySalesVo.setSaleAmount(monthDailySales.getSaleAmount());
+                dailySalesVo.setProfile(monthDailySales.getProfile());
+                dailySalesVo.setDailySaleAmount(monthDailySales.getSaleAmount());
+                dailySalesVo.setDailyProfile(monthDailySales.getProfile());
             }
             dailySalesVoList.add(dailySalesVo);
         }
-        Collections.sort(dailySalesVoList, new Comparator<DailySalesVo>() {
-            @Override
-            public int compare(DailySalesVo o1, DailySalesVo o2) {
-                if(o1.getDailySaleAmount() - o2.getDailySaleAmount() < 0){
-                    return 1;
-                } else if(o1.getDailySaleAmount() - o2.getDailySaleAmount() == 0){
-                    return 0;
-                } else{
-                    return -1;
-                }
-            }
-        });
+        sortDailySales(dailySalesVoList);
         for (int i = 0; i < dailySalesVoList.size(); i++) {
             dailySalesVoList.get(i).setIndex(i + 1);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
-            dailySalesVoList.get(i).setNowTime(sdf.format(System.currentTimeMillis()));
         }
         return ResultVo.build(() -> dailySalesVoList);
-
     }
 
     /**

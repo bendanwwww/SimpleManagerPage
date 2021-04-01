@@ -37,4 +37,10 @@ public class ShowViewDto {
     private int perPage;
     /** 是否当天 */
     private Integer isShowNow;
+    /** 是否当月 */
+    private Integer isShowNowMonth;
+    /**
+     * 月份
+     */
+    private String month;
 }

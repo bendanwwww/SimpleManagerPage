@@ -54,4 +54,11 @@ public interface WorkerMapper {
      * @date: 2021/2/18 19:38
      */
     List<Worker> queryWorkerByIdList(@Param(value = "idList") List idList);
+    /**
+     * @description: 查询全部员工列表
+     * @author: mengwenyi
+     * @date: 2021/4/1 17:52
+     */
+    List<Worker> queryAllWorkerList();
+
 }

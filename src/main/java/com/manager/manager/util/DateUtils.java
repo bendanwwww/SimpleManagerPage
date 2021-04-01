@@ -10,6 +10,7 @@ public class DateUtils {
 	public static final String FORMATE_2 = "yyyy-MM-dd";
 	public static final String FORMATE_3 = "yyyyMMddHHmmss";
 	public static final String YYYYMMDD = "yyyyMMdd";
+	public static final String FORMATE_4 = "yyyy-MM";
 
 	public static String getNowDesc() {
 		SimpleDateFormat df = new SimpleDateFormat(FORMATE_3);

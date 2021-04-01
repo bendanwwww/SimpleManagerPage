@@ -93,8 +93,8 @@ public class DailySalesController {
 	 * @date: 2021/2/18 19:45
 	 */
 	@RequestMapping(value = "queryOrderDataByMonth")
-	public ResultVo<DailySalesVo> queryOrderDataByMonth() {
-		return dailySalesService.queryOrderDataByMonth();
+	public ResultVo<DailySalesVo> queryOrderDataByMonth(ShowViewDto showViewDto) {
+		return dailySalesService.queryOrderDataByMonth(showViewDto);
 	}
 
 	/**

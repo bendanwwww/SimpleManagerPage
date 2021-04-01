@@ -60,7 +60,7 @@ public interface DailySalesMapper {
      * @author: mengwenyi
      * @date: 2021/2/14 21:12
      */
-    List<DailySales> queryOrderDataByMonth(@Param(value = "startTime") Date startTime, @Param(value = "endTime") Date endTime);
+    List<DailySales> queryOrderDataByMonth(ShowViewDto showViewDto);
 
     /**
      * @description: 按时间查询销量

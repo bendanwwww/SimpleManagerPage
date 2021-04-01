@@ -73,6 +73,9 @@
             <if test="isShowNow!=null">
                 and to_days(record_date) = to_days(now())
             </if>
+            <if test="isShowNowMonth!=null">
+                and DATE_FORMAT(record_date, '%Y%m') = DATE_FORMAT(CURDATE()'%Y%m')
+            </if>
         </where>
     </sql>
     <select id="queryPersonalData" resultType="com.manager.manager.domain.DailySales" parameterType="com.manager.manager.dto.ShowViewDto">
