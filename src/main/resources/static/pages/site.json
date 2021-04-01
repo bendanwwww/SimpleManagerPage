@@ -46,9 +46,14 @@
         "label": "大图展示",
         "children": [
           {
-            "label": "排名",
+            "label": "每日排名",
             "schemaApi": "get:/manager/pages/show2.json",
             "url": "/index2"
+          },
+          {
+            "label": "月度排名",
+            "schemaApi": "get:/manager/pages/show_month.json",
+            "url": "/index3"
           }
         ]
       },

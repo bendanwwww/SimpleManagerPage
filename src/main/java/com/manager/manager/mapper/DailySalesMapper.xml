@@ -82,6 +82,14 @@
         GROUP BY worker_id order by SUM(`sale_amount`) desc;
     </select>
 
+    <select id="queryOrderDataByMonth" resultType="com.manager.manager.domain.DailySales" parameterType="com.manager.manager.dto.ShowViewDto">
+        select worker_id workerId , worker_name workerName , SUM(`profile`) profile , SUM(`sale_amount`) saleAmount
+        from daily_sales
+        where <![CDATA[record_date >= #{startTime}]]> and <![CDATA[record_date <= #{endTime}]]>
+        and delete_flag = 0
+        group by worker_id order by saleAmount desc;
+    </select>
+
     <select id="queryByDate" resultType="com.manager.manager.domain.DailySales" parameterType="com.manager.manager.dto.ShowViewDto">
         select DATE_FORMAT(record_date, '%Y-%m-%d') recordDate,SUM(`profile`) profile from daily_sales
         <include refid="dataSql"></include>

@@ -78,7 +78,7 @@ public class DailySalesController {
 		return ResultVo.build(() -> dailySalesService.queryOrderById(id));
 	}
 	/**
-	 * @description: 查询数据渲染
+	 * @description: 查询数据渲染(按天统计)
 	 * @author: mengwenyi
 	 * @date: 2021/2/18 19:45
 	 */
@@ -86,6 +86,17 @@ public class DailySalesController {
 	public ResultVo<DailySalesVo> queryOrderData(ShowViewDto showViewDto) {
 		return dailySalesService.queryOrderData(showViewDto);
 	}
+
+	/**
+	 * @description: 查询数据渲染(按月统计)
+	 * @author: mengwenyi
+	 * @date: 2021/2/18 19:45
+	 */
+	@RequestMapping(value = "queryOrderDataByMonth")
+	public ResultVo<DailySalesVo> queryOrderDataByMonth() {
+		return dailySalesService.queryOrderDataByMonth();
+	}
+
 	/**
 	 * @description: 删除工单
 	 * @author: mengwenyi

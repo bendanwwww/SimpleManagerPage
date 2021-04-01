@@ -15,6 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -161,6 +162,86 @@ public class DailySalesService {
         });
         for (int i = 0; i < dailySalesVoList.size(); i++) {
             dailySalesVoList.get(i).setIndex(i + 1);
+        }
+        return ResultVo.build(() -> dailySalesVoList);
+
+    }
+
+    public static void main(String[] args) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        //获取当前月第一天：
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.MONTH, 0);
+        c.set(Calendar.DAY_OF_MONTH, 1);//设置为1号,当前日期既为本月第一天
+        String monthfirst = format.format(c.getTime());
+        System.out.println("===============nowfirst:" + monthfirst);
+
+        //获取当前月最后一天
+        Calendar ca = Calendar.getInstance();
+        ca.set(Calendar.DAY_OF_MONTH, ca.getActualMaximum(Calendar.DAY_OF_MONTH));
+        String monthlast = format.format(ca.getTime());
+        System.out.println("===============last:" + monthlast);
+    }
+
+    /**
+     * 查询数据渲染(按月统计)
+     *
+     * @return
+     */
+    public ResultVo queryOrderDataByMonth() {
+        List<DailySalesVo> dailySalesVoList = new ArrayList<>();
+        // 获取当前月第一天：
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.MONTH, 0);
+        c.set(Calendar.DAY_OF_MONTH, 1);//设置为1号,当前日期既为本月第一天
+        Date monthfirst = c.getTime();
+        // 获取当前月最后一天
+        Calendar ca = Calendar.getInstance();
+        ca.set(Calendar.DAY_OF_MONTH, ca.getActualMaximum(Calendar.DAY_OF_MONTH));
+        Date monthlast = ca.getTime();
+
+        List<DailySales> list = dailySalesMapper.queryOrderDataByMonth(monthfirst, monthlast);
+        if(ListUtils.isEmpty(list)){
+            return ResultVo.build(() -> dailySalesVoList);
+        }
+        List<Integer> workerIdList = ListUtils.fetchFieldValue(list, "workerId");
+        List<Worker> workerList = workerMapper.queryWorkerByIdList(workerIdList);
+        List<DailySales> dailySales = dailySalesMapper.queryOrderDataByMonth(monthfirst, monthlast);
+        for (int i = 0; i < list.size(); i++) {
+            DailySalesVo dailySalesVo = new DailySalesVo();
+            BeanUtils.copyProperties(list.get(i), dailySalesVo);
+            dailySalesVo.setNowTime(DateUtils.changeToString(new Date(), DateUtils.FORMATE_2));
+            Worker worker = ListUtils.findEntityByFieldValue(workerList, "id", dailySalesVo.getWorkerId() + "");
+            if(worker != null){
+                dailySalesVo.setWorkAge(worker.getWorkAge());
+                dailySalesVo.setAge(worker.getAge());
+                dailySalesVo.setCityName(worker.getCityName());
+            }
+            dailySalesVo.setDailySaleAmount(0);
+            dailySalesVo.setDailyProfile(0);
+            DailySales dailySales1 = ListUtils.findEntityByFieldValue(dailySales, "workerId", dailySalesVo.getWorkerId() + "");
+            if(dailySales1 != null){
+                dailySalesVo.setDailySaleAmount(dailySales1.getSaleAmount());
+                dailySalesVo.setDailyProfile(dailySales1.getProfile());
+            }
+            dailySalesVoList.add(dailySalesVo);
+        }
+        Collections.sort(dailySalesVoList, new Comparator<DailySalesVo>() {
+            @Override
+            public int compare(DailySalesVo o1, DailySalesVo o2) {
+                if(o1.getDailySaleAmount() - o2.getDailySaleAmount() < 0){
+                    return 1;
+                } else if(o1.getDailySaleAmount() - o2.getDailySaleAmount() == 0){
+                    return 0;
+                } else{
+                    return -1;
+                }
+            }
+        });
+        for (int i = 0; i < dailySalesVoList.size(); i++) {
+            dailySalesVoList.get(i).setIndex(i + 1);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+            dailySalesVoList.get(i).setNowTime(sdf.format(System.currentTimeMillis()));
         }
         return ResultVo.build(() -> dailySalesVoList);
 

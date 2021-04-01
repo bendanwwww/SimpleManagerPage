@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -53,6 +54,14 @@ public interface DailySalesMapper {
      * @date: 2021/2/14 21:12
      */
     List<DailySales> queryPersonalData(ShowViewDto showViewDto);
+
+    /**
+     * @description: 查询个人业绩
+     * @author: mengwenyi
+     * @date: 2021/2/14 21:12
+     */
+    List<DailySales> queryOrderDataByMonth(@Param(value = "startTime") Date startTime, @Param(value = "endTime") Date endTime);
+
     /**
      * @description: 按时间查询销量
      * @author: mengwenyi
