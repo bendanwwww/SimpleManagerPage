@@ -2,12 +2,12 @@
   "type": "page",
   "title": "列表",
   "remark": null,
-  "name": "orderlist1",
+  "name": "xingangyuanorderlist",
   "body": [
     {
       "type": "form",
       "title": "过滤条件",
-      "target": "order1",
+      "target": "xingangyuan",
       "submitOnInit": true,
       "className": "m-b",
       "wrapWithPanel": false,
@@ -22,20 +22,14 @@
             "label": "搜索",
             "level": "primary"
           }
-        },
-        {
-          "type": "static-link",
-          "href": "/manager/rank.html",
-          "body": "数据展示",
-          "blank": true
         }
       ],
       "actions": []
     },
     {
       "type": "crud",
-      "name": "order1",
-      "api": "dailySales/queryOrderData",
+      "name": "xingangyuan",
+      "api": "dailySales/queryOrderData?cityId=4",
       "interval": 1800000,
       "rowClassNameExpr": "<%= data.index <= 5 ? 'bg-danger' : '' %>",
       "columns": [

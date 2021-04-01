@@ -2,10 +2,13 @@ package com.manager.manager.service;
 
 import com.manager.manager.common.Page;
 import com.manager.manager.common.ResultVo;
+import com.manager.manager.domain.CityInfo;
 import com.manager.manager.domain.DailySales;
 import com.manager.manager.domain.Worker;
 import com.manager.manager.dto.DailySaleDto;
 import com.manager.manager.dto.ShowViewDto;
+import com.manager.manager.dto.WorkerDto;
+import com.manager.manager.mapper.CityInfoMapper;
 import com.manager.manager.mapper.DailySalesMapper;
 import com.manager.manager.mapper.WorkerMapper;
 import com.manager.manager.util.DateUtils;
@@ -34,6 +37,8 @@ public class DailySalesService {
     private WorkerMapper workerMapper;
     @Autowired
     private DailySalesMapper dailySalesMapper;
+    @Autowired
+    private CityInfoMapper cityInfoMapper;
 
     /**
      * 更新员工每日业绩
@@ -93,6 +98,8 @@ public class DailySalesService {
         dailySaleDto.setCreateTime(new Date());
         Worker worker = workerMapper.queryWorkerById(dailySaleDto.getWorkerId());
         dailySaleDto.setWorkerName(worker.getRealName());
+        CityInfo cityInfo = cityInfoMapper.queryCityById(worker.getCityId());
+        dailySaleDto.setCityId(cityInfo.getId());
         dailySalesMapper.insertDailySale(dailySaleDto);
     }
 
@@ -105,6 +112,8 @@ public class DailySalesService {
         dailySaleDto.setUpdateTime(new Date());
         Worker worker = workerMapper.queryWorkerById(dailySaleDto.getWorkerId());
         dailySaleDto.setWorkerName(worker.getRealName());
+        CityInfo cityInfo = cityInfoMapper.queryCityById(worker.getCityId());
+        dailySaleDto.setCityId(cityInfo.getId());
         dailySalesMapper.updateDailySale(dailySaleDto);
     }
 
@@ -124,7 +133,12 @@ public class DailySalesService {
      */
     public ResultVo queryOrderData(ShowViewDto showViewDto) {
         List<DailySalesVo> dailySalesVoList = new ArrayList<>();
-        List<Worker> allWorkerList = workerMapper.queryAllWorkerList();
+        WorkerDto workerDto = new WorkerDto();
+        workerDto.setRealName(showViewDto.getWorkerName());
+        if(showViewDto.getCityId() != null){
+            workerDto.setCityId(showViewDto.getCityId());
+        }
+        List<Worker> allWorkerList = workerMapper.queryAllWorkerList(workerDto);
         if(ListUtils.isEmpty(allWorkerList)){
             return ResultVo.build(() -> dailySalesVoList);
         }
@@ -258,7 +272,11 @@ public class DailySalesService {
      */
     public ResultVo queryOrderDataByMonth(ShowViewDto showViewDto) {
         List<DailySalesVo> dailySalesVoList = new ArrayList<>();
-        List<Worker> allWorkerList = workerMapper.queryAllWorkerList();
+        WorkerDto workerDto = new WorkerDto();
+        if(showViewDto.getCityId() != null){
+            workerDto.setCityId(showViewDto.getCityId());
+        }
+        List<Worker> allWorkerList = workerMapper.queryAllWorkerList(workerDto);
         if(ListUtils.isEmpty(allWorkerList)){
             return ResultVo.build(() -> dailySalesVoList);
         }

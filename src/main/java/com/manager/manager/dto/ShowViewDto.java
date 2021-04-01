@@ -43,4 +43,8 @@ public class ShowViewDto {
      * 月份
      */
     private String month;
+    /**
+     * 城市id
+     */
+    private Integer cityId;
 }

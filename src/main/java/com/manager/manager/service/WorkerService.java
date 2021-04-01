@@ -91,6 +91,7 @@ public class WorkerService {
         CityInfo cityInfo = cityInfoMapper.queryCityByCityCode(worker.getCityCode());
         if(cityInfo != null) {
             worker.setCityName(cityInfo.getCityName());
+            worker.setCityId(cityInfo.getId());
         }
         // 查询是否有重名
         Worker user = queryWorkerBySysName(worker.getRealName());
@@ -112,6 +113,7 @@ public class WorkerService {
         CityInfo cityInfo = cityInfoMapper.queryCityByCityCode(worker.getCityCode());
         if(cityInfo != null){
             worker.setCityName(cityInfo.getCityName());
+            worker.setCityId(cityInfo.getId());
         }
         if(worker.getRealName() != null){
             Worker user = queryWorkerBySysName(worker.getRealName());

@@ -34,7 +34,8 @@ public class WorkerDto {
     private Date updateTime;
     /** 删除标识 (0: 正常 1: 删除) */
     private int deleteFlag;
-
+    /** 城市id */
+    private Integer cityId;
     /**
      * 当前页
      */
@@ -162,5 +163,13 @@ public class WorkerDto {
 
     public void setDeleteFlag(int deleteFlag) {
         this.deleteFlag = deleteFlag;
+    }
+
+    public Integer getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
     }
 }

@@ -47,13 +47,43 @@
         "children": [
           {
             "label": "每日排名",
-            "schemaApi": "get:/manager/pages/show2.json",
+            "schemaApi": "get:/manager/pages/show/show.json",
             "url": "/index2"
           },
           {
             "label": "月度排名",
-            "schemaApi": "get:/manager/pages/show_month.json",
+            "schemaApi": "get:/manager/pages/show/show_month.json",
             "url": "/index3"
+          },
+          {
+            "label": "成都钢源",
+            "schemaApi": "get:/manager/pages/show/gangyuan_show.json",
+            "url": "/gangyuan"
+          },
+          {
+            "label": "南昌沧海",
+            "schemaApi": "get:/manager/pages/show/canghai_show.json",
+            "url": "/canghai"
+          },
+          {
+            "label": "广东路川",
+            "schemaApi": "get:/manager/pages/show/luchuan_show.json",
+            "url": "/luchuan"
+          },
+          {
+            "label": "西安鑫钢源",
+            "schemaApi": "get:/manager/pages/show/xingangyuan_show.json",
+            "url": "/xingangyuan"
+          },
+          {
+            "label": "江西晟冶",
+            "schemaApi": "get:/manager/pages/show/shengye_show.json",
+            "url": "/shengye"
+          },
+          {
+            "label": "成都旭星源",
+            "schemaApi": "get:/manager/pages/show/xuxingyuan_show.json",
+            "url": "/xuxingyuan"
           }
         ]
       },

@@ -59,6 +59,6 @@ public interface WorkerMapper {
      * @author: mengwenyi
      * @date: 2021/4/1 17:52
      */
-    List<Worker> queryAllWorkerList();
+    List<Worker> queryAllWorkerList(WorkerDto workerDto);
 
 }

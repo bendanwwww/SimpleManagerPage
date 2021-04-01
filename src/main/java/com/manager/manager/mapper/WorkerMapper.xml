@@ -3,13 +3,34 @@
 
 
 <mapper namespace="com.manager.manager.mapper.WorkerMapper">
+    <resultMap id="BaseResultMap" type="com.manager.manager.domain.Worker">
+        <id column="id" property="id"/>
+        <result column="id" property="id2"/>
+        <result column="real_name" property="realName"/>
+        <result column="sys_name" property="sysName"/>
+        <result column="password" property="password"/>
+        <result column="wx_card" property="wxCard"/>
+        <result column="sex" property="sex"/>
+        <result column="age" property="age"/>
+        <result column="work_age" property="workAge"/>
+        <result column="city_code" property="cityCode"/>
+        <result column="city_id" property="cityId"/>
+        <result column="city_name" property="cityName"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,real_name,sys_name,password,wx_card,sex,age,work_age,city_code,city_id,city_name,create_time,update_time,delete_flag
+    </sql>
     <sql id="columns">
         id id , id id2 , real_name realName , sys_name sysName , password password , wx_card wxCard , sex sex , age age , work_age workAge , city_code cityCode ,
-        city_name cityName , create_time createTime , update_time updateTime , delete_flag deleteFlag
+        city_id cityId, city_name cityName , create_time createTime , update_time updateTime , delete_flag deleteFlag
     </sql>
 
-    <select id="queryWorkerList" resultType="com.manager.manager.domain.Worker">
-        select <include refid="columns"/> from worker where
+    <select id="queryWorkerList" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from worker where
         <if test="id != null">
             id = #{id} and
         </if>
@@ -26,30 +47,30 @@
         </if>;
     </select>
 
-    <select id="queryWorkerBySysName" resultType="com.manager.manager.domain.Worker">
-        select <include refid="columns"/> from worker where
+    <select id="queryWorkerBySysName" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from worker where
         <if test="sysName != null">
             sys_name = #{sysName} and
         </if>
         delete_flag = 0;
     </select>
 
-    <select id="queryWorkerByWX" resultType="com.manager.manager.domain.Worker">
-        select <include refid="columns"/> from worker where wx_card = #{wxCard} and delete_flag = 0;
+    <select id="queryWorkerByWX"  resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from worker where wx_card = #{wxCard} and delete_flag = 0;
     </select>
 
     <insert id="insertWorker" parameterType="com.manager.manager.domain.Worker">
         insert into worker (
-        real_name , sys_name , password , wx_card , sex , age , work_age , city_code , city_name , create_time , update_time , delete_flag
+        real_name , sys_name , password , wx_card , sex , age , work_age , city_id, city_code , city_name , create_time , update_time , delete_flag
         ) values (
-        #{realName} , #{sysName} , #{password} , #{wxCard} , #{sex} , #{age} , #{workAge} , #{cityCode} , #{cityName} , #{createTime} , #{updateTime} , #{deleteFlag}
+        #{realName} , #{sysName} , #{password} , #{wxCard} , #{sex} , #{age} , #{workAge} , #{cityId}, #{cityCode} , #{cityName} , #{createTime} , #{updateTime} , #{deleteFlag}
         );
     </insert>
 
     <update id="updateWorker" parameterType="com.manager.manager.domain.Worker">
         update worker set
         real_name = #{realName} , sys_name = #{sysName} , password = #{password} , wx_card = #{wxCard} , sex = #{sex} , age = #{age} ,
-        work_age = #{workAge} , city_code = #{cityCode} , city_name = #{cityName} , update_time = #{updateTime} , delete_flag = #{deleteFlag}
+        work_age = #{workAge} , city_code = #{cityCode} , city_id = #{cityId} ,city_name = #{cityName} , update_time = #{updateTime} , delete_flag = #{deleteFlag}
         where id = #{id};
     </update>
 
@@ -60,11 +81,11 @@
     <update id="delWorker">
         update worker set delete_flag = 1 where id = #{id}
     </update>
-    <select id="queryWorkerById" resultType="com.manager.manager.domain.Worker" parameterType="java.lang.Integer">
-        select <include refid="columns"/> from worker where id = #{id}
+    <select id="queryWorkerById"  resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select <include refid="Base_Column_List"/> from worker where id = #{id}
     </select>
-    <select id="queryWorkerByIdList" resultType="com.manager.manager.domain.Worker" parameterType="java.util.List">
-        select <include refid="columns"/> from worker where id in
+    <select id="queryWorkerByIdList" resultMap="BaseResultMap" parameterType="java.util.List">
+        select <include refid="Base_Column_List"/> from worker where id in
         <foreach item="item" index="index" collection="idList" open="(" separator="," close=")">
             #{item}
         </foreach>
@@ -86,8 +107,8 @@
         </if>
         delete_flag = 0
     </sql>
-    <select id="queryWorkerPage" resultType="com.manager.manager.domain.Worker">
-        select <include refid="columns"/> from worker where
+    <select id="queryWorkerPage" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from worker where
         <include refid="queryWorkerPageSql"></include>
         <if test="startRow != null and perPage != null">
             limit #{startRow}, #{perPage}
@@ -97,7 +118,13 @@
         select count(*) from worker where
         <include refid="queryWorkerPageSql"></include>
     </select>
-    <select id="queryAllWorkerList" resultType="com.manager.manager.domain.Worker">
-        select <include refid="columns"/> from worker where delete_flag = 0
+    <select id="queryAllWorkerList" resultMap="BaseResultMap" parameterType="com.manager.manager.dto.WorkerDto">
+        select <include refid="Base_Column_List"/> from worker where delete_flag = 0
+        <if test="cityId != null">
+            and city_id = #{cityId}
+        </if>
+        <if test="realName != null and realName !=''">
+            and real_name = #{realName}
+        </if>
     </select>
 </mapper>

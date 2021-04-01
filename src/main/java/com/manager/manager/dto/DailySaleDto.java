@@ -39,6 +39,8 @@ public class DailySaleDto {
     private String isNewClient;
     /** 备注 */
     private String remark;
+    /** 城市id */
+    private Integer cityId;
     /**
      * 当前页
      */

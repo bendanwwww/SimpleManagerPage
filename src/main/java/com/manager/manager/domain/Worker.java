@@ -1,5 +1,7 @@
 package com.manager.manager.domain;
 
+import scala.Int;
+
 import java.util.Date;
 
 /**
@@ -27,6 +29,8 @@ public class Worker {
     private int age;
     /** 工龄 */
     private int workAge;
+    /** 城市id */
+    private Integer cityId;
     /** 城市编码 */
     private String cityCode;
     /** 城市名称 */
@@ -148,5 +152,13 @@ public class Worker {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
     }
 }

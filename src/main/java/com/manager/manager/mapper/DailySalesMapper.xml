@@ -4,7 +4,7 @@
 
 <mapper namespace="com.manager.manager.mapper.DailySalesMapper">
     <sql id="columns">
-        id id , id id2 , worker_id workerId , worker_name workerName , sale_amount saleAmount, profile profile ,
+        id id , id id2 , worker_id workerId ,city_id cityId, worker_name workerName , sale_amount saleAmount, profile profile ,
         record_date recordDate , create_time createTime , update_time updateTime, client_name clientName, is_new_client isNewClient, remark remark , delete_flag deleteFlag
     </sql>
 
@@ -18,7 +18,7 @@
     </update>
     <sql id="queryDailySalePageSql">
         delete_flag = 0
-        <if test="workerName != null">
+        <if test="workerName != null and workerName!=''">
             and worker_name = #{workerName}
         </if>
         <if test="startTime!=null">
@@ -42,15 +42,15 @@
 
     <insert id="insertDailySale" parameterType="com.manager.manager.domain.DailySales">
         insert into daily_sales (
-        worker_id , worker_name  , sale_amount , profile, record_date , create_time , update_time, client_name, is_new_client, remark, delete_flag
+        worker_id , worker_name  , city_id, sale_amount , profile, record_date , create_time , update_time, client_name, is_new_client, remark, delete_flag
         ) values (
-        #{workerId} , #{workerName}, #{saleAmount} , #{profile}, #{recordDate} , #{createTime} , #{updateTime}, #{clientName}, #{isNewClient}, #{remark}, #{deleteFlag}
+        #{workerId} , #{workerName}, #{cityId}, #{saleAmount} , #{profile}, #{recordDate} , #{createTime} , #{updateTime}, #{clientName}, #{isNewClient}, #{remark}, #{deleteFlag}
         );
     </insert>
 
     <update id="updateDailySale" parameterType="com.manager.manager.domain.DailySales">
         update daily_sales set
-        worker_id = #{workerId} , worker_name = #{workerName} , sale_amount = #{saleAmount} , profile = #{profile} ,
+        worker_id = #{workerId} , worker_name = #{workerName} , city_id = #{cityId} , sale_amount = #{saleAmount} , profile = #{profile} ,
         record_date = #{recordDate} , create_time = #{createTime} , update_time = #{updateTime} , client_name = #{clientName},
         is_new_client = #{isNewClient} , remark = #{remark}
         where id = #{id};
@@ -75,6 +75,9 @@
             </if>
             <if test="isShowNowMonth!=null">
                 and DATE_FORMAT(record_date, '%Y%m') = DATE_FORMAT(CURDATE()'%Y%m')
+            </if>
+            <if test="cityId!=null">
+                and city_id = #{cityId}
             </if>
         </where>
     </sql>

@@ -1,5 +1,7 @@
 package com.manager.manager.domain;
 
+import scala.Int;
+
 import java.util.Date;
 
 /**
@@ -39,6 +41,8 @@ public class DailySales {
     private String remark;
     /** 删除标识 (0: 正常 1: 删除) */
     private int deleteFlag;
+    /** 城市id */
+    private Integer cityId;
 
     public Integer getId2() {
         return id2;
@@ -162,5 +166,13 @@ public class DailySales {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
     }
 }
