@@ -1,0 +1,116 @@
+{
+  "type": "page",
+  "title": "列表",
+  "remark": null,
+  "name": "xingangyuanordermonthlist",
+  "body": [
+    {
+      "type": "form",
+      "title": "过滤条件",
+      "target": "order2",
+      "submitOnInit": true,
+      "className": "m-b",
+      "wrapWithPanel": false,
+      "mode": "inline",
+      "controls": [
+        {
+          "type": "month",
+          "name": "month",
+          "format": "YYYY-MM",
+          "value": "now",
+          "submitOnChange": true
+        }
+      ]
+    },
+    {
+      "type": "crud",
+      "name": "order2",
+      "api": "dailySales/queryOrderDataByMonth?cityId=4",
+      "interval": 1800000,
+      "rowClassNameExpr": "<%= data.index <= 5 ? 'bg-danger' : '' %>",
+      "columns": [
+        {
+          "name": "index",
+          "label": "排名",
+          "type": "mapping",
+          "map": {
+            "1": "<img src='img/jinpai.png',  alt='金牌' style='width:21px;height:21px;'/>1",
+            "2": "<img src='img/yinpai.png',  alt='银牌' style='width:21px;height:21px;'/>2",
+            "3": "<img src='img/tongpai.png',  alt='铜牌' style='width:21px;height:21px;'/>3",
+            "*": "${index}"
+          }
+        },
+        {
+          "name": "cityName",
+          "label": "城市"
+        },
+        {
+          "name": "workerName",
+          "label": "员工名称"
+        },
+        {
+          "name": "age",
+          "label": "年龄"
+        },
+        {
+          "name": "workAge",
+          "label": "工龄"
+        },
+        {
+          "name": "nowTime",
+          "label": "当前月份"
+        },
+        {
+          "name": "dailySaleAmount",
+          "label": "当月销量"
+        },
+        {
+          "name": "dailyProfile",
+          "label": "当月利润"
+        },
+        {
+          "name": "saleAmount",
+          "label": "销量"
+        },
+        {
+          "name": "profile",
+          "label": "利润"
+        }
+      ],
+      "affixHeader": true,
+      "columnsTogglable": "auto",
+      "placeholder": "暂无数据",
+      "tableClassName": "table-db table-striped",
+      "headerClassName": "crud-table-header",
+      "footerClassName": "crud-table-footer",
+      "toolbarClassName": "crud-table-toolbar",
+      "affixRow": [
+        [
+          {
+            "type": "text",
+            "text": "当月销量总计",
+            "colSpan": 6
+          },
+          {
+            "type": "tpl",
+            "tpl": "${items|pick:dailySaleAmount|sum}"
+          }
+        ],
+        [
+          {
+            "type": "text",
+            "text": "总销量总计",
+            "colSpan": 8
+          },
+          {
+            "type": "tpl",
+            "tpl": "${items|pick:saleAmount|sum}"
+          }
+        ]
+      ],
+      "combineNum": 0,
+      "bodyClassName": "panel-default",
+      "syncLocation" : false
+    }
+  ]
+}

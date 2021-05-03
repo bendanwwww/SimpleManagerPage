@@ -92,6 +92,9 @@
         select worker_id workerId , worker_name workerName , SUM(`profile`) profile , SUM(`sale_amount`) saleAmount
         from daily_sales
         where <![CDATA[record_date >= #{startTime}]]> and <![CDATA[record_date <= #{endTime}]]>
+        <if test="cityId!=null">
+            and city_id = #{cityId}
+        </if>
         and delete_flag = 0
         group by worker_id order by saleAmount desc;
     </select>

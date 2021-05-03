@@ -61,9 +61,19 @@
             "url": "/gangyuan"
           },
           {
+            "label": "成都钢源月排名",
+            "schemaApi": "get:/manager/pages/show/gangyuan_show_month.json",
+            "url": "/gangyuanmonth"
+          },
+          {
             "label": "南昌沧海",
             "schemaApi": "get:/manager/pages/show/canghai_show.json",
             "url": "/canghai"
+          },
+          {
+            "label": "南昌沧海月排名",
+            "schemaApi": "get:/manager/pages/show/canghai_show_month.json",
+            "url": "/canghaimonth"
           },
           {
             "label": "广东路川",
@@ -71,9 +81,19 @@
             "url": "/luchuan"
           },
           {
+            "label": "广东路川月排名",
+            "schemaApi": "get:/manager/pages/show/luchaun_show_month.json",
+            "url": "/luchuanmonth"
+          },
+          {
             "label": "西安鑫钢源",
             "schemaApi": "get:/manager/pages/show/xingangyuan_show.json",
             "url": "/xingangyuan"
+          },
+          {
+            "label": "西安鑫钢源月排名",
+            "schemaApi": "get:/manager/pages/show/xingangyuan_show_month.json",
+            "url": "/xingangyuanmonth"
           },
           {
             "label": "江西晟冶",
@@ -81,9 +101,19 @@
             "url": "/shengye"
           },
           {
+            "label": "江西晟冶月排名",
+            "schemaApi": "get:/manager/pages/show/shengye_show_month.json",
+            "url": "/shengyemonth"
+          },
+          {
             "label": "成都旭星源",
             "schemaApi": "get:/manager/pages/show/xuxingyuan_show.json",
             "url": "/xuxingyuan"
+          },
+          {
+            "label": "成都旭星源月排名",
+            "schemaApi": "get:/manager/pages/show/xuxingyuan_show_month.json",
+            "url": "/xuxingyuanmonth"
           }
         ]
       },
